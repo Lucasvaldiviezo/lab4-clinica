@@ -1,0 +1,114 @@
+h1{
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.form{
+    padding: 10px 10px;
+}
+
+label{
+    text-align: left;
+}
+
+input[type=text], input[type=password]
+{
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0px;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.invalid
+{
+    color: red;
+}
+
+.btnAceptar{
+    padding:10px 10px;
+    background-color: green;
+    position: relative;
+    width: 150px;
+    height: auto;
+    left:34%;
+}
+
+#inputFile{
+    display:none;
+}
+
+.labelInputFile{
+    position: relative;
+    width:4rem;
+    height: 4rem;
+    background-color: lightblue;
+    border-radius: 100%;
+    padding: 1rem;
+    box-shadow: 0 0 10px -1px rgb(61, 61, 61);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    user-select: none;
+}
+
+.labelInputFile img{
+    width:3rem;
+    height: 3rem;
+}
+
+.labelInputFile:active{
+    transform: scale(0.9);
+}
+
+.cambiarFoto{
+    position: relative;
+    top:12%;
+    display: flex;
+    justify-content: center;
+}
+
+.mostradorDeImagen1{
+    width:128px;
+	height:128px;
+	position: relative;
+	overflow: hidden;
+	border-radius:10%;
+	background-color: rgb(116, 116, 116);
+    left:15%;
+    top:8%;
+}
+
+.mostradorDeImagen2{
+    width:128px;
+	height:128px;
+	position: relative;
+	overflow: hidden;
+	border-radius:10%;
+	background-color: rgb(143, 84, 84);
+    left:26.5%;
+    top:8%;
+}
+.muestraImagen{
+    position: relative;
+    top:7%;
+  	width:100%;
+  	height:auto;
+}
+
+.textoInfo{
+    color:white;
+    position: relative;
+    padding: 10px 10px;
+    top:10%;
+    font-weight: 700;
+}
+
+.gifCargando{
+    position: absolute;
+    top:30%;
+    left:30%;
+}

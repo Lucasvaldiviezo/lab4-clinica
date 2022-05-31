@@ -1,0 +1,26 @@
+<header class="p-3 bg-primary text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none" >
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+  
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Inicio</a></li>
+          <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Mis Turnos</a></li>
+          <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Nuevo Turno</a></li>
+        </ul>
+        <a *ngIf="isUserLogged|async as user;else login_buttons">
+          {{usuarioActual.username}}
+          <img style="border-radius: 100%;" *ngIf="usuarioActual.urlImagen" src="{{usuarioActual.urlImagen}}" 
+            width="40" height="40" class="d-inline-block align-top" alt="">
+          <button class="btn btn-warning" (click)="logout()">Logout</button>
+          <button routerLink="/userPanel" type="button" class="btn btn-info">User Panel</button>  
+        </a>
+        <ng-template #login_buttons class="text-end">
+          <button routerLink="login" type="button" class="btn btn-outline-light me-2">Login</button>
+          <button routerLink="registro" type="button" class="btn btn-danger">Sign-up</button>
+        </ng-template>    
+      </div>
+    </div>
+  </header>

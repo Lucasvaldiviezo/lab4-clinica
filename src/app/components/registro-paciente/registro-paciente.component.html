@@ -1,0 +1,111 @@
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+                <h2>Registro</h2>
+              <div class="mb-md-5 mt-md-4 pb-5">
+                <form class="form" [formGroup]="formRegistro" (ngSubmit)="cargarPaciente()">
+                    <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="nombre">Nombre:</label><br>
+                        <input type="text" id="nombre" placeholder="Ingrese Nombre" formControlName="nombre">
+                        <small class="invalid" 
+                        *ngIf="formRegistro.controls['nombre'].errors?.['required'] && formRegistro.controls['nombre'].touched">
+                        El nombre es requerido
+                        </small>
+                        <small class="invalid" *ngIf="formRegistro.controls['nombre'].errors?.['containsSpaces'] && formRegistro.controls['nombre'].touched">
+                        El nombre no puede contener espacios
+                        </small>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="apellido" >Apellido:</label><br>
+                        <input type="text"  id="apellido" placeholder="Ingrese Apellido" formControlName="apellido">
+                        <small class="invalid" 
+                        *ngIf="formRegistro.controls['apellido'].errors?.['required'] && formRegistro.controls['apellido'].touched">
+                        El apellido es requerido
+                        </small>
+                    </div>
+                    <div class="col-12">
+                        <label for="edad" >Edad:</label><br>
+                        <input type="text" id="edad" placeholder="Ingrese edad" formControlName="edad">
+                        <small class="invalid" 
+                        *ngIf="formRegistro.controls['edad'].errors?.['required'] && formRegistro.controls['edad'].touched">
+                        El edad es requerido
+                        </small>
+                        <small class="invalid"
+                        *ngIf="formRegistro.controls['edad'].errors?.['min'] || 
+                        formRegistro.controls['edad'].errors?.['max'] &&
+                        formRegistro.controls['edad'].touched">
+                        La edad debe ser de 18 a 99 años
+                        </small>
+                    </div>
+                    <div class="col-12">
+                        <label for="dni" class="form-label">DNI: </label>
+                        <input type="text" class="form-control" id="dni" placeholder="Ingrese dni" formControlName="dni" >
+                        <small class="invalid"
+                            *ngIf="formRegistro.controls['dni'].errors?.['required'] && formRegistro.controls['dni'].touched">
+                            El DNI es requerido
+                        </small>
+                        <small class="invalid" *ngIf="formRegistro.controls['dni'].errors?.['pattern']">
+                            Ingrese un DNI correcto
+                        </small>
+                    </div>
+                    <div class="col-12">
+                        <label for="obraSocial" >Obra Social:</label><br>
+                        <input type="text"  id="obraSocial" placeholder="Ingrese Obra Social" formControlName="obraSocial">
+                        <small class="invalid" 
+                        *ngIf="formRegistro.controls['obraSocial'].errors?.['required'] && formRegistro.controls['obraSocial'].touched">
+                        La obra social es requerida
+                        </small>
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="label">Email:</label>
+							<input type="text" class="input" id="email" placeholder="Ingrese Email" formControlName="email">
+							<small class="invalid" 
+							*ngIf="formRegistro.controls['email'].errors?.['required'] && formRegistro.controls['email'].touched">
+							El email es requerido
+							</small>
+							<small class="invalid" 
+							*ngIf="formRegistro.controls['email'].errors?.['email'] &&
+							formRegistro.controls['email'].touched">
+							El email no tiene el formato correcto
+						    </small>
+                    </div>
+                    <div class="col-12">
+                        <label for="password" class="label">Contraseña:</label>
+							<input type="password" class="input" id="password" placeholder="Ingrese Contraseña" formControlName="password">
+							<small class="invalid" 
+							*ngIf="formRegistro.controls['password'].errors?.['required'] && formRegistro.controls['password'].touched">
+							El password es requerido
+						</small>
+                    </div>
+                    <div class="mostradorDeImagen1">
+                        <img *ngIf="mostrarFoto1" src="{{fotoParaMostrar1}}" alt="imagenSubida" class="muestraImagen">
+                    </div>
+                    <div class="mostradorDeImagen2">
+                        <img *ngIf="mostrarFoto2" src="{{fotoParaMostrar2}}" alt="imagenSubida" class="muestraImagen">
+                    </div>
+                    <div class="cambiarFoto">
+                        <input type="file" id="inputFile" accept=".png, .jpg, .jpeg" multiple (change)="obtenerImagen($event)">
+                        <label class="textoInfo">Cambiar Foto de Perfil:</label>
+                        <label for="inputFile" class="labelInputFile">
+                            <img src="https://icons-for-free.com/download-icon-cloud+upload+file+storage+upload+icon-1320190558968694328_512.png" alt="upload file">
+                        </label>
+                    </div>
+                    <small class="invalid" *ngIf="errorImagenes">
+							Debe elgir 2 fotos
+					</small>
+                      <!--BOTON ACEPTAR-->
+                    <input type="submit" class="btnAceptar" value="Aceptar" [disabled]="formRegistro.invalid">
+                    </div>        
+                </form>
+                <img *ngIf="subiendoImagen" src="/assets/uploading.gif" alt="imagenSubida" class="gifCargando">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
