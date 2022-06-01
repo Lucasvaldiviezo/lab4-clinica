@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BienvenidoComponent } from './pages/bienvenido/bienvenido.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
     BienvenidoComponent,
     LoginComponent,
     NotfoundComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,

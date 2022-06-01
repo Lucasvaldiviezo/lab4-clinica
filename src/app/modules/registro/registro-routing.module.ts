@@ -4,7 +4,7 @@ import { NotfoundComponent } from 'src/app/pages/notfound/notfound.component';
 import { RegistroComponent } from './registro.component';
 
 const routes: Routes = [
-  {path:'', component: RegistroComponent}
+  {path:'', component: RegistroComponent},
 ];
 
 @NgModule({

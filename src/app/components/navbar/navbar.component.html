@@ -10,12 +10,11 @@
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Mis Turnos</a></li>
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Nuevo Turno</a></li>
         </ul>
-        <a *ngIf="isUserLogged|async as user;else login_buttons">
-          {{usuarioActual.username}}
-          <img style="border-radius: 100%;" *ngIf="usuarioActual.urlImagen" src="{{usuarioActual.urlImagen}}" 
+        <a *ngIf="userState|async as user;else login_buttons">
+          {{usuarioActual.email}}
+          <img style="border-radius: 100%;" *ngIf="usuarioActual.imagen2" src="{{usuarioActual.imagen2}}" 
             width="40" height="40" class="d-inline-block align-top" alt="">
           <button class="btn btn-warning" (click)="logout()">Logout</button>
-          <button routerLink="/userPanel" type="button" class="btn btn-info">User Panel</button>  
         </a>
         <ng-template #login_buttons class="text-end">
           <button routerLink="login" type="button" class="btn btn-outline-light me-2">Login</button>

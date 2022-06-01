@@ -6,9 +6,25 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-  
+  registroEspecialista = false;
+  registroPaciente = true;
   ngOnInit(): void {
     
+  }
+
+  ngOnChanges(){
+    
+  }
+
+  onChange(tipoRegistro:any) {
+    let opcion:string = tipoRegistro.target.value;
+    if(opcion == "paciente"){
+      this.registroPaciente = true;
+      this.registroEspecialista = false;
+    }else if(opcion == "especialista"){
+      this.registroEspecialista = true;
+      this.registroPaciente = false;
+    }
   }
 
 }

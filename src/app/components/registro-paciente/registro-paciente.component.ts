@@ -52,9 +52,11 @@ export class RegistroPacienteComponent implements OnInit {
               obraSocial: this.formRegistro.getRawValue().obraSocial,
               email: this.formRegistro.getRawValue().email,
               imagen1: urlImagen1,
-              imagen2: urlImagen2
+              imagen2: urlImagen2,
+              emailVerificado: "no",
+              tipoUsuario: "paciente"
             }
-            this.fireStore.addPaciente("Pacientes",paciente);
+            this.fireStore.addPaciente("Usuarios",paciente);
             this.registrarse(this.formRegistro.getRawValue().email,this.formRegistro.getRawValue().password);
             if(this.formRegistro.valid){
               this.formRegistro.controls['nombre'].setValue("");
@@ -117,6 +119,7 @@ export class RegistroPacienteComponent implements OnInit {
       }
     }  
 }
+
 
   private spacesValidator(control: AbstractControl): null | object {
     const nombre = <string>control.value;

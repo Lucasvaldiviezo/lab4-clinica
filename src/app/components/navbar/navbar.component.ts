@@ -8,22 +8,20 @@ import { FirestoreService } from 'src/app/services/fireStoreService/firestore.se
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  isUserLogged = this.authService.getUserLogged();
+  userState = this.authService.getUserLogged();
   userLogged:any = "";
   usuarioActual:any
   listaUsuarios:any;
-
   constructor(public authService: AuthService, public fireStoreService:FirestoreService) {
     this.usuarioActual = {
       username: "",
       fotoURL: "",
       email: "",
     }
-    this.isUserLogged.subscribe(usuario=>{
+    this.userState.subscribe(usuario=>{
       this.userLogged = usuario;
     });
-    this.fireStoreService.getCollection('datosUsuarios').subscribe(
+    this.fireStoreService.getCollection('Usuarios').subscribe(
       resp=>{
         this.listaUsuarios = resp;
         this.llenarDatos();
@@ -42,9 +40,7 @@ export class NavbarComponent implements OnInit {
       {
         if(this.userLogged.email == this.listaUsuarios[i].email)
         {
-          let fecha:Date = new Date(this.listaUsuarios[i].fechaCreacion);
           this.usuarioActual = this.listaUsuarios[i];
-          this.usuarioActual.fechaCreacion = fecha;
           break;
         }
       }

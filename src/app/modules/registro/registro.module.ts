@@ -9,7 +9,7 @@ import { RegistroEspecialistaComponent } from 'src/app/components/registro-espec
   declarations: [
     RegistroComponent,
     RegistroPacienteComponent,
-    RegistroEspecialistaComponent
+    RegistroEspecialistaComponent,
   ],
   imports: [
     CommonModule,

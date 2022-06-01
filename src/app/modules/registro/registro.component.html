@@ -1,3 +1,14 @@
-<app-registro-paciente></app-registro-paciente>
+<select name="select" (change)="onChange($event)">
+    <option value="paciente" selected>Paciente</option>
+    <option value="especialista" >Especialista</option>
+    <option value="administrador">Administrador</option>
+</select>
+<div *ngIf="registroPaciente">
+    <app-registro-paciente></app-registro-paciente>
+</div>
+<div *ngIf="registroEspecialista">
+    <app-registro-especialista></app-registro-especialista>
+</div>
+
 
 
