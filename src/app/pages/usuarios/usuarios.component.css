@@ -1,0 +1,52 @@
+.titulo{
+    text-align: center;
+    position: relative;
+    margin-top: 3%;
+}
+
+.titulo2{
+    position: relative;
+    margin-top:10%;
+    text-align: center;
+}
+
+.tablaPacientes
+{
+    left:30%;
+    position: relative;
+    border-collapse: collapse;
+    width: 800px;
+    border-radius: 50%;
+}
+
+.tablaEspecialistas
+{
+    left:30%;
+    position: relative;
+    border-collapse: collapse;
+    width: 800px;
+    border-radius: 50%;
+}
+
+th
+{
+    background-color: rgba(0, 0, 0, 0.959);
+    color: white;
+    
+}
+
+th, td
+{
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #000000;}
+
+tbody{
+    background-color: rgb(233, 233, 233);
+    border-radius: 80%;
+}
+
+
+

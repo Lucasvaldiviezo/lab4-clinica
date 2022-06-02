@@ -1,0 +1,41 @@
+<h3 class="titulo">Lista de Pacientes</h3>
+<table class="tablaPacientes">
+    <thead class="tablaHead">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>DNI</th>
+        </tr>
+    </thead>
+    <tbody class="tCuerpo" *ngFor="let paciente of listaPacientes">
+        <tr>
+            <td>{{paciente.nombre}}</td>
+            <td>{{paciente.apellido}}</td>
+            <td>{{paciente.email}}</td>
+            <td>{{paciente.dni}}</td>
+        </tr>  
+    </tbody>
+</table>
+
+<h3 class="titulo2">Lista de Especialistas</h3>
+<table class="tablaEspecialistas">
+    <thead class="tablaHead">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>DNI</th>
+            <th>Acceso</th>
+        </tr>
+    </thead>
+    <tbody class="tCuerpo" *ngFor="let especialista of listaEspecialistas">
+        <tr>
+            <td>{{especialista.nombre}}</td>
+            <td>{{especialista.apellido}}</td>
+            <td>{{especialista.email}}</td>
+            <td>{{especialista.dni}}</td>
+            <td><button (click)="cambiarAcceso(especialista)">{{especialista.acceso}}</button></td>
+        </tr>  
+    </tbody>
+</table> 

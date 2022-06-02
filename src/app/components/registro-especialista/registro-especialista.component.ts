@@ -35,6 +35,7 @@ export class RegistroEspecialistaComponent implements OnInit {
 
   ngOnInit(): void {
     this.formRegistro.controls['especialidad'].setValue("cirujano")
+    this.opcionEspecialidad = "cirujano";
   }
 
   cargarEspecialista(){
@@ -48,20 +49,19 @@ export class RegistroEspecialistaComponent implements OnInit {
           if(this.mostrarCampoOtros == false){
             this.formRegistro.controls['especialidad'].setValue(this.opcionEspecialidad)
           }
-          
           paciente = {
             nombre: this.formRegistro.getRawValue().nombre,
             apellido: this.formRegistro.getRawValue().apellido,
             edad: this.formRegistro.getRawValue().edad,
             dni: this.formRegistro.getRawValue().dni,
-            obraSocial: this.formRegistro.getRawValue().especialidad,
+            especialidad: this.formRegistro.getRawValue().especialidad,
             email: this.formRegistro.getRawValue().email,
             imagen1: urlImagen,
-            emailVerificado: "no",
-            acceso: "pendiente",
+            emailVerificado: false,
+            acceso: false,
             tipoUsuario: "especialista"
           }
-          this.fireStore.addPaciente("Usuarios",paciente);
+          this.fireStore.addUsuario("Usuarios",paciente);
           this.registrarse(this.formRegistro.getRawValue().email,this.formRegistro.getRawValue().password);
           if(this.formRegistro.valid){
             this.formRegistro.controls['nombre'].setValue("");
@@ -122,7 +122,7 @@ export class RegistroEspecialistaComponent implements OnInit {
         this.imagen = reader.result;
         this.fotoParaMostrar = this.imagen;
         this.mostrarFoto = true;
-        
+        this.imagenesListas = true;
       }
     } 
   }

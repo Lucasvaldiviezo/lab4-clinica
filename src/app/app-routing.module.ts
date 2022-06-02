@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BienvenidoComponent } from './pages/bienvenido/bienvenido.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'registro', loadChildren: () => import('./modules/registro/registro.module').then(m=>m.RegistroModule)},
   {path:'verifyEmail', component: VerifyEmailComponent},
+  {path:'usuarios', component: UsuariosComponent},
   {path:'**', component:NotfoundComponent}
 ];
 

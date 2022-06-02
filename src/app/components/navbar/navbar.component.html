@@ -9,10 +9,11 @@
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Inicio</a></li>
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Mis Turnos</a></li>
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Nuevo Turno</a></li>
+          <li><a routerLink="usuarios" class="nav-link px-2 text-white">Usuarios</a></li>
         </ul>
         <a *ngIf="userState|async as user;else login_buttons">
-          {{usuarioActual.email}}
-          <img style="border-radius: 100%;" *ngIf="usuarioActual.imagen2" src="{{usuarioActual.imagen2}}" 
+          {{userInfo.nombre}}
+          <img style="border-radius: 100%;" src="{{userInfo.imagen1}}" 
             width="40" height="40" class="d-inline-block align-top" alt="">
           <button class="btn btn-warning" (click)="logout()">Logout</button>
         </a>

@@ -20,9 +20,14 @@ export class FirestoreService {
     this.firestore.collection(coleccion).add(usuario);
   }
 
-  addPaciente(coleccion:any,paciente:any)
+  cambiarAcceso(coleccion:any,id:string, nuevoValor:any)
   {
-    this.firestore.collection(coleccion).add(paciente);
+    this.firestore.collection(coleccion).doc(id).update({acceso: nuevoValor});
+  }
+
+  verificacionMail(coleccion:any,id:string, nuevoValor:any)
+  {
+    this.firestore.collection(coleccion).doc(id).update({emailVerificado: nuevoValor});
   }
 
   actualizarURL(coleccion:string,id:string,url:string)

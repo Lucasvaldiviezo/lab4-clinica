@@ -14,58 +14,135 @@ export class LoginComponent implements OnInit {
   archivoSubido:any;
   mostrarImagen:boolean = false;
   mailSinVerificar:boolean = false;
-  public formRegistro: FormGroup;
+  listaUsuarios:any;
+  especialistaSinAcceso:boolean=false;
+  textoError:string = "";
+  mostrarError:boolean = false;
+  public formIngreso: FormGroup;
   constructor(public ruteo:Router,public authService: AuthService, private fb: FormBuilder, public fireStore:FirestoreService) {
-    this.formRegistro = this.fb.group({
-      'username': ['', [Validators.required, this.spacesValidator]],
-      'password': ['', [Validators.required]],
+    this.formIngreso = this.fb.group({
       'email': ['', [Validators.required, Validators.email]],
-      'fechaNacimiento': ['', [Validators.required]],
+      'password': ['', [Validators.required]],
     });
-
+    this.fireStore.getCollectionWithId('Usuarios',"usuarioId").subscribe((resp:any)=>{
+        this.listaUsuarios = resp;
+    });
   }
 
   ngOnInit(): void {
   }
 
-  usuario={
-    email:'lucasvaldiviezo80@gmail.com',
-    password: 'lucaspichu1'
+  aceptarPopUp(){
+    this.mailSinVerificar = false;
+    this.especialistaSinAcceso = false;
+    this.mostrarError=false;
   }
 
   ingresar()
   {
-    const{email,password}=this.usuario;
-
-    this.authService.login(email,password)
-    .then( res =>{
-        if(res==null)
+    const email=this.formIngreso.getRawValue().email;
+    const password=this.formIngreso.getRawValue().password;
+    let tipoUsuario:string = "";
+      this.authService.login(email,password).then(usuario=>{   
+        if(usuario!=null)
         {
-          console.log("error al logearse",res);
-        }else
-        {
-          if(res.emailVerified != true){
+          this.cambiarMailAVerificado(usuario);
+          if(usuario == false){
             this.mailSinVerificar = true;
+            console.log("El mail no esta verificado");
+            this.authService.logout();
           }else
           {
-            console.log("ingreso!: ",res);
-            this.ruteo.navigateByUrl('bienvenido');
+            tipoUsuario = this.verificarTipoUsuario(usuario);
+            if(tipoUsuario == "especialista"){
+              if(this.verificarAcceso(usuario) == true){
+                this.ruteo.navigateByUrl('bienvenido');
+              }else
+              {
+                this.especialistaSinAcceso = true;
+                this.authService.logout();
+              }
+            }else{
+              this.ruteo.navigateByUrl('bienvenido');
+            }   
           } 
-        } 
-      })
-    .catch((error:any) =>
-      {
-          console.log("error al logearse",error);
+        }
+      }).catch(error => {
+        console.log(error);
       });
   }
 
-  private spacesValidator(control: AbstractControl): null | object {
-    const nombre = <string>control.value;
-    const spaces = nombre.includes(' ');
 
-    return spaces
-      ? { containsSpaces: true }
-      : null; 
+  verificarTipoUsuario(user:any): string{
+      let retorno = "admin";
+      for(let i=0;i < this.listaUsuarios.length;i++)
+      {
+        if(user.email == this.listaUsuarios[i].email )
+        {
+          if(this.listaUsuarios[i].tipoUsuario == "especialista")
+          {
+            retorno = "especialista";
+            break;
+          }else if(this.listaUsuarios[i].tipoUsuario == "paciente"){
+            retorno = "paciente";
+            break;
+          }
+        }
+      }
+      return retorno;
   }
+
+  verificarAcceso(user:any):boolean{
+    let retorno = false;
+      for(let i=0;i < this.listaUsuarios.length;i++)
+      {
+        if(user.email == this.listaUsuarios[i].email && this.listaUsuarios[i].tipoUsuario == "especialista")
+        {
+          if(this.listaUsuarios[i].acceso == true)
+          {
+            retorno = true;
+            break;
+          }
+        }
+      }
+      return retorno;
+  }
+
+  cambiarMailAVerificado(user:any){
+    let id:string;
+    if(user.emailVerified == true){
+      for(let i=0;i < this.listaUsuarios.length;i++)
+      {
+        if(user.email == this.listaUsuarios[i].email )
+        {
+          this.listaUsuarios[i].emailVerificado == true;
+          id = this.listaUsuarios[i].usuarioId;
+          this.fireStore.verificacionMail("Usuarios",id,true);
+        }
+      }
+    }   
+  }
+
+  ShowErrors(code:string):string{
+    let retorno:string = "";
+    switch (code) {
+            case 'auth/user-disabled': 
+                retorno = 'Tu usuario ha sido desactivado.';
+                break;
+            case 'auth/user-not-found': 
+                retorno = 'Tu usuario no existe.';
+                break;
+            case 'auth/wrong-password':
+                retorno = "La contraseña es invalida"
+                break;
+            case 'auth/too-many-requests':
+                retorno = "Hubo muchos intentos, su cuenta fue deshabilitada por un tiempo";
+                break;
+            default: 
+                retorno = 'Error al logearse, intente mas tarde.';
+    }       
+    return retorno;   
+}
+  
 
 }

@@ -14,6 +14,7 @@ import { BienvenidoComponent } from './pages/bienvenido/bienvenido.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     BienvenidoComponent,
     LoginComponent,
     NotfoundComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,

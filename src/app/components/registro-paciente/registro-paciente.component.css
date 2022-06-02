@@ -109,6 +109,5 @@ input[type=text], input[type=password]
 
 .gifCargando{
     position: absolute;
-    top:30%;
-    left:30%;
+    left:50%;
 }

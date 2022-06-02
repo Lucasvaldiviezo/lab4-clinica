@@ -1,18 +1,42 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { FirestoreService } from '../fireStoreService/firestore.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   isUserLogged:boolean = false;
-  constructor(public afauth: AngularFireAuth,public ruteo:Router ) { }
+  userInfo:any;
+  listaUsuarios:any;
+  constructor(public afauth: AngularFireAuth,public ruteo:Router, public fireStoreService:FirestoreService ) { 
+    
+  }
+
+  ngOnInit(): void {
+    
+
+  }
+  
+  /*async register(email:string,password:string)
+  {
+    try{
+      return await this.afauth.createUserWithEmailAndPassword(email,password).then(resp=> {
+          this.sendEmailForVerification(resp);
+      });
+    }catch(error)
+    {
+      console.log("error en registro", error);
+      return null;
+    }
+  }*/
 
   async register(email:string,password:string)
   {
     try{
       return await this.afauth.createUserWithEmailAndPassword(email,password).then(resp=> {
           this.sendEmailForVerification(resp);
+          this.logout();
       });
     }catch(error)
     {
@@ -29,24 +53,22 @@ export class AuthService {
           this.isUserLogged=true;
           return result.user;
         }else{
-          return result.user;
+          return false;
         }
       });
-    }catch (error)
+    }catch(error)
     {
-      console.log("error en login", error);
       return null;
     }
   }
 
   getUserLogged()
   {
-    return this.afauth.authState;
+     return this.afauth.authState;  
   }
 
   logout()
   {
-    this.ruteo.navigateByUrl('bienvenido');
     this.isUserLogged = false;
     this.afauth.signOut();
   }
@@ -60,6 +82,8 @@ export class AuthService {
       
   }
 
+  
+
    /*async loginWithGoogle(email:string,password:string)
   {
     try{
@@ -71,3 +95,5 @@ export class AuthService {
     }
   }*/
 }
+
+

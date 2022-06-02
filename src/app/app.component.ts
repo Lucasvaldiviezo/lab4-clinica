@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { timer } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +7,24 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'lab4-clinica';
+  timeLeft: number = 5;
+  interval:any;
+  cargarTerminada:boolean = false;
+  constructor(){
+    
+  }
+
+  ngOnInit():void{
+    this.startTimer();
+  }
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+        console.log(this.timeLeft);
+      } else if(this.timeLeft == 0) {
+        this.cargarTerminada = true;
+      }
+    },1000)
+  }
 }

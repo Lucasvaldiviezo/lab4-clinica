@@ -6,24 +6,49 @@
             <div class="card-body p-5 text-center">
               <div class="mb-md-5 mt-md-4 pb-5">
                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                <p class="text-white-50 mb-5">Please enter your login and password!</p>
-                <div class="form-outline form-white mb-4">
-                  <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typeEmailX">Email</label>
-                </div>
-  
-                <div class="form-outline form-white mb-4">
-                  <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typePasswordX">Password</label>
-                </div>
-  
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-  
-                <button class="btn btn-outline-light btn-lg px-5" type="submit" (click)="ingresar()">Login</button>
-              </div>
-              <div>
-                <p class="mb-0">No tienes cuenta aun? <a routerLink="registro" class="text-white-50 fw-bold">Registrate</a>
-                </p>
+                <p class="text-white-50 mb-5">Please enter your email and password!</p>
+                <form [formGroup]="formIngreso" (ngSubmit)="ingresar()">
+                  <div class="group">
+                    <label for="emailRegistrarse" class="label">Email</label>
+                    <input type="text" class="input" id="emailRegistrarse" placeholder="Ingrese Email" formControlName="email">
+                    <small class="invalid" 
+                    *ngIf="formIngreso.controls['email'].errors?.['required'] && formIngreso.controls['email'].touched">
+                    El email es requerido
+                    </small>
+                    <small class="invalid" 
+                    *ngIf="formIngreso.controls['email'].errors?.['email'] &&
+                    formIngreso.controls['email'].touched">
+                    El email no tiene el formato correcto
+                    </small>
+                  </div>
+                  <div class="group">
+                    <label for="passRegistrarse" class="label">Contraseña</label>
+                    <input type="password" class="input" id="passRegistrarse" placeholder="Ingrese Contraseña" formControlName="password">
+                    <small class="invalid" 
+                    *ngIf="formIngreso.controls['password'].errors?.['required'] && formIngreso.controls['password'].touched">
+                    El password es requerido
+                    </small>
+                  </div><br><br>
+                  <div class="group">
+                    <input type="submit" class="btnIngresar" value="Ingresar" [disabled]="formIngreso.invalid">
+                  </div>
+                  </form>
+                  <div *ngIf="mailSinVerificar"class="error">
+                    <p class="textoPopUp">El mail no esta verificado</p>
+                    <button class="btnAceptar" (click)="aceptarPopUp()">Aceptar</button>
+                  </div>
+                  <div *ngIf="especialistaSinAcceso"class="error">
+                    <p class="textoPopUp">Esta cuenta no tiene acceso</p>
+                    <button class="btnAceptar" (click)="aceptarPopUp()">Aceptar</button>
+                  </div>
+                  <div *ngIf="mostrarError"class="error">
+                    <p class="textoPopUp">{{textoError}}</p>
+                    <button class="btnAceptar" (click)="aceptarPopUp()">Aceptar</button>
+                  </div>
+                  <br><br><div>
+                    <p class="mb-0">No tienes cuenta aun? <a routerLink="registro" class="text-white-50 fw-bold">Registrate</a>
+                    </p>
+                  </div>
               </div>
             </div>
           </div>

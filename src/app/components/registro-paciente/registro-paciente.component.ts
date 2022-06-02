@@ -53,10 +53,10 @@ export class RegistroPacienteComponent implements OnInit {
               email: this.formRegistro.getRawValue().email,
               imagen1: urlImagen1,
               imagen2: urlImagen2,
-              emailVerificado: "no",
+              emailVerificado: false,
               tipoUsuario: "paciente"
             }
-            this.fireStore.addPaciente("Usuarios",paciente);
+            this.fireStore.addUsuario("Usuarios",paciente);
             this.registrarse(this.formRegistro.getRawValue().email,this.formRegistro.getRawValue().password);
             if(this.formRegistro.valid){
               this.formRegistro.controls['nombre'].setValue("");
@@ -82,10 +82,10 @@ export class RegistroPacienteComponent implements OnInit {
 
   registrarse(email:string,password:string)
   {
-
     this.authService.register(email,password)
     .then((res:any) =>{
       console.log("se registro!: ",res);
+      console.log(res);
       this.ruteo.navigateByUrl('bienvenido');
     })
     .catch((error:any) =>
