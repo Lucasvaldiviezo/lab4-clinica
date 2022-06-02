@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
   userState = this.authService.getUserLogged();
   userLogged:any;
   userInfo:any;
+  isAdmin:boolean = false;
   listaUsuarios:any;
   constructor(public authService: AuthService, public fireStoreService:FirestoreService, public ruteo:Router) {
     this.userInfo = {
@@ -42,6 +43,10 @@ export class NavbarComponent implements OnInit {
         if(this.userLogged.email == this.listaUsuarios[i].email)
         {
           this.userInfo = this.listaUsuarios[i];
+          if(this.userInfo.tipoUsuario == 'admin')
+          {
+            this.isAdmin = true;
+          }
           break;
         }
       }
@@ -52,6 +57,7 @@ export class NavbarComponent implements OnInit {
   {
     this.authService.logout();
     this.userLogged = null;
+    this.isAdmin = false;
     this.ruteo.navigateByUrl('bienvenido');
   }
 
