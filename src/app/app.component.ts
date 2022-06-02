@@ -9,9 +9,8 @@ export class AppComponent {
   title = 'lab4-clinica';
   timeLeft: number = 5;
   interval:any;
-  cargarTerminada:boolean = false;
+  cargarTerminada:boolean = true;
   constructor(){
-    
   }
 
   ngOnInit():void{

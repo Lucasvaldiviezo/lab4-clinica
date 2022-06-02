@@ -1,14 +1,17 @@
-<select name="select" (change)="onChange($event)">
-    <option value="paciente" selected>Paciente</option>
-    <option value="especialista" >Especialista</option>
-    <option value="administrador">Administrador</option>
-</select>
-<div *ngIf="registroPaciente">
-    <app-registro-paciente></app-registro-paciente>
-</div>
-<div *ngIf="registroEspecialista">
-    <app-registro-especialista></app-registro-especialista>
-</div>
+<body>
+    <select name="select" (change)="onChange($event)" class="seleccionar">
+        <option value="paciente" selected>Paciente</option>
+        <option value="especialista" >Especialista</option>
+        <option value="administrador">Administrador</option>
+    </select>
+    <div *ngIf="registroPaciente" class="contenedorRegistro">
+        <app-registro-paciente></app-registro-paciente>
+    </div>
+    <div *ngIf="registroEspecialista" class="contenedorRegistro">
+        <app-registro-especialista></app-registro-especialista>
+    </div>
+</body>
+
 
 
 

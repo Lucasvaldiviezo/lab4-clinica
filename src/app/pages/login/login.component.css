@@ -1,3 +1,14 @@
+body 
+{ 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    overflow: hidden; 
+    background-image: url('src\assets\background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 h1{
     text-align: center;
     padding: 30px 10px;

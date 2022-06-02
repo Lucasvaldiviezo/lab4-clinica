@@ -1,0 +1,22 @@
+body 
+{ 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    overflow: hidden; 
+    background-image: url('src\assets\background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contenedor{
+    position: absolute;
+    left:60%;
+    background-color: rgba(78, 78, 150, 0.534);
+    width: 39.2%;
+}
+
+.contenedorRegistro{
+    position: relative;
+}
