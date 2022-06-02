@@ -66,7 +66,7 @@ input[type=text], input[type=password]
 
 .cambiarFoto{
     position: relative;
-    top:12%;
+    bottom:15%;
     display: flex;
     justify-content: center;
 }
@@ -79,7 +79,7 @@ input[type=text], input[type=password]
 	border-radius:10%;
 	background-color: rgb(51, 81, 161);
     left:15%;
-    top:8%;
+    top:15%;
 }
 
 .mostradorDeImagen2{
@@ -89,8 +89,8 @@ input[type=text], input[type=password]
 	overflow: hidden;
 	border-radius:10%;
 	background-color: rgb(143, 84, 84);
-    left:26.5%;
-    top:8%;
+    left:54%;
+    bottom:27.5%;
 }
 .muestraImagen{
     position: relative;
@@ -103,11 +103,22 @@ input[type=text], input[type=password]
     color:white;
     position: relative;
     padding: 10px 10px;
-    top:10%;
+    margin-top: 2%;
     font-weight: 700;
 }
 
 .gifCargando{
     position: absolute;
-    left:50%;
+    top:30%;
+    left:30%;
+}
+
+.contenedorImagenes{
+    width: 400px;
+    height: 300px;
+    background-color: rgb(136, 91, 145);
+    position: absolute;
+    left:66%;
+    top:12.8%;
+    border-radius: 4%;
 }

@@ -81,22 +81,6 @@
 							El password es requerido
 						</small>
                     </div>
-                    <div class="mostradorDeImagen1">
-                        <img *ngIf="mostrarFoto1" src="{{fotoParaMostrar1}}" alt="imagenSubida" class="muestraImagen">
-                    </div>
-                    <div class="mostradorDeImagen2">
-                        <img *ngIf="mostrarFoto2" src="{{fotoParaMostrar2}}" alt="imagenSubida" class="muestraImagen">
-                    </div>
-                    <div class="cambiarFoto">
-                        <input type="file" id="inputFile" accept=".png, .jpg, .jpeg" multiple (change)="obtenerImagen($event)">
-                        <label class="textoInfo">Cambiar Foto de Perfil:</label>
-                        <label for="inputFile" class="labelInputFile">
-                            <img src="https://icons-for-free.com/download-icon-cloud+upload+file+storage+upload+icon-1320190558968694328_512.png" alt="upload file">
-                        </label>
-                    </div>
-                    <small class="invalid" *ngIf="errorImagenes">
-							Debe elgeir 2 fotos
-					</small>
                       <!--BOTON ACEPTAR-->
                     <input type="submit" class="btnAceptar" value="Aceptar" [disabled]="formRegistro.invalid">
                     </div>        
@@ -109,3 +93,21 @@
       </div>
     </div>
 </section>
+<div class="contenedorImagenes">
+    <div class="mostradorDeImagen1">
+        <img *ngIf="mostrarFoto1" src="{{fotoParaMostrar1}}" alt="imagenSubida" class="muestraImagen">
+    </div>
+    <div class="mostradorDeImagen2">
+        <img *ngIf="mostrarFoto2" src="{{fotoParaMostrar2}}" alt="imagenSubida" class="muestraImagen">
+    </div>
+    <div class="cambiarFoto">
+        <input type="file" id="inputFile" accept=".png, .jpg, .jpeg" multiple (change)="obtenerImagen($event)">
+        <label class="textoInfo">Seleccione 2 fotos de Perfil:</label>
+        <label for="inputFile" class="labelInputFile">
+            <img src="https://icons-for-free.com/download-icon-cloud+upload+file+storage+upload+icon-1320190558968694328_512.png" alt="upload file">
+        </label>
+    </div>
+    <small class="invalid" *ngIf="errorImagenes">
+            Debe elgeir 2 fotos
+    </small>
+  </div>

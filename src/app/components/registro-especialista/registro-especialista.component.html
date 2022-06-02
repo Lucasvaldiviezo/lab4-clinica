@@ -91,19 +91,6 @@
 							El password es requerido
 						</small>
                     </div>
-                    <div class="mostradorDeImagen">
-                        <img *ngIf="mostrarFoto" src="{{fotoParaMostrar}}" alt="imagenSubida" class="muestraImagen">
-                    </div>
-                    <div class="cambiarFoto">
-                        <input type="file" id="inputFile" accept=".png, .jpg, .jpeg" multiple (change)="obtenerImagen($event)">
-                        <label class="textoInfo">Cambiar Foto de Perfil:</label>
-                        <label for="inputFile" class="labelInputFile">
-                            <img src="https://icons-for-free.com/download-icon-cloud+upload+file+storage+upload+icon-1320190558968694328_512.png" alt="upload file">
-                        </label>
-                    </div>
-                    <small class="invalid" *ngIf="errorImagenes">
-							Debe elgir 2 fotos
-					</small>
                       <!--BOTON ACEPTAR-->
                     <input type="submit" class="btnAceptar" value="Aceptar" [disabled]="formRegistro.invalid">
                     </div>        
@@ -116,3 +103,18 @@
       </div>
     </div>
 </section>
+<div class="contenedorImagenes">
+    <div class="mostradorDeImagen">
+        <img *ngIf="mostrarFoto" src="{{fotoParaMostrar}}" alt="imagenSubida" class="muestraImagen">
+    </div>
+    <div class="cambiarFoto">
+        <input type="file" id="inputFile" accept=".png, .jpg, .jpeg" multiple (change)="obtenerImagen($event)">
+        <label class="textoInfo">Seleccione 1 foto de Perfil:</label>
+        <label for="inputFile" class="labelInputFile">
+            <img src="https://icons-for-free.com/download-icon-cloud+upload+file+storage+upload+icon-1320190558968694328_512.png" alt="upload file">
+        </label>
+    </div>
+    <small class="invalid" *ngIf="errorImagenes">
+            Debe elegir 1 foto
+    </small>
+</div>
