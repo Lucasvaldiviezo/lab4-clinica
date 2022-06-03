@@ -7,7 +7,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 })
 export class RegistroComponent implements OnInit {
   registroEspecialista = false;
-  registroPaciente = true;
+  registroPaciente = false;
   ngOnInit(): void {
     
   }
@@ -16,15 +16,14 @@ export class RegistroComponent implements OnInit {
     
   }
 
-  onChange(tipoRegistro:any) {
-    let opcion:string = tipoRegistro.target.value;
-    if(opcion == "paciente"){
-      this.registroPaciente = true;
-      this.registroEspecialista = false;
-    }else if(opcion == "especialista"){
-      this.registroEspecialista = true;
-      this.registroPaciente = false;
-    }
+  mostrarEspecialista(){
+    this.registroEspecialista = true;
+    this.registroPaciente = false;
+  }
+
+  mostrarPaciente(){
+    this.registroEspecialista = false;
+    this.registroPaciente = true;
   }
 
 }

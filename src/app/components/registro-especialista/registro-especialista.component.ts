@@ -40,7 +40,7 @@ export class RegistroEspecialistaComponent implements OnInit {
 
   cargarEspecialista(){
     if(this.imagenesListas == true){
-      let paciente;
+      let especialista;
       this.subiendoImagen = true;
       let nombreImagen = this.formRegistro.getRawValue().nombre+"+"+this.formRegistro.getRawValue().apellido+"+"+this.formRegistro.getRawValue().dni;
       this.storageService.subirImagenStorage(nombreImagen+"+1",this.archivoSubido[0],"especialistas/").then(urlImagen =>{
@@ -49,7 +49,7 @@ export class RegistroEspecialistaComponent implements OnInit {
           if(this.mostrarCampoOtros == false){
             this.formRegistro.controls['especialidad'].setValue(this.opcionEspecialidad)
           }
-          paciente = {
+          especialista = {
             nombre: this.formRegistro.getRawValue().nombre,
             apellido: this.formRegistro.getRawValue().apellido,
             edad: this.formRegistro.getRawValue().edad,
@@ -61,7 +61,7 @@ export class RegistroEspecialistaComponent implements OnInit {
             acceso: false,
             tipoUsuario: "especialista"
           }
-          this.fireStore.addUsuario("Usuarios",paciente);
+          this.fireStore.addUsuario("Usuarios",especialista);
           this.registrarse(this.formRegistro.getRawValue().email,this.formRegistro.getRawValue().password);
           if(this.formRegistro.valid){
             this.formRegistro.controls['nombre'].setValue("");
@@ -93,7 +93,7 @@ export class RegistroEspecialistaComponent implements OnInit {
     {
       this.opcionEspecialidad = opcion;
       this.mostrarCampoOtros = false;
-      this.formRegistro.controls['especialidad'].setValue(auxOpcion)
+      this.formRegistro.controls['especialidad'].setValue(this.opcionEspecialidad);
     }
   }
 
@@ -103,7 +103,6 @@ export class RegistroEspecialistaComponent implements OnInit {
 
     this.authService.register(email,password)
     .then((res:any) =>{
-      console.log("se registro!: ",res);
       this.ruteo.navigateByUrl('bienvenido');
     })
     .catch((error:any) =>

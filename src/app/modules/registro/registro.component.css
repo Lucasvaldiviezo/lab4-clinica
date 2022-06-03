@@ -28,3 +28,45 @@ body
     background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
 }
 
+.btnPaciente{
+    position: absolute;
+    left:15%;
+    top:30%;
+    background-image: url('src/assets/iconos-registro/paciente.png');
+    background-size:cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border-width: 8px;
+    border-color: rgb(40, 163, 194);
+    border-style:outset;
+    background-color: rgb(168, 127, 127);
+    font-weight: 800;
+    justify-content: center; 
+    align-items: center;  
+}
+
+.btnEspecialista{
+    position: absolute;
+    left:15%;
+    top:60%;
+    background-image: url('src/assets/iconos-registro/especialista.png');
+    background-size:cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border-width: 8px;
+    border-color: rgb(4, 45, 133);
+    border-style:outset;
+    background-color: rgb(168, 127, 127);
+    font-weight: 800;
+    justify-content: center; 
+    align-items: center;  
+}
+
+.btnEspecialista:hover, .btnPaciente:hover{
+    background-color: rgb(17, 160, 53);
+    transform: scale(1.1);
+}
+
+

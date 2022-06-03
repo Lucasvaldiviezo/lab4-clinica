@@ -74,3 +74,74 @@ input[type=text], input[type=password]
     width: 150px;
     height: auto;
 }
+
+.btnAdmin{
+    position:absolute;
+    top:10%;
+    left:30%;
+    background-color: red;
+    color: white;
+    border-color: white;
+    width: 110px;
+    height: 50px;
+}
+
+.btnPaciente1{
+    position:absolute;
+    top:10%;
+    left:37%;
+    background-color: rgb(87, 136, 75);
+    color: rgb(0, 0, 0);
+    border-color: white;
+    width: 110px;
+    height: 50px;
+}
+
+.btnPaciente2{
+    position:absolute;
+    top:10%;
+    left:44%;
+    background-color: rgb(87, 136, 75);
+    color: rgb(0, 0, 0);
+    border-color: white;
+    width: 110px;
+    height: 50px;
+}
+
+.btnPaciente3{
+    position:absolute;
+    top:10%;
+    left:51%;
+    background-color: rgb(87, 136, 75);
+    color: rgb(0, 0, 0);
+    border-color: white;
+    width: 110px;
+    height: 50px;
+}
+
+.btnEspecialista1{
+    position:absolute;
+    top:10%;
+    left:58%;
+    background-color: rgb(87, 110, 189);
+    color: rgb(255, 255, 255);
+    border-color: white;
+    width: 110px;
+    height: 50px;
+}
+
+.btnEspecialista2{
+    position:absolute;
+    top:10%;
+    left:65%;
+    background-color: rgb(87, 110, 189);
+    color: rgb(255, 255, 255);
+    border-color: white;
+    width: 110px;
+    height: 50px;
+}
+
+
+
+
+

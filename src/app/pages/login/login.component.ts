@@ -143,6 +143,40 @@ export class LoginComponent implements OnInit {
     }       
     return retorno;   
 }
+
+EntrarConAdmin(){
+  this.formIngreso.controls['email'].setValue("lucks.97@hotmail.com");
+  this.formIngreso.controls['password'].setValue("admin1234");
+  this.ingresar();
+}
+
+EntrarConPaciente1(){
+  this.formIngreso.controls['email'].setValue("lucasvaldiviezo80@gmail.com");
+  this.formIngreso.controls['password'].setValue("lucaspichu1");
+  this.ingresar();
+}
+EntrarConPaciente2(){
+  this.formIngreso.controls['email'].setValue("puskeqmglrsaazkhwi");
+  this.formIngreso.controls['password'].setValue("prueba1234");
+  this.ingresar();
+}
+EntrarConPaciente3(){
+  this.formIngreso.controls['email'].setValue("vahiy40316@nzaif.com");
+  this.formIngreso.controls['password'].setValue("paciente123");
+  this.ingresar();
+}
+
+EntrarConEspecialista1(){
+  this.formIngreso.controls['email'].setValue("secan92801@musezoo.com");
+  this.formIngreso.controls['password'].setValue("probando12345");
+  this.ingresar();
+}
+
+EntrarConEspecialista2(){
+  this.formIngreso.controls['email'].setValue("lucks.977@hotmail.com");
+  this.formIngreso.controls['password'].setValue("lucaspichu2");
+  this.ingresar();
+}
   
 
 }

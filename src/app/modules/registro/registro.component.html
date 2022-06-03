@@ -1,9 +1,6 @@
 <body>
-    <select name="select" (change)="onChange($event)" class="seleccionar">
-        <option value="paciente" selected>Paciente</option>
-        <option value="especialista" >Especialista</option>
-        <option value="administrador">Administrador</option>
-    </select>
+    <button class="btnPaciente" (click)="mostrarPaciente()"></button>
+    <button class="btnEspecialista" (click)="mostrarEspecialista()"></button>
     <div *ngIf="registroPaciente" class="contenedorRegistro">
         <app-registro-paciente></app-registro-paciente>
     </div>
