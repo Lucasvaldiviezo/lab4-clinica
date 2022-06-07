@@ -156,7 +156,7 @@ EntrarConPaciente1(){
   this.ingresar();
 }
 EntrarConPaciente2(){
-  this.formIngreso.controls['email'].setValue("puskeqmglrsaazkhwi");
+  this.formIngreso.controls['email'].setValue("puskeqmglrsaazkhwi@nthrw.com");
   this.formIngreso.controls['password'].setValue("prueba1234");
   this.ingresar();
 }

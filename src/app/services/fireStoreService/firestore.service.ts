@@ -32,6 +32,11 @@ export class FirestoreService {
 
   actualizarURL(coleccion:string,id:string,url:string)
   {
-    this.firestore.collection(coleccion).doc(id).update({urlImagen: url});
+    this.firestore.collection(coleccion).doc(id).update({imagen1: url});
+  }
+
+  actualizar2URL(coleccion:string,id:string,url1:any,url2:any){
+    this.firestore.collection(coleccion).doc(id).update({imagen1: url1});
+    this.firestore.collection(coleccion).doc(id).update({imagen2: url2});
   }
 }

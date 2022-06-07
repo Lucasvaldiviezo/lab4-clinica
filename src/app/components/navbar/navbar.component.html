@@ -1,6 +1,9 @@
 <header class="p-3 bg-primary text-white">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a routerLink="bienvenido" class="me-3">
+          <img src="./assets/favicon_io/android-chrome-512x512.png" style="height: 40px;"/>
+        </a>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Inicio</a></li>
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Mis Turnos</a></li>
@@ -8,15 +11,16 @@
         </ul>
         <a *ngIf="userState|async as user;else login_buttons">
           {{userInfo.nombre}}
-          <img style="border-radius: 100%;" src="{{userInfo.imagen1}}" 
+          <img style="border-radius: 100%;" src="{{userInfo.imagen1}}"
             width="40" height="40" class="d-inline-block align-top me-2" alt="">
-          <button class="btn btn-warning me-2" (click)="logout()">Logout</button>
+          <button routerLink="panelUsuario" class="btn btn-danger me-2" >Perfil</button>
+          <button class="btn btn-warning me-2" (click)="logout()">Logout</button> 
         </a>
         <ng-template #login_buttons class="text-end">
-          <button routerLink="login" class="btn btn-outline-light me-2 ">Login</button>
+          <button routerLink="login" class="btn btn-outline-light me-2">Login</button>
           <button routerLink="registro"  class="btn btn-danger">Sign-up</button>
         </ng-template>  
-        <button *ngIf="isAdmin" routerLink="usuarios" class="btn btn-success br-2 border border-danger">Panel de Usuarios</button>  
+        <button *ngIf="isAdmin" routerLink="usuarios" class="btn btn-success br-2 border border-danger">Control de Usuarios</button>  
       </div>
     </div>
   </header>

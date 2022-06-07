@@ -1,0 +1,32 @@
+<body>
+    <div class="container" *ngIf="mostrarDatos">
+        <div class="mostradorDeImagen1">
+            <img src="{{usuarioActual.imagen1}}" alt="imagenSubida" class="muestraImagen">
+        </div>
+        <div class="mostradorDeImagen2">
+            <img src="{{usuarioActual.imagen2}}" alt="imagenSubida" class="muestraImagen">
+        </div>
+        <div class="cambiarFoto">
+            <input type="file" id="inputFile" accept=".png, .jpg, .jpeg" multiple (change)="obtenerImagen($event)">
+            <label class="textoCambiarFoto">Cambiar Fotos de Perfil:</label>
+            <label for="inputFile" class="labelInputFile">
+                <img src="https://icons-for-free.com/download-icon-cloud+upload+file+storage+upload+icon-1320190558968694328_512.png" alt="upload file">
+            </label>
+        </div>
+        <div class="infoBox">
+            <p class="textoInfo">Nombre y Apellido:</p>
+            <p class="textoInfo">Email:</p>
+            <p class="textoInfo">Edad:</p>
+            <p class="textoInfo">DNI:</p>
+            <p class="textoInfo">Obra Social:</p> 
+        </div>
+        <div class="datosUsuario">
+            <input type="text" class="infoUsuario" disabled value="{{usuarioActual.nombre}}, {{usuarioActual.apellido}}"><br><br>
+            <input type="text" class="infoUsuario" disabled value="{{usuarioActual.email}}"><br><br>
+            <input type="text" class="infoUsuario" disabled value="{{usuarioActual.edad}}"><br><br>
+            <input type="text" class="infoUsuario" disabled value="{{usuarioActual.dni}}"><br><br>
+            <input type="text" class="infoUsuario" disabled value="{{usuarioActual.obraSocial}}"><br><br>
+        </div>
+        <button (click)="guardarDatos()" class="botonGuardar">Guardar</button>
+    </div> 
+</body>

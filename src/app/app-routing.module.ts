@@ -13,6 +13,7 @@ const routes: Routes = [
   {path:'registro', loadChildren: () => import('./modules/registro/registro.module').then(m=>m.RegistroModule)},
   {path:'verifyEmail', component: VerifyEmailComponent},
   {path:'usuarios', component: UsuariosComponent},
+  {path:'panelUsuario', loadChildren: () => import('./modules/panelUsuario/panel-usuario.module').then(m=>m.PanelUsuarioModule)},
   {path:'**', component:NotfoundComponent}
 ];
 

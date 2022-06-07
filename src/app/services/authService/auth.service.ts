@@ -35,7 +35,7 @@ export class AuthService {
   {
     try{
       return await this.afauth.createUserWithEmailAndPassword(email,password).then(resp=> {
-          this.sendEmailForVerification(resp);
+          this.sendEmailForVerification();
           this.logout();
       });
     }catch(error)
@@ -73,13 +73,12 @@ export class AuthService {
     this.afauth.signOut();
   }
 
-  sendEmailForVerification(user:any)
+  sendEmailForVerification()
   {
     return this.afauth.currentUser.then((u:any) => u.sendEmailVerification())
     .then(() => {
       this.ruteo.navigateByUrl('verifyEmail');
-    })
-      
+    })   
   }
 
   

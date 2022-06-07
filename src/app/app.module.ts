@@ -16,6 +16,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
     LoginComponent,
     NotfoundComponent,
     VerifyEmailComponent,
-    UsuariosComponent
+    UsuariosComponent,
   ],
   imports: [
     BrowserModule,

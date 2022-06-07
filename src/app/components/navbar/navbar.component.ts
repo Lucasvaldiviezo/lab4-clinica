@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
   userState = this.authService.getUserLogged();
   userLogged:any;
   userInfo:any;
+  isLogged:boolean = false;
   isAdmin:boolean = false;
   listaUsuarios:any;
   constructor(public authService: AuthService, public fireStoreService:FirestoreService, public ruteo:Router) {
@@ -38,6 +39,7 @@ export class NavbarComponent implements OnInit {
   llenarDatos(){
     if(this.userLogged != null)
     {
+      this.isLogged = true;
       for(let i=0;i < this.listaUsuarios.length;i++)
       {
         if(this.userLogged.email == this.listaUsuarios[i].email)

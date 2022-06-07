@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap');
 body 
 { 
     display: flex; 
@@ -10,10 +12,76 @@ body
     background-size: cover;
 }
 
+.logoContenedor{
+    position: absolute;
+    left:10%;
+    top:27.5%;
+    background-color: rgba(23, 25, 138, 0.842);
+    height: 15%;
+    width: 30%;
+    text-align: center;
+    border-width: 3px;
+    border-color: rgb(255, 255, 255);
+    border-style:ridge;
+}
+
+.tituloUTN{
+    font-size: 100px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: rgb(255, 255, 255);
+}
+
 .contenedor{
     position: absolute;
-    left:60%;
-    background-color: rgba(78, 78, 150, 0.534);
-    width: 39.2%;
+    left:10%;
+    top:42.5%;
+    background-color: rgba(255, 255, 255, 0.589);
+    height: 35%;
+    width: 45%;
+    text-align: center;
+    border-width: 3px;
+    border-color: rgba(23, 25, 138, 0.842);
+    border-style:ridge;
+}
+
+.titulo1{
+    font-size: 50px;
+    font-family: 'Alegreya', serif;
+    color: rgb(80, 80, 80);
+}
+
+.titulo2{
+    font-size: 50px;
+    font-family: 'Alegreya', serif;
+    color: rgba(23, 25, 138, 0.842);
+}
+
+.info{
+    font-size: 25px;
+    padding: 10px 10px;
+    font-weight:550;
+    font-family: 'Alegreya', serif;
+}
+
+.contenedorImagen{
+    position: absolute;
+    right:5%;
+    top:20%;
+    background-color: rgba(23, 25, 138, 0.842);
+    border-color: rgb(221, 202, 202);
+    border-width: 5px;
+    border-style:solid ;
+    width: 35%;
+    height: 70%;
+    border-radius: 50%;
+    overflow:hidden
+}
+
+.imagen{
+    position: relative;
+    left:10%;
+    top:5%;
+    width: 80%;
+    height: auto;
 }
 
