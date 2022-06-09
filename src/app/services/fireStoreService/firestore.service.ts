@@ -39,4 +39,8 @@ export class FirestoreService {
     this.firestore.collection(coleccion).doc(id).update({imagen1: url1});
     this.firestore.collection(coleccion).doc(id).update({imagen2: url2});
   }
+
+  actualizarHorario(coleccion:string,id:string,horario:any){
+    this.firestore.collection(coleccion).doc(id).update({horarios: horario});
+  }
 }

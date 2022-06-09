@@ -27,19 +27,21 @@ export class PanelUsuarioComponent implements OnInit {
   }
 
   saberTipoUsuario(){
-    for(let i=0;i < this.listaUsuarios.length;i++)
-    {
-      if(this.userLogged.email == this.listaUsuarios[i].email)
+    if(this.userLogged != null){
+      for(let i=0;i < this.listaUsuarios.length;i++)
       {
-        if(this.listaUsuarios[i].tipoUsuario == "paciente"){
-          this.isPaciente = true;
-          this.isEspecialista = false;
-        }else if(this.listaUsuarios[i].tipoUsuario == "especialista")
+        if(this.userLogged.email == this.listaUsuarios[i].email)
         {
-          this.isPaciente = false;
-          this.isEspecialista = true;
+          if(this.listaUsuarios[i].tipoUsuario == "paciente"){
+            this.isPaciente = true;
+            this.isEspecialista = false;
+          }else if(this.listaUsuarios[i].tipoUsuario == "especialista")
+          {
+            this.isPaciente = false;
+            this.isEspecialista = true;
+          }
+          break;
         }
-        break;
       }
     }
   }

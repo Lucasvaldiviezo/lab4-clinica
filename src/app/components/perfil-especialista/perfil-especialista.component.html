@@ -15,15 +15,41 @@
             <p class="textoInfo">Email:</p>
             <p class="textoInfo">Edad:</p>
             <p class="textoInfo">DNI:</p>
-            <p class="textoInfo">Especialidad:</p> 
+            <p class="textoInfo">Especialidades:</p> 
         </div>
         <div class="datosUsuario">
             <input type="text" class="infoUsuario" disabled value="{{usuarioActual.nombre}}, {{usuarioActual.apellido}}"><br><br>
             <input type="text" class="infoUsuario" disabled value="{{usuarioActual.email}}"><br><br>
             <input type="text" class="infoUsuario" disabled value="{{usuarioActual.edad}}"><br><br>
             <input type="text" class="infoUsuario" disabled value="{{usuarioActual.dni}}"><br><br>
-            <input type="text" class="infoUsuario" disabled value="{{usuarioActual.especialidad | titlecase}}"><br><br>
+            <select name="select" size="3" class="cuadroEspecialidades" >
+                <option *ngFor="let especialidad of usuarioActual.especialidades" value="{{especialidad | titlecase}}" class="textoEspecialidad" 
+                (click)="abrirHorarios(especialidad)">{{especialidad}}</option>
+            </select><br><br>
         </div>
         <button (click)="guardarDatos()" class="botonGuardar">Guardar</button>
     </div> 
+
+    <div *ngIf="mostrarHorarios" class="contenedorHorarios">
+        <h1 class="tituloHorarios">Elija horario para: {{especialidadSeleccionada}}</h1>
+        <label class="desdeHastaTexto">Desde:</label><br>
+        <label>HS:</label>
+        <select class="horario" (change)="elegirHorarios($event,'hora','desde')">
+            <option *ngFor="let hora of hours" value="{{hora}}" class="textoEspecialidad">{{hora}}</option>
+        </select>
+        <label>MIN:</label>
+        <select class="horario" (change)="elegirHorarios($event,'minuto','desde')" >
+            <option *ngFor="let minuto of minutes" value="{{minuto}}" class="textoEspecialidad" >{{minuto}}</option>
+        </select><br>
+        <label class="desdeHastaTexto">Hasta:</label><br>
+        <label>HS:</label>
+        <select class="horario" (change)="elegirHorarios($event,'hora','hasta')">
+            <option *ngFor="let hora of hours" value="{{hora}}"  class="textoEspecialidad" >{{hora}}</option>
+        </select>
+        <label>MIN:</label>
+        <select class="horario" (change)="elegirHorarios($event,'minuto','hasta')">
+            <option *ngFor="let minuto of minutes" value="{{minuto}}" class="textoEspecialidad" >{{minuto}}</option>
+        </select>
+        <button class="botonAceptar" (click)="guardarHorario()">Aceptar</button>
+    </div>
 </body>

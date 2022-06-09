@@ -15,6 +15,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
     NotfoundComponent,
     VerifyEmailComponent,
     UsuariosComponent,
+    SolicitarTurnoComponent,
   ],
   imports: [
     BrowserModule,

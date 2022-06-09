@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Nuevo Turno</h1>
+    <label for="especialidad" >Seleccione Especialidades:</label><br>
+    <select name="select" size="6" >
+        <option *ngFor="let opcion of opcionesEspecialidad" value="{{opcion}}" (click)="elegirEspecialidad(opcion)">{{opcion}}</option>
+    </select><br>
+    <label for="especialidad">Seleccione Especialista:</label><br>
+    <select name="select" size="6" >
+        <option *ngFor="let especialista of listaEspecialistas" value="{{especialista}}" (click)="elegirMedico(especialista)">{{especialista.nombre}}, {{especialista.apellido}}</option>
+    </select>
+</div>
+
+                       
+                        

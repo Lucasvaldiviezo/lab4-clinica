@@ -43,7 +43,7 @@ body{
     border-color: rgb(158, 53, 53);
     background-color: white;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: bold;
     font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -156,3 +156,85 @@ body{
     border-style:solid;
     border-color: rgb(187, 171, 29);
 }
+
+.cuadroEspecialidades{
+    width: 150px;
+    height: auto;
+    color:rgb(0, 0, 0);
+    text-align: center;
+    position: relative;
+    border-width: 4px;
+    border-style:outset;
+    width: 45%;
+    border-color: rgb(158, 53, 53);
+    background-color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.textoEspecialidad{
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.contenedorHorarios{
+    width: 300px;
+    height: 370px;
+    position:absolute;
+    left:70%;
+    top:50%;
+    background-color:rgba(23, 96, 138, 0.842);
+    border-width: 3px;
+    border-color: rgb(0, 0, 0);
+    border-style:ridge;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 21px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.horario{
+    height: auto;
+    color:rgb(0, 0, 0);
+    text-align: center;
+    position: relative;
+    border-width: 4px;
+    border-style:outset;
+    width: 20%;
+    min-height: 30px;
+
+    border-color: rgb(158, 53, 53);
+    background-color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 10px 10px;
+}
+
+.tituloHorarios{
+    padding: 10px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.botonAceptar{
+    position: relative;
+    background-color: rgb(121, 21, 21);
+    border-radius: 5%;
+    border-style: none;
+    color:white;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+}
+
+.botonAceptar:hover{
+    border-width: 2px;
+    border-style:solid;
+    border-color: rgb(187, 171, 29);
+}
+
+.desdeHastaTexto{
+    color: rgb(185, 105, 105);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+

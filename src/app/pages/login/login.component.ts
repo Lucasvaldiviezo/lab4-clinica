@@ -167,14 +167,14 @@ EntrarConPaciente3(){
 }
 
 EntrarConEspecialista1(){
-  this.formIngreso.controls['email'].setValue("secan92801@musezoo.com");
+  this.formIngreso.controls['email'].setValue("deyec31320@nzaif.com");
   this.formIngreso.controls['password'].setValue("probando12345");
   this.ingresar();
 }
 
 EntrarConEspecialista2(){
   this.formIngreso.controls['email'].setValue("lucks.977@hotmail.com");
-  this.formIngreso.controls['password'].setValue("lucaspichu2");
+  this.formIngreso.controls['password'].setValue("probando1414");
   this.ingresar();
 }
   

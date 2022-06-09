@@ -53,22 +53,18 @@
                         </small>
                     </div>
                     <div class="col-12">
-                        <select name="select" (change)="onChange($event)">
-                            <option value="cirujano" selected>Cirujano</option>
-                            <option value="pediatra" >Pediatra</option>
-                            <option value="cardiologo" >Cardiologo</option>
-                            <option value="oncologo" >Oncologo</option>
-                            <option value="ginecologo" >Ginecologo</option>
-                            <option value="otro">Otro</option>
+                        <label for="especialidad">Seleccione Especialidades:</label><br>
+                        <select name="select" size="6" >
+                            <option *ngFor="let opcion of opcionesSelect" value="{{opcion}}" (click)="elegirOpcionParaAgregar(opcion)">{{opcion}}</option>
+                        </select>
+                        <button (click)="agregarEspecialidad()" class="botonAgregarEspecialidad" type="button">Agregar</button>
+                        <button (click)="quitarEspecialidad()" class="botonQuitarEspecialidad" type="button">Quitar</button>
+                        <select name="select" size="6">
+                            <option *ngFor="let especialidad of especialidadesAgregadas" value="{{especialidad}}" (click)="elegirOpcionParaQuitar(especialidad)">{{especialidad}}</option>
                         </select>
                     </div>
                     <div class="col-12" *ngIf="mostrarCampoOtros">
-                        <label for="especialidad">Especialidad:</label><br>
-                        <input type="text" id="especialidad" placeholder="Ingrese especialidad" formControlName="especialidad">
-                        <small class="invalid" 
-                        *ngIf="formRegistro.controls['especialidad'].errors?.['required'] && formRegistro.controls['especialidad'].touched">
-                        La especialidad es requerida
-                        </small>
+                        <input type="text" id="especialidad" placeholder="Ingrese especialidad">
                     </div>
                     <div class="col-12">
                         <label for="email" class="label">Email:</label>

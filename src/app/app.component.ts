@@ -20,7 +20,6 @@ export class AppComponent {
     this.interval = setInterval(() => {
       if(this.timeLeft > 0) {
         this.timeLeft--;
-        console.log(this.timeLeft);
       } else if(this.timeLeft == 0) {
         this.cargarTerminada = true;
       }

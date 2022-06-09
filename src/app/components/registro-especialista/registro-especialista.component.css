@@ -24,18 +24,37 @@ input[type=text], input[type=password]
 
 select
 {
-    width: 100%;
+    width: 120px;
     padding: 6px 10px;
-    margin: 10px 0px;
-    display: inline-block;
+    margin: 1px 1px;
     border-radius: 4px;
     box-sizing: border-box;
     position: relative;
+
+}
+
+.botonAgregarEspecialidad{
+    background-color: rgb(105, 105, 105);
+    position: relative;
+    bottom:50%;
+    left:10%;
+    width: 80px;
+    height: auto;
+}
+
+.botonQuitarEspecialidad{
+    background-color: rgb(105, 105, 105);
+    position: relative;
+    bottom:20%;
+    right: 9.5%;
+    width: 80px;
+    height: auto;
 }
 
 .invalid
 {
     color: red;
+    left:40%;
 }
 
 .btnAceptar{
@@ -46,6 +65,8 @@ select
     height: auto;
     left:32%;
 }
+
+
 
 #inputFile{
     display:none;
