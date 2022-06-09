@@ -1,27 +1,49 @@
-# Lab4Clinica
+# Clinica UTN
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+## Bienvenidos a Clinica UTN, una aplicacion que permite el registro de pacientes y especialistas para la facilitacion de Turnos online.
+![Foto de Inicio](https://i.ibb.co/SJ76tYM/Foto-Clinica-1.png)
 
-## Development server
+# Creacion de Cuenta
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Comenzemos con la creacion de una cuenta, arriba a la derecha tiene el boton para Registrarse(color rojo).<br>
+![Foto de Botones de Logeo](https://i.ibb.co/N7Q3pCT/Foto-2.png)<br>
+Luego podra elegir registrarse segun su necesidad, como paciente:<br>
+![Foto de Boton Paciente](https://i.ibb.co/pys3JCH/Boton-Paciente.png)<br>
+O como especialista:<br>
+![Foto de Boton Especialista](https://i.ibb.co/WfZRrQN/Boton-Especialista.png)<br><br>
 
-## Code scaffolding
+Por ejemplo, si elegimos registrarnos como pacientes, deberemos llenar los datos correspondientes y elegir 2 fotos de perfil:<br>
+![Foto registro de paciente](https://i.ibb.co/r65tsFm/Registro-Paciente.png)<br>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**Nota importante: Si usted se registra debera verificar su mail para poder ingresar.**<br>
+**En caso de ser Especialista, ademas de verificar el mail, tendra que esperar a que su cuenta sea habilitada.**
 
-## Build
+# Ya ingresado
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Una vez Logeado usted puede realizar distintas acciones segun su tipo de cuenta: <br>
 
-## Running unit tests
+**Pacientes:**<br>
+-Crear turnos<br>
+-Cancelar turnos<br>
+-Ver mi perfil<br>
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**Especialistas:**<br>
+-Aceptar turnos<br>
+-Cancelar turnos<br>
+-Ver mi perfil<br><br>
 
-## Running end-to-end tests
+**Por ejemplo:**<br>
+![Menu Pacientes](https://i.ibb.co/chY7JZ2/Menu-Usuarios.png)<br>
+Si somos pacientes y vamos a opciones, podremos ir a nuestro perfil o realizar un nuevo turno.<br>
+Si seleccionamos Perfil:<br>
+![Perfil Paciente](https://i.ibb.co/RjDF2mk/Perfil-Paciente.png)<br>
+Nos enviara a esta pagina con nuestros datos, donde podremos cambiar nuestra foto.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Cuenta Administrador
+Como administrador usted podra verificar los usuarios existentes, ademas de permitir o denegar el acceso a las cuentas Especialistas.<br>
+![Foto menu administrador](https://i.ibb.co/wLN7Qj5/Ver-Usuarios.png)<br>
+Seleccionando la opcion ver usuarios, nos llevara a la siguiente pagina:<br>
+![Foto lista usuarios](https://i.ibb.co/jggFGGr/Lista-Usuarios.png)<br>
+Aqui podremos permitir el ingreso a los especialistas o negarselo.
