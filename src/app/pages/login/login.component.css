@@ -38,6 +38,12 @@ input[type=text], input[type=password]
     color: red;
 }
 
+.captcha{
+    position: relative;
+    margin-bottom:5%;
+    left:0%;
+}
+
 .btnIngresar{
     padding:10px 10px;
     background-color: green;
@@ -78,7 +84,7 @@ input[type=text], input[type=password]
 .btnAdmin{
     position:absolute;
     top:10%;
-    left:30%;
+    left:1%;
     background-color: red;
     color: white;
     border-color: white;
@@ -89,7 +95,7 @@ input[type=text], input[type=password]
 .btnPaciente1{
     position:absolute;
     top:10%;
-    left:37%;
+    left:7%;
     background-color: rgb(87, 136, 75);
     color: rgb(0, 0, 0);
     border-color: white;
@@ -100,7 +106,7 @@ input[type=text], input[type=password]
 .btnPaciente2{
     position:absolute;
     top:10%;
-    left:44%;
+    left:13%;
     background-color: rgb(87, 136, 75);
     color: rgb(0, 0, 0);
     border-color: white;
@@ -111,7 +117,7 @@ input[type=text], input[type=password]
 .btnPaciente3{
     position:absolute;
     top:10%;
-    left:51%;
+    left:19%;
     background-color: rgb(87, 136, 75);
     color: rgb(0, 0, 0);
     border-color: white;
@@ -122,7 +128,7 @@ input[type=text], input[type=password]
 .btnEspecialista1{
     position:absolute;
     top:10%;
-    left:58%;
+    left:25%;
     background-color: rgb(87, 110, 189);
     color: rgb(255, 255, 255);
     border-color: white;
@@ -132,8 +138,8 @@ input[type=text], input[type=password]
 
 .btnEspecialista2{
     position:absolute;
-    top:10%;
-    left:65%;
+    top:16%;
+    left:1%;
     background-color: rgb(87, 110, 189);
     color: rgb(255, 255, 255);
     border-color: white;

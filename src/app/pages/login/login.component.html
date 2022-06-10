@@ -1,5 +1,4 @@
 <body>
-  
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -29,7 +28,11 @@
                     *ngIf="formIngreso.controls['password'].errors?.['required'] && formIngreso.controls['password'].touched">
                     El password es requerido
                     </small>
-                  </div><br><br>
+                  </div><br>
+                  <div class="captcha">
+                    <app-captcha (resultadoCaptcha)="verificarResultadoCaptcha($event)"></app-captcha>
+                    <label class="invalid" *ngIf="errorCaptcha">Debe realizar el captcha</label>
+                  </div>
                   <div class="group">
                     <input type="submit" class="btnIngresar" value="Ingresar" [disabled]="formIngreso.invalid">
                   </div>

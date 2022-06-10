@@ -16,7 +16,8 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
-
+import { NgxCaptchaModule } from 'ngx-captcha';
+import { CaptchaComponent } from './components/captcha/captcha.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno
     VerifyEmailComponent,
     UsuariosComponent,
     SolicitarTurnoComponent,
+    CaptchaComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno
     AngularFirestoreModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxCaptchaModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideStorage(() => getStorage()),
   ],

@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   textoError:string = "";
   mostrarError:boolean = false;
   public formIngreso: FormGroup;
+  captchaOkay:boolean = false;
+  errorCaptcha:boolean = false;
   constructor(public ruteo:Router,public authService: AuthService, private fb: FormBuilder, public fireStore:FirestoreService) {
     this.formIngreso = this.fb.group({
       'email': ['', [Validators.required, Validators.email]],
@@ -40,36 +42,41 @@ export class LoginComponent implements OnInit {
 
   ingresar()
   {
-    const email=this.formIngreso.getRawValue().email;
-    const password=this.formIngreso.getRawValue().password;
-    let tipoUsuario:string = "";
-      this.authService.login(email,password).then(usuario=>{   
-        if(usuario!=null)
-        {
-          this.cambiarMailAVerificado(usuario);
-          if(usuario == false){
-            this.mailSinVerificar = true;
-            console.log("El mail no esta verificado");
-            this.authService.logout();
-          }else
+    if(this.captchaOkay == true){
+      const email=this.formIngreso.getRawValue().email;
+      const password=this.formIngreso.getRawValue().password;
+      let tipoUsuario:string = "";
+        this.authService.login(email,password).then(usuario=>{   
+          if(usuario!=null)
           {
-            tipoUsuario = this.verificarTipoUsuario(usuario);
-            if(tipoUsuario == "especialista"){
-              if(this.verificarAcceso(usuario) == true){
+            this.cambiarMailAVerificado(usuario);
+            if(usuario == false){
+              this.mailSinVerificar = true;
+              console.log("El mail no esta verificado");
+              this.authService.logout();
+            }else
+            {
+              tipoUsuario = this.verificarTipoUsuario(usuario);
+              if(tipoUsuario == "especialista"){
+                if(this.verificarAcceso(usuario) == true){
+                  this.ruteo.navigateByUrl('bienvenido');
+                }else
+                {
+                  this.especialistaSinAcceso = true;
+                  this.authService.logout();
+                }
+              }else{
                 this.ruteo.navigateByUrl('bienvenido');
-              }else
-              {
-                this.especialistaSinAcceso = true;
-                this.authService.logout();
-              }
-            }else{
-              this.ruteo.navigateByUrl('bienvenido');
-            }   
-          } 
-        }
-      }).catch(error => {
-        console.log(error);
-      });
+              }   
+            } 
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+    }else{
+      this.errorCaptcha = true;
+    }
+    
   }
 
 
@@ -142,6 +149,10 @@ export class LoginComponent implements OnInit {
                 retorno = 'Error al logearse, intente mas tarde.';
     }       
     return retorno;   
+}
+
+verificarResultadoCaptcha(resultado:boolean){
+  this.captchaOkay = resultado
 }
 
 EntrarConAdmin(){

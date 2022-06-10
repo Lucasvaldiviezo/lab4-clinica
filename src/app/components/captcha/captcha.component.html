@@ -1,0 +1,14 @@
+<div class="wrapper">
+    <div class="captcha-area">
+      <div class="captcha-img">
+        <img src="/assets/captcha-bg.png" alt="Captch Background">
+        <span class="captcha">{{captcha}}</span>
+      </div>
+      <button class="reload-btn" (click)="getCaptcha()" type="button"><i class="fas fa-redo-alt">RL</i></button>
+    </div>
+    <form action="#" class="input-area">
+      <input type="text" placeholder="Enter captcha" name="textoCaptcha" maxlength="6" spellcheck="false" [(ngModel)]="captchaParaVerificar" required>
+    </form>
+    <button type="button" class="btnVerificar"(click)="verificarCaptcha()">Verificar</button>
+    <div class="status-text"></div>
+</div>
