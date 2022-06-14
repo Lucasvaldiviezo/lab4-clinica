@@ -41,6 +41,14 @@ export class FirestoreService {
   }
 
   actualizarHorario(coleccion:string,id:string,horario:any){
-    this.firestore.collection(coleccion).doc(id).update({horarios: horario});
+    this.firestore.collection(coleccion).doc(id).update(horario);
+  }
+
+  agregarHorario(coleccion:string,horario:any){
+    this.firestore.collection(coleccion).add(horario);
+  }
+
+  agregarTurno(coleccion:string,turno:any){
+    this.firestore.collection(coleccion).add(turno);
   }
 }

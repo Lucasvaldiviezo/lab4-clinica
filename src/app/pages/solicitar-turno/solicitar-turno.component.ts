@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnyForUntypedForms } from '@angular/forms';
+import { AuthService } from 'src/app/services/authService/auth.service';
 import { FirestoreService } from 'src/app/services/fireStoreService/firestore.service';
 
 @Component({
@@ -11,25 +12,66 @@ export class SolicitarTurnoComponent implements OnInit {
   opcionesEspecialidad:any;
   listaEspecialistas:any;
   listaUsuarios:any;
-  especialidadSeleccionada:any;
-  noHayHorarios:boolean = false;
   listaHorarios:any;
+  listaTurnos:any;
+  listaHorariosFiltrada:any;
+  listaDeDias:any;
   horaDesde:number = 0;
   minutoDesde:number = 0;
   horaHasta:number = 0;
   minutoHasta:number = 0;
-  constructor(public fireStoreService:FirestoreService) {
+  mostrarDias:boolean = false;
+  mostrarHorarios:boolean = false;
+  especialidadSeleccionada:string = "";
+  medicoSeleccionado:any;
+  diaSeleccionado:string = "";
+  horarioSeleccionado:string="";
+  datosCompletos:boolean = false;
+  userState = this.authService.getUserLogged();
+  userLogged:any;
+  userInfo:any;
+  listaDeTurnosActuales:any;
+  constructor(public fireStoreService:FirestoreService,public authService:AuthService) {
+    this.listaDeDias = [];
     this.opcionesEspecialidad = [];
     this.listaEspecialistas = [];
     this.listaHorarios = [];
+    this.listaHorariosFiltrada = [];
+
     this.fireStoreService.getCollectionWithId('Usuarios','usuarioId').subscribe(
       resp=>{
         this.listaUsuarios = resp;
         this.llenarEspecialidades();
     });
+    this.fireStoreService.getCollectionWithId('Horarios','horarioId').subscribe(
+      resp=>{
+        this.listaHorarios = resp;
+    });
+
+    this.fireStoreService.getCollectionWithId('Turnos','turnoId').subscribe(
+      resp=>{
+        this.listaTurnos = resp;
+    });
+
+    this.userState.subscribe((usuario:any)=>{
+      this.userLogged = usuario;
+      this.fireStoreService.getCollection('Usuarios').subscribe(
+        resp=>{
+          this.listaUsuarios = resp;
+          this.llenarDatos();
+      });
+    });
+    this.cargarDias();
   }
 
   ngOnInit(): void {
+  }
+
+  cargarDias(){
+    let fechaHoy = new Date();
+    for(let i = 0; i<15;i++){
+      this.listaDeDias.push(fechaHoy.setDate(fechaHoy.getDate()+i));
+    }
   }
 
   llenarEspecialidades(){
@@ -46,9 +88,24 @@ export class SolicitarTurnoComponent implements OnInit {
     }
   }
 
+  llenarDatos(){
+    if(this.userLogged != null)
+    {
+      for(let i=0;i < this.listaUsuarios.length;i++)
+      {
+        if(this.userLogged.email == this.listaUsuarios[i].email)
+        {
+          this.userInfo = this.listaUsuarios[i];
+          break;
+        }
+      }
+    } 
+  }
+
   elegirEspecialidad(especialidad:any){
     this.listaEspecialistas = [];
     this.especialidadSeleccionada = especialidad;
+    this.datosCompletos = false;
     for(let i=0; i<this.listaUsuarios.length;i++){
       if(this.listaUsuarios[i].tipoUsuario == "especialista"){
         for(let j=0;j<this.listaUsuarios[i].especialidades.length;j++){
@@ -63,19 +120,49 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   elegirMedico(especialista:any){
-    let horarioDesde:string;
-    let horarioHasta:string;
-    if(especialista.hasOwnProperty("horarios")) {
-      for(let i=0;i<especialista.horarios.length;i++){
-        if(especialista.horarios[i].especialidad == this.especialidadSeleccionada){
-          horarioDesde = especialista.horarios[i].desde.split(":");
-          horarioHasta = especialista.horarios[i].hasta.split(":");
-        }
+    this.datosCompletos = false;
+    for(let i=0;i<this.listaHorarios.length;i++){
+      if(especialista.email==this.listaHorarios[i].especialista 
+      && this.especialidadSeleccionada == this.listaHorarios[i].especialidad)
+      {
+        this.listaHorariosFiltrada = this.listaHorarios[i].turnos;
+        this.medicoSeleccionado = especialista;
+        this.mostrarDias = true;
       }
-    }else{
-      this.noHayHorarios = true;
     }
    
   }
-  //SEGUI EN PERFIL-ESPECIALISTA
+
+  elegirDia(dia:Date){
+    this.datosCompletos = false;
+    let fecha = new Date(dia);
+    this.diaSeleccionado = fecha.toDateString();
+    this.mostrarHorarios = true;
+    //TENGO QUE REVISAR SI EL HORARIO ESTA OCUPADO Y NO MOSTRARLO
+  }
+
+  elegirHorario(horario:any){
+    this.horarioSeleccionado = horario;
+    this.datosCompletos = true;
+  }
+
+  
+  solicitarTurno(){
+    let turnoCompleto = {
+      especialidad: this.especialidadSeleccionada,
+      especialista: this.medicoSeleccionado,
+      dia: this.diaSeleccionado,
+      horario: this.horarioSeleccionado,
+      paciente: this.userInfo
+    }
+    this.especialidadSeleccionada = "";
+    this.medicoSeleccionado =undefined;
+    this.diaSeleccionado = "";
+    this.horarioSeleccionado = "";
+    this.listaHorariosFiltrada = [];
+    this.listaEspecialistas = [];
+    this.listaDeDias = [];
+    this.datosCompletos = false;
+    this.fireStoreService.agregarTurno("Turnos",turnoCompleto);
+  }
 }

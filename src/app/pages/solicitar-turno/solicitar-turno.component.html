@@ -1,14 +1,33 @@
-<div class="container">
-    <h1>Nuevo Turno</h1>
-    <label for="especialidad" >Seleccione Especialidades:</label><br>
-    <select name="select" size="6" >
-        <option *ngFor="let opcion of opcionesEspecialidad" value="{{opcion}}" (click)="elegirEspecialidad(opcion)">{{opcion}}</option>
-    </select><br>
-    <label for="especialidad">Seleccione Especialista:</label><br>
-    <select name="select" size="6" >
-        <option *ngFor="let especialista of listaEspecialistas" value="{{especialista}}" (click)="elegirMedico(especialista)">{{especialista.nombre}}, {{especialista.apellido}}</option>
-    </select>
-</div>
+<body>
+    <h1 class="tituloTexto">Solicitar nuevo turno</h1>
+    <div class="containerEspecialidades">
+        <h3>1 - Seleccione una especialidad:<br><label class="infoMedico"> {{especialidadSeleccionada}}</label></h3>
+        <div class="contenedorBotones">
+            <button class="botonesEspecialidad" *ngFor="let opcion of opcionesEspecialidad" (click)="elegirEspecialidad(opcion)">{{opcion}}</button>
+        </div>
+    </div>
+    <div class="containerEspecialistas">
+        <h3>2 - Seleccione Especialista: <br><label class="infoMedico" *ngIf="medicoSeleccionado !== undefined">{{medicoSeleccionado.nombre}},{{medicoSeleccionado.apellido}}</label></h3>
+        <div class="contenedorBotones">
+            <button class="botonesDoctor" *ngFor="let especialista of listaEspecialistas" (click)="elegirMedico(especialista)">{{especialista.nombre}}, {{especialista.apellido}}</button>
+        </div>
+    </div>
+    <div class="containerTurnos">
+        <h3>3 - Seleccione un turno: </h3>
+        <label class="textoContenedores">Elegir Dia:<label class="infoMedico"> {{diaSeleccionado | date:'dd/MM'}}</label></label><br>
+        <div *ngIf="mostrarDias" class="contenedorBotones">
+            <button *ngFor="let dia of listaDeDias" class="botonesDias" (click)="elegirDia(dia)">{{dia | date:'dd/MM'}}</button>
+        </div>
+        <label class="textoContenedores">Elegir Hora:<label class="infoMedico"> {{horarioSeleccionado}}</label></label>
+        <div class="contenedorBotones" *ngIf="mostrarHorarios">
+            <div class="mostradorBotones"*ngFor="let turno of listaHorariosFiltrada">
+                <button class="botonesHoras" (click)="elegirHorario(turno)">{{turno}}</button>
+            </div>
+        </div>
+    </div>
+    <button class="solicitarTurno" (click)="solicitarTurno()" [disabled]="!datosCompletos">Solicitar</button>
+</body>
+
 
                        
                         

@@ -33,6 +33,10 @@ export class PerfilEspecialistaComponent implements OnInit {
           this.listaUsuarios = resp;
           this.llenarDatos();
       });
+      this.fireStoreService.getCollectionWithId('Horarios','horarioId').subscribe(
+        resp=>{
+          this.listaHorarios = resp;
+      });
     });
     this.cargarHorarios();
   }
@@ -95,19 +99,16 @@ export class PerfilEspecialistaComponent implements OnInit {
 
   cargarHorarios(){
     for(let i=0;i<24;i++){
-      if(i<10){
-        this.hours.push("0"+i);
-      }else{
         this.hours.push(i.toString());
-      }
-     
     }
     for(let i=0;i<60;i++){
       if(i<10){
+        console.log(i);
         this.minutes.push("0"+i);
       }else{
         this.minutes.push(i.toString());
       }
+      i = i+14;
     }
   }
 
@@ -132,27 +133,55 @@ export class PerfilEspecialistaComponent implements OnInit {
 
   guardarHorario(){
     this.mostrarHorarios = false;
-    let horarioDesde = this.horaDesde + ":" + this.minutoDesde;
-    let horarioHasta = this.horaHasta + ":" + this.minutoHasta;
-    let horario = {
+    let listaTurnos:any = [];
+    let turno:string = "";
+    let minutosTurnos:number = +this.minutoDesde;
+    let horariosDisponibles;
+    let horaParaCheckear = "";
+    let horarioExistente = false;
+    let idHorarioActualizar;
+    horaParaCheckear = this.horaHasta + ":" + this.minutoHasta;
+    for(let i = +this.horaDesde; i <= +this.horaHasta;i++){
+      for(let j=minutosTurnos;j<60;j++){
+        if(minutosTurnos >=60){
+          minutosTurnos = 0;
+        }
+        if(minutosTurnos == 0){
+          turno =  i + ":" + "0" +minutosTurnos;
+        }else{
+          turno =  i + ":" + minutosTurnos;
+        }
+        if(turno == horaParaCheckear ){
+          j = 60;
+          i = +this.horaHasta + 1;
+        }
+        listaTurnos.push(turno);
+        minutosTurnos = minutosTurnos+15;
+        j=j+14;
+      }
+      minutosTurnos = 0;
+    }
+    let turnosEspecialista = {
+      especialista: this.usuarioActual.email,
       especialidad: this.especialidadSeleccionada,
-      desde: horarioDesde,
-      hasta: horarioHasta
-    };
-    let index = -1;
-    for(let i=0;i<this.listaHorarios.length;i++){
-      if(horario.especialidad == this.listaHorarios[i].especialidad){
-        index = i;
-        break;
+      turnos: listaTurnos
+    }
+
+    console.log(turnosEspecialista);
+    
+
+    for(let i = 0; i<this.listaHorarios.length;i++){
+      if(turnosEspecialista.especialista == this.listaHorarios[i].especialista
+        && turnosEspecialista.especialidad == this.listaHorarios[i].especialidad){
+          idHorarioActualizar = this.listaHorarios[i].horarioId;
+          horarioExistente = true;
+          break;
       }
     }
-    if(index == -1){
-      this.listaHorarios.push(horario);
+    if(horarioExistente == false){
+      this.fireStoreService.agregarHorario("Horarios",turnosEspecialista);
     }else{
-      this.listaHorarios[index] = horario;
-    }
-    this.fireStoreService.actualizarHorario("Usuarios",this.usuarioActual.usuarioId,this.listaHorarios);
-
-    //CREAR LOS HORARIOS ACA CON 3 DATOS, DNI/MAIL DEL USUARIO, TODOS LOS HORARIOS DESDE HASTA Y SI ESTA DISPONIBLE EL TURNO.
+      this.fireStoreService.actualizarHorario("Horarios",idHorarioActualizar,turnosEspecialista);
+    } 
   }
 }
