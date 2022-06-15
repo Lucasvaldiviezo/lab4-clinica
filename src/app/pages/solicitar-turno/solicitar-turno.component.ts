@@ -12,6 +12,7 @@ export class SolicitarTurnoComponent implements OnInit {
   opcionesEspecialidad:any;
   listaEspecialistas:any;
   listaUsuarios:any;
+  listaPacientes:any;
   listaHorarios:any;
   listaTurnos:any;
   listaHorariosFiltrada:any;
@@ -31,7 +32,11 @@ export class SolicitarTurnoComponent implements OnInit {
   userLogged:any;
   userInfo:any;
   listaDeTurnosActuales:any;
+  isAdmin:boolean = false;
+  mostrarContenedorUsuarios:boolean = false;
+  pacienteElegidoPorAdmin:any;
   constructor(public fireStoreService:FirestoreService,public authService:AuthService) {
+    this.listaPacientes = [];
     this.listaDeDias = [];
     this.opcionesEspecialidad = [];
     this.listaEspecialistas = [];
@@ -59,12 +64,22 @@ export class SolicitarTurnoComponent implements OnInit {
         resp=>{
           this.listaUsuarios = resp;
           this.llenarDatos();
+          this.cargarPacientes();
       });
     });
     this.cargarDias();
   }
 
   ngOnInit(): void {
+  }
+
+  cargarPacientes(){
+    this.listaEspecialistas = [];
+    for(let i=0; i<this.listaUsuarios.length;i++){
+      if(this.listaUsuarios[i].tipoUsuario == 'paciente'){
+        this.listaPacientes.push(this.listaUsuarios[i]);
+      }
+    }
   }
 
   cargarDias(){
@@ -96,10 +111,21 @@ export class SolicitarTurnoComponent implements OnInit {
         if(this.userLogged.email == this.listaUsuarios[i].email)
         {
           this.userInfo = this.listaUsuarios[i];
+          if(this.userInfo.tipoUsuario == 'admin'){
+            this.isAdmin = true;
+          }
           break;
         }
       }
     } 
+  }
+
+  abrirContenedorUsuarios(){
+    this.mostrarContenedorUsuarios = true;
+  }
+
+  cerrarContenedorUsuarios(){
+    this.mostrarContenedorUsuarios = false;
   }
 
   elegirEspecialidad(especialidad:any){
@@ -120,6 +146,7 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   elegirMedico(especialista:any){
+    this.listaHorariosFiltrada = [];
     this.datosCompletos = false;
     for(let i=0;i<this.listaHorarios.length;i++){
       if(especialista.email==this.listaHorarios[i].especialista 
@@ -146,23 +173,35 @@ export class SolicitarTurnoComponent implements OnInit {
     this.datosCompletos = true;
   }
 
+  pacienteParaTurno(usuario:any){
+    this.pacienteElegidoPorAdmin = usuario;
+    this.mostrarContenedorUsuarios = false;
+  }
+
   
   solicitarTurno(){
+    let usuarioParaTurno:any;
+    if(this.userInfo.tipoUsuario == 'admin'){
+      usuarioParaTurno = this.pacienteElegidoPorAdmin;
+    }else{
+      usuarioParaTurno = this.userInfo;
+    }
     let turnoCompleto = {
       especialidad: this.especialidadSeleccionada,
       especialista: this.medicoSeleccionado,
       dia: this.diaSeleccionado,
       horario: this.horarioSeleccionado,
-      paciente: this.userInfo
+      paciente: usuarioParaTurno,
+      estado: "no realizado",
+      comentario: ""
     }
+    this.pacienteElegidoPorAdmin = undefined;
     this.especialidadSeleccionada = "";
-    this.medicoSeleccionado =undefined;
+    this.medicoSeleccionado = undefined;
     this.diaSeleccionado = "";
     this.horarioSeleccionado = "";
-    this.listaHorariosFiltrada = [];
-    this.listaEspecialistas = [];
-    this.listaDeDias = [];
     this.datosCompletos = false;
+    this.mostrarDias = false;
     this.fireStoreService.agregarTurno("Turnos",turnoCompleto);
   }
 }
