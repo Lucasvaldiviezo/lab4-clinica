@@ -51,4 +51,9 @@ export class FirestoreService {
   agregarTurno(coleccion:string,turno:any){
     this.firestore.collection(coleccion).add(turno);
   }
+
+  actualizarTurno(coleccion:string,turno:any){
+    this.firestore.collection(coleccion).doc(turno.turnoId).update(turno);
+  }
+
 }

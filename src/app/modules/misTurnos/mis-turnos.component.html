@@ -1,0 +1,9 @@
+<body>
+    <div *ngIf="userInfo" class="contenedorGeneral">
+        <h1 class="titulo">Mis turnos</h1>
+        <div *ngIf="userInfo.tipoUsuario === 'paciente'" class="misTurnosPaciente">
+            <app-turnos-paciente></app-turnos-paciente>
+        </div>
+    </div>
+    
+</body>

@@ -8,32 +8,19 @@ import { FirestoreService } from 'src/app/services/fireStoreService/firestore.se
   styleUrls: ['./mis-turnos.component.css']
 })
 export class MisTurnosComponent implements OnInit {
-  listaTurnos:any;
-  listaTurnosUsuarioActual:any;
   listaUsuarios:any;
   userState = this.authService.getUserLogged();
   userLogged:any;
   userInfo:any;
-  ventanaComentario:boolean = false;
-  constructor(public fireStoreService:FirestoreService, public authService:AuthService) {
-    this.listaTurnos = [];
-    this.listaTurnosUsuarioActual = [];
-    this.listaUsuarios = [];
+  constructor(public authService:AuthService, public fireStoreService:FirestoreService) {
     this.userState.subscribe((usuario:any)=>{
       this.userLogged = usuario;
       this.fireStoreService.getCollection('Usuarios').subscribe(
         resp=>{
           this.listaUsuarios = resp;
           this.llenarDatos();
-          this.fireStoreService.getCollectionWithId('Turnos','turnoId').subscribe(
-            resp=>{
-              this.listaTurnos = resp;
-              this.turnosUsuarioActual();
-          });
       });
     });
-    
-    
   }
   
   ngOnInit(): void {
@@ -52,20 +39,6 @@ export class MisTurnosComponent implements OnInit {
       }
     } 
   }
-
-  turnosUsuarioActual(){
-    this.listaTurnosUsuarioActual = [];
-    for(let i=0;i<this.listaTurnos.length;i++){
-      if(this.userInfo.email == this.listaTurnos[i].paciente.email){
-        this.listaTurnosUsuarioActual.push(this.listaTurnos[i]);
-      }
-    }
-  }
-
-  cancelarTurno(turno:any){
-    this.ventanaComentario = true;
-  }
-
 
 
 }

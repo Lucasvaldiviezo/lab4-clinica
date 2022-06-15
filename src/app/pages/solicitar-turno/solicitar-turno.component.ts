@@ -193,7 +193,9 @@ export class SolicitarTurnoComponent implements OnInit {
       horario: this.horarioSeleccionado,
       paciente: usuarioParaTurno,
       estado: "no realizado",
-      comentario: ""
+      comentarioPaciente: "",
+      comentarioEspecialista: "",
+      calificacion: 0
     }
     this.pacienteElegidoPorAdmin = undefined;
     this.especialidadSeleccionada = "";

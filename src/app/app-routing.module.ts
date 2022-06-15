@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BienvenidoComponent } from './pages/bienvenido/bienvenido.component';
 import { LoginComponent } from './pages/login/login.component';
-import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
@@ -16,7 +15,7 @@ const routes: Routes = [
   {path:'verifyEmail', component: VerifyEmailComponent},
   {path:'usuarios', component: UsuariosComponent},
   {path:'solicitarTurno', component: SolicitarTurnoComponent},
-  {path:'misTurnos', component: MisTurnosComponent},
+  {path:'misTurnos',  loadChildren: () => import('./modules/misTurnos/mis-turnos.module').then(m=>m.MisTurnosModule)},
   {path:'panelUsuario', loadChildren: () => import('./modules/panelUsuario/panel-usuario.module').then(m=>m.PanelUsuarioModule)},
   {path:'**', component:NotfoundComponent}
 ];
