@@ -8,7 +8,7 @@
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Inicio</a></li>
           <li><a routerLink="misTurnos" class="nav-link px-2 text-white" *ngIf="isPaciente || isEspecialista">Mis Turnos</a></li>
           <li><a routerLink="misTurnos" class="nav-link px-2 text-white" *ngIf="isAdmin">Panel de Turnos</a></li>
-          <li><a routerLink="solicitarTurno" class="nav-link px-2 text-white">Nuevo Turno</a></li>
+          <li><a routerLink="solicitarTurno" class="nav-link px-2 text-white" *ngIf="isPaciente || isAdmin">Nuevo Turno</a></li>
         </ul>
         <a *ngIf="userState|async as user;else login_buttons">
           <label class="nombreUsuario me-1">{{userInfo.nombre}}</label>
@@ -16,10 +16,10 @@
             width="40" height="40" class="d-inline-block align-top me-2" alt="">
           <div class="btn-group me-2">
             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Opciones
+              <label>Opciones</label>
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" routerLink="panelUsuario">Perfil</a>
+              <a class="dropdown-item" routerLink="panelUsuario" *ngIf="isPaciente || isEspecialista">Perfil</a>
               <a *ngIf="isPaciente" class="dropdown-item" routerLink="solicitarTurno">Nuevo Turno</a>
               <a *ngIf="isAdmin" class="dropdown-item" routerLink="usuarios">Ver Usuarios</a>
             </div>
