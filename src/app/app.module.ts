@@ -18,6 +18,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { CaptchaComponent } from './components/captcha/captcha.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { CaptchaComponent } from './components/captcha/captcha.component';
     HttpClientModule,
     ReactiveFormsModule,
     NgxCaptchaModule,
+    BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideStorage(() => getStorage()),
   ],

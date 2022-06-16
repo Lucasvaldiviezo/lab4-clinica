@@ -1,18 +1,38 @@
-.titulo{
+body 
+{ 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    overflow: hidden; 
+    background-image: url('src\assets\background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contenedorGeneral{
+    position: absolute;
+    width: 100%;
+    height: 100%;
     text-align: center;
+}
+
+.titulo{
     position: relative;
-    margin-top: 3%;
+    top:5%;
 }
 
 .titulo2{
     position: relative;
-    margin-top:10%;
+    margin-top:1%;
+    top:17%;
     text-align: center;
 }
 
 .tablaPacientes
 {
-    left:30%;
+    top:13%;
+    left:29%;
     position: relative;
     border-collapse: collapse;
     width: 800px;
@@ -21,7 +41,8 @@
 
 .tablaEspecialistas
 {
-    left:30%;
+    left:29%;
+    top:20%;
     position: relative;
     border-collapse: collapse;
     width: 800px;
@@ -46,6 +67,31 @@ tr:nth-child(even){background-color: #000000;}
 tbody{
     background-color: rgb(233, 233, 233);
     border-radius: 80%;
+}
+
+.imagen{
+    width: 50px;
+    height: auto;
+}
+
+.botonAcceso{
+    background-color: rgb(185, 77, 77);
+    color: white;
+    border-width: 2px;
+    border-style: groove;
+    border-color: black;
+    border-radius: 5px;
+}
+
+.iconoExcel{
+    width: 50px;
+    height: auto;
+    margin-top:2%;
+}
+
+.iconoExcel:hover{
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 

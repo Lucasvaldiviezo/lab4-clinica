@@ -162,6 +162,17 @@ i {
     font-style: italic;
 }
 
+.checkImage{
+  position: relative;
+  left:187%;
+  width: 80px;
+  height: auto;
+}
+
+.checkContenedor{
+  text-align: center;
+}
+
 @media (max-width: 506px){
   body{
     padding: 0 10px;

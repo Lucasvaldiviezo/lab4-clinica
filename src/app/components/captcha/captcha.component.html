@@ -1,7 +1,7 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="captchaResult===false">
     <div class="captcha-area">
-      <div class="captcha-img">
-        <img src="/assets/captcha-bg.png" alt="Captch Background">
+      <div class="captcha-img" >
+        <img src="/assets/captcha-bg.png" alt="Captch Background" >
         <span class="captcha">{{captcha}}</span>
       </div>
       <button class="reload-btn" (click)="getCaptcha()" type="button"><i class="fas fa-redo-alt">RL</i></button>
@@ -11,4 +11,11 @@
     </form>
     <button type="button" class="btnVerificar"(click)="verificarCaptcha()">Verificar</button>
     <div class="status-text"></div>
+</div>
+
+<div class="wrapper" *ngIf="captchaResult===true">
+  <div class="captcha-area">
+    <div>
+      <img src="/assets/check.png" alt="Captch Background" class="checkImage" >
+    </div>
 </div>

@@ -50,6 +50,7 @@ export class NavbarComponent implements OnInit {
           if(this.userInfo.tipoUsuario == 'admin')
           {
             this.isAdmin = true;
+            console.log(this.isAdmin);
           }else if(this.userInfo.tipoUsuario == 'paciente'){
             this.isPaciente = true;
           }else{

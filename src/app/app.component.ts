@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
-import { timer } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
+import { fader } from './route-animations';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    fader,
+    //slider,
+    //transformer,
+    //stepper
+  ]
 })
 export class AppComponent {
   title = 'lab4-clinica';
@@ -24,5 +31,9 @@ export class AppComponent {
         this.cargarTerminada = true;
       }
     },1000)
+  }
+
+  prepareRoute(outlet:RouterOutlet){
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

@@ -15,7 +15,7 @@ body
 .logoContenedor{
     position: absolute;
     left:10%;
-    top:27.5%;
+    top:15.5%;
     background-color: rgba(23, 25, 138, 0.842);
     height: 15%;
     width: 30%;
@@ -34,7 +34,7 @@ body
 .contenedor{
     position: absolute;
     left:10%;
-    top:42.5%;
+    top:30.5%;
     background-color: rgba(255, 255, 255, 0.589);
     height: 35%;
     width: 45%;
@@ -66,7 +66,7 @@ body
 .contenedorImagen{
     position: absolute;
     right:5%;
-    top:20%;
+    top:9%;
     background-color: rgba(23, 25, 138, 0.842);
     border-color: rgb(221, 202, 202);
     border-width: 5px;

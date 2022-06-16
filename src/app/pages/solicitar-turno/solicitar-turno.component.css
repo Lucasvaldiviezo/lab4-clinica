@@ -16,7 +16,7 @@ body
 .tituloTexto{
     position: absolute;
     text-align: center;
-    top:10%;
+    top:3%;
 }
 
 .infoUsuarioSelec{
@@ -27,7 +27,7 @@ body
 
 .contenedorOpcionesAdmin{
     position: absolute;
-    top:18%;
+    top:10%;
     width: calc(30%);
     height: auto;
     text-align: center;

@@ -9,12 +9,12 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 
 const routes: Routes = [
   {path: '', redirectTo: '/bienvenido', pathMatch:'full'},
-  {path:'bienvenido', component:BienvenidoComponent},
+  {path:'bienvenido', component:BienvenidoComponent, data: { animation: 'isRight' } },
   {path:'login',component:LoginComponent},
   {path:'registro', loadChildren: () => import('./modules/registro/registro.module').then(m=>m.RegistroModule)},
   {path:'verifyEmail', component: VerifyEmailComponent},
   {path:'usuarios', component: UsuariosComponent},
-  {path:'solicitarTurno', component: SolicitarTurnoComponent},
+  {path:'solicitarTurno', component: SolicitarTurnoComponent, data: { animation: 'isLeft' }},
   {path:'misTurnos',  loadChildren: () => import('./modules/misTurnos/mis-turnos.module').then(m=>m.MisTurnosModule)},
   {path:'panelUsuario', loadChildren: () => import('./modules/panelUsuario/panel-usuario.module').then(m=>m.PanelUsuarioModule)},
   {path:'**', component:NotfoundComponent}

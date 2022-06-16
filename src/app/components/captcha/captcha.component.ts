@@ -37,6 +37,9 @@ export class CaptchaComponent implements OnInit {
   verificarCaptcha(){
     if(this.captcha == this.captchaParaVerificar){
       this.captchaResult = true;
+    }else{
+      this.captchaParaVerificar = "";
+      this.getCaptcha();
     }
     this.resultadoCaptcha.emit(this.captchaResult);
   }

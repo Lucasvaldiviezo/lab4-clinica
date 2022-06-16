@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExcelService } from 'src/app/services/excelService/excel.service';
 import { FirestoreService } from 'src/app/services/fireStoreService/firestore.service';
 
 @Component({
@@ -10,7 +11,8 @@ export class UsuariosComponent implements OnInit {
   listaUsuarios:any;
   listaPacientes:any = [];
   listaEspecialistas:any = [];
-  constructor(public fireStoreService:FirestoreService) {
+  listaDeExcel:any = [];
+  constructor(public fireStoreService:FirestoreService, public excelService:ExcelService) {
     this.fireStoreService.getCollectionWithId('Usuarios','usuarioId').subscribe(
       resp=>{
         this.listaUsuarios = resp;
@@ -39,5 +41,39 @@ export class UsuariosComponent implements OnInit {
     }else{
       this.fireStoreService.cambiarAcceso("Usuarios",especialista.usuarioId.toString(),false);
     }
+  }
+
+  cargarListaExcel(){
+    this.listaDeExcel=[];
+    let usuario;
+    for(let i=0;i<this.listaUsuarios.length;i++){
+      if(this.listaUsuarios[i].tipoUsuario == 'paciente'){
+        usuario ={
+          nombre: this.listaUsuarios[i].nombre,
+          apellido: this.listaUsuarios[i].apellido,
+          email: this.listaUsuarios[i].email,
+          edad: this.listaUsuarios[i].edad,
+          dni: this.listaUsuarios[i].dni,
+          tipoDeUsuario: this.listaUsuarios[i].tipoUsuario,
+          obraSocial: this.listaUsuarios[i].obraSocial,
+        }
+      }else if(this.listaUsuarios[i].tipoUsuario == 'especialista'){
+        usuario ={
+          nombre: this.listaUsuarios[i].nombre,
+          apellido: this.listaUsuarios[i].apellido,
+          email: this.listaUsuarios[i].email,
+          edad: this.listaUsuarios[i].edad,
+          dni: this.listaUsuarios[i].dni,
+          tipoDeUsuario: this.listaUsuarios[i].tipoUsuario,
+          especialidades: this.listaUsuarios[i].especialidades,
+        }
+      }
+      this.listaDeExcel.push(usuario);
+    }
+    console.log(this.listaDeExcel);
+  }
+  descargarExcel(){
+    this.cargarListaExcel();
+    this.excelService.descargarExcelUsuarios(this.listaDeExcel,'lista usuarios');
   }
 }
