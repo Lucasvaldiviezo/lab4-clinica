@@ -11,6 +11,7 @@ export class TurnoAdminComponent implements OnInit {
 
   listaTurnos:any;
   listaUsuarios:any;
+  listaTurnosFiltrada:any;
   userState = this.authService.getUserLogged();
   userLogged:any;
   userInfo:any;
@@ -18,6 +19,7 @@ export class TurnoAdminComponent implements OnInit {
   turnoElegido:any;
   comentarioDeAdmin:string = "";
   errorComentario:boolean = false;
+  buscador:string="";
   constructor(public fireStoreService:FirestoreService, public authService:AuthService) {
     this.listaTurnos = [];
     this.listaUsuarios = [];
@@ -52,6 +54,22 @@ export class TurnoAdminComponent implements OnInit {
         }
       }
     } 
+  }
+
+  buscarTurno(event:any){
+    this.listaTurnosFiltrada = [];
+    this.buscador= event.value;
+    if(this.buscador != ""){
+      this.buscador  = this.buscador[0].toUpperCase() + this.buscador.slice(1);
+    }
+    console.log(this.buscador);
+    for(let i=0;i<this.listaTurnos.length;i++){
+      if(this.listaTurnos[i].especialidad.includes(this.buscador) 
+      || this.listaTurnos[i].especialista.nombre.includes(this.buscador) 
+      || this.listaTurnos[i].especialista.apellido.includes(this.buscador)){
+          this.listaTurnosFiltrada.push(this.listaTurnos[i]);
+      }
+    }
   }
 
   abrirCancelacion(turno:any){

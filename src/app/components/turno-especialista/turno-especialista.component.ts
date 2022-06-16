@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { FirestoreService } from 'src/app/services/fireStoreService/firestore.service';
-;
+
 @Component({
-  selector: 'app-turnos-paciente',
-  templateUrl: './turnos-paciente.component.html',
-  styleUrls: ['./turnos-paciente.component.css']
+  selector: 'app-turno-especialista',
+  templateUrl: './turno-especialista.component.html',
+  styleUrls: ['./turno-especialista.component.css']
 })
-export class TurnosPacienteComponent implements OnInit {
+export class TurnoEspecialistaComponent implements OnInit {
 
   listaTurnos:any;
   listaTurnosUsuarioActual:any;
@@ -18,14 +18,10 @@ export class TurnosPacienteComponent implements OnInit {
   userInfo:any;
   ventanaComentario:boolean = false;
   accionElegida:string = "";
-  mostrarComentarioEspecialista:boolean=false;
+  mostrarComentarios:boolean = false;
   turnoElegido:any;
-  comentarioDePaciente:string = "";
-  comentarioEncuesta:string="";
+  comentarioDeEspecialista:string = "";
   errorComentario:boolean = false;
-  calificacionPaciente:number = 0;
-  mostrarCalificacion:boolean = false;
-  mostrarEncuesta:boolean = false;
   mostrarInfoCancelacion:boolean = false;
   buscador:string="";
   constructor(public fireStoreService:FirestoreService, public authService:AuthService) {
@@ -70,7 +66,7 @@ export class TurnosPacienteComponent implements OnInit {
   turnosUsuarioActual(){
     this.listaTurnosUsuarioActual = [];
     for(let i=0;i<this.listaTurnos.length;i++){
-      if(this.userInfo.email == this.listaTurnos[i].paciente.email){
+      if(this.userInfo.email == this.listaTurnos[i].especialista.email){
         this.listaTurnosUsuarioActual.push(this.listaTurnos[i]);
       }
     }
@@ -107,9 +103,9 @@ export class TurnosPacienteComponent implements OnInit {
   }
 
   cancelarTurno(){
-    if(this.comentarioDePaciente != ""){
+    if(this.comentarioDeEspecialista != ""){
       this.turnoElegido.estado = "cancelado";
-      this.turnoElegido.comentarioPaciente = this.comentarioDePaciente;
+      this.turnoElegido.comentarioPaciente = this.comentarioDeEspecialista;
       this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
       this.ventanaComentario = false;
     }else{
@@ -117,14 +113,10 @@ export class TurnosPacienteComponent implements OnInit {
     }
   }
 
-  obtenerValoracion(event:any){
-    this.calificacionPaciente = +event.value;
-  }
-
-  calificarTurno(){
-    if(this.comentarioDePaciente != "" && this.calificacionPaciente != 0){
-      this.turnoElegido.calificacion = this.calificacionPaciente;
-      this.turnoElegido.comentarioPaciente = this.comentarioDePaciente;
+  rechazarTurno(){
+    if(this.comentarioDeEspecialista != ""){
+      this.turnoElegido.estado = "rechazado";
+      this.turnoElegido.comentarioPaciente = this.comentarioDeEspecialista;
       this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
       this.ventanaComentario = false;
     }else{
@@ -132,52 +124,31 @@ export class TurnosPacienteComponent implements OnInit {
     }
   }
 
-  enviarEncuesta(){
-    if(this.comentarioEncuesta != "" && this.calificacionPaciente != 0 )
-    {
-      let encuesta = {
-        valoracion : this.calificacionPaciente,
-        comentario : this.comentarioEncuesta,
-        paciente: this.userInfo,
-        especialista: this.turnoElegido.especialista
-      }
-      this.fireStoreService.agregarEncuesta("Encuestas",encuesta);
-      this.cerrarEncuesta();
-    }else{
-      this.errorComentario = true;
-    }
+  aceptarTurno(){
+      this.turnoElegido.estado = "aceptado";
+      this.turnoElegido.comentarioPaciente = this.comentarioDeEspecialista;
+      this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
+      this.ventanaComentario = false;
   }
 
-  verCalificacionVentana(turno:any){
-    this.mostrarCalificacion = true;
+  finalizarTurno(){
+    this.turnoElegido.estado = "realizado";
+      this.turnoElegido.comentarioEspecialista = this.comentarioDeEspecialista;
+      this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
+      this.ventanaComentario = false;
+  }
+
+  abrirComentarios(turno:any){
     this.turnoElegido = turno;
+    this.mostrarComentarios = true;
   }
-
-  cerrarCalificacionVentana(){
-    this.mostrarCalificacion = false;
-  }
-
-
-  verComentarioEspecialista(turno:any){
-    this.mostrarComentarioEspecialista = true;
-    this.turnoElegido = turno;
-  }
-
-  cerrarComentarioEspecialista(){
-    this.mostrarComentarioEspecialista = false;
+  
+  cerrarComentarios(){
+    this.mostrarComentarios = false;
   }
 
   cerrarVentanaError(){
     this.errorComentario = false;
-  }
-
-  abrirEncuesta(turno:any){
-    this.mostrarEncuesta = true;
-    this.turnoElegido = turno;
-  }
-
-  cerrarEncuesta(){
-    this.mostrarEncuesta  = false;
   }
 
   cerrarInfoCancelacion(){

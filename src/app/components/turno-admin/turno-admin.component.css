@@ -16,6 +16,19 @@
     border-style: outset;
 }
 
+.buscador{
+    position: relative;
+    margin-top: 2%;
+    border-radius: 5px;
+    border-style: outset;
+    border-color: rgb(15, 32, 131);
+    border-width: 8px;
+    text-align: center;
+    width: 20%;
+    box-shadow: 2px 2px 6px black;
+}
+
+
 .tablaTurnos
 {
     position: relative;

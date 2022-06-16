@@ -53,6 +53,9 @@ export class FirestoreService {
   }
 
   actualizarTurno(coleccion:string,turno:any){
+    if(turno.hasOwnProperty('turnoId')){
+      delete turno.turnoId;
+    }
     this.firestore.collection(coleccion).doc(turno.turnoId).update(turno);
   }
 

@@ -1,0 +1,140 @@
+<div class="contenedor">
+        <input type="text" placeholder="Buscar por especialidad o especialista..." class="buscador" (input)="buscarTurno($event.target)">
+        <table class="tablaTurnos" *ngIf="buscador===''">
+            <thead class="tablaHead">
+                <tr>
+                    <th>Especialidad</th>
+                    <th>Especialista</th>
+                    <th>Paciente</th>
+                    <th>Dia</th>
+                    <th>Hora</th>
+                    <th>Estado</th>
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="tCuerpo" *ngFor="let turno of listaTurnos">
+                <tr>
+                    <td>{{turno.especialidad}}</td>
+                    <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
+                    <td>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</td>
+                    <td>{{turno.dia | date:'dd/MM'}}</td>
+                    <td>{{turno.horario}}</td>  
+                    <td>{{turno.estado | uppercase}}</td>
+                    <td *ngIf="turno.estado==='realizado'"> </td>
+                    <td *ngIf="turno.estado==='realizado'"><button class="botonVerReseña" (click)="abrirComentarios(turno)">Ver Reseña</button></td>
+                    <td *ngIf="turno.estado==='realizado'"> </td>
+                    <td *ngIf="turno.estado==='aceptado'"> </td>
+                    <td *ngIf="turno.estado==='aceptado'">
+                        <button class="botonFinalizarTurno" (click)="abrirVentanaComentario('finalizar',turno)">Finalizar Turno</button>
+                    </td>
+                    <td *ngIf="turno.estado==='aceptado'"> </td>
+                    <td *ngIf="turno.estado==='cancelado'"> </td>
+                    <td *ngIf="turno.estado==='cancelado'">
+                        <button class="botonVerCancelacion" (click)="abrirVentanaComentario('infoCancelacion',turno)">Ver Cancelacion</button>
+                    </td>
+                    <td *ngIf="turno.estado==='cancelado'"> </td>
+                    <td *ngIf="turno.comentarioEspecialista==='' && turno.estado === 'no realizado'">
+                        <button class="botonAceptarTurno" (click)="abrirVentanaComentario('aceptar',turno)">Aceptar Turno</button>
+                    </td>
+                    <td *ngIf="turno.estado==='no realizado'">
+                        <button class="botonCancelarTurno" (click)="abrirVentanaComentario('cancelar',turno)">Cancelar Turno</button>
+                    </td>
+                    <td *ngIf="turno.estado==='no realizado'">
+                        <button class="botonRechazarTurno" (click)="abrirVentanaComentario('rechazar',turno)">Rechazar Turno</button> 
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+        <table class="tablaTurnos" *ngIf="buscador!==''">
+            <thead class="tablaHead">
+                <tr>
+                    <th>Especialidad</th>
+                    <th>Especialista</th>
+                    <th>Paciente</th>
+                    <th>Dia</th>
+                    <th>Hora</th>
+                    <th>Estado</th>
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="tCuerpo" *ngFor="let turno of listaTurnosFiltrada">
+                <tr>
+                    <td>{{turno.especialidad}}</td>
+                    <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
+                    <td>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</td>
+                    <td>{{turno.dia | date:'dd/MM'}}</td>
+                    <td>{{turno.horario}}</td>  
+                    <td>{{turno.estado | uppercase}}</td>
+                    <td *ngIf="turno.estado==='realizado'"> </td>
+                    <td *ngIf="turno.estado==='realizado'"><button class="botonVerReseña" (click)="abrirComentarios(turno)">Ver Reseña</button></td>
+                    <td *ngIf="turno.estado==='realizado'"> </td>
+                    <td *ngIf="turno.estado==='aceptado'"> </td>
+                    <td *ngIf="turno.estado==='aceptado'">
+                        <button class="botonFinalizarTurno" (click)="abrirVentanaComentario('finalizar',turno)">Finalizar Turno</button>
+                    </td>
+                    <td *ngIf="turno.estado==='aceptado'"> </td>
+                    <td *ngIf="turno.estado==='cancelado'"> </td>
+                    <td *ngIf="turno.estado==='cancelado'">
+                        <button class="botonVerCancelacion" (click)="abrirVentanaComentario('infoCancelacion',turno)">Ver Cancelacion</button>
+                    </td>
+                    <td *ngIf="turno.estado==='cancelado'"> </td>
+                    <td *ngIf="turno.comentarioEspecialista==='' && turno.estado === 'no realizado'">
+                        <button class="botonAceptarTurno" (click)="abrirVentanaComentario('aceptar',turno)">Aceptar Turno</button>
+                    </td>
+                    <td *ngIf="turno.estado==='no realizado'">
+                        <button class="botonCancelarTurno" (click)="abrirVentanaComentario('cancelar',turno)">Cancelar Turno</button>
+                    </td>
+                    <td *ngIf="turno.estado==='no realizado'">
+                        <button class="botonRechazarTurno" (click)="abrirVentanaComentario('rechazar',turno)">Rechazar Turno</button> 
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+        <div class="contenedorComentarioPaciente" *ngIf="ventanaComentario">
+            <button class="botonCerrar" (click)="cerrarVentanaComentario()">X</button>
+            <h3 *ngIf="accionElegida=='cancelar'" class="tituloContenedor">Cancelar Turno:</h3>
+            <h3 *ngIf="accionElegida=='rechazar'" class="tituloContenedor">Rechazar Turno:</h3>
+            <h3 *ngIf="accionElegida=='aceptar'" class="tituloContenedor">Aceptar Turno:</h3>
+            <h3 *ngIf="accionElegida=='finalizar'" class="tituloContenedor">Finalizar Turno:</h3>
+            <label class="textoInfoCancelacion">Especialidad: {{turnoElegido.especialidad}}</label><br>
+            <label class="textoInfoCancelacion">Especialista: {{turnoElegido.especialista.nombre}} {{turnoElegido.especialista.apellido}}</label><br>
+            <label class="textoInfoCancelacion">Día: {{turnoElegido.dia | date:'dd/MM'}}</label><br>
+            <label class="textoInfoCancelacion">Hora: {{turnoElegido.horario}}</label><br>
+            <textarea type="text" class="comentarioText" 
+            placeholder="Deje un comentario..." [(ngModel)]="comentarioDeEspecialista" *ngIf="accionElegida!=='aceptar'"></textarea><br>
+            <button *ngIf="accionElegida==='cancelar'" class="botonConfirmacionCancelarTurno" (click)="cancelarTurno()">Cancelar Turno</button> 
+            <button *ngIf="accionElegida==='rechazar'" class="botonConfirmacionRechazarTurno" (click)="rechazarTurno()">Rechazar Turno</button> 
+            <button *ngIf="accionElegida==='aceptar'" class="botonConfirmacionAceptarTurno" (click)="aceptarTurno()">Aceptar Turno</button> 
+            <button *ngIf="accionElegida==='finalizar'" class="botonConfirmacionFinalizarTurno" (click)="finalizarTurno()">Finalizar Turno</button> 
+            <div *ngIf="errorComentario" class="errorComentario">
+                <label>Debe ingresar un comentario</label>
+                <button (click)="cerrarVentanaError()" class="botonOk">Ok</button>
+            </div>
+        </div>
+        <div class="contenedorComentarioEspecialista" *ngIf="mostrarComentarios">
+            <button class="botonCerrar" (click)="cerrarComentarios()">X</button>
+            <h1 class="tituloContenedor">Reseña</h1>
+            <div *ngIf="turnoElegido.comentarioEspecialista !==''">
+                <label class="textoInfoCancelacion">Diagnostico del Especialista:</label>
+                <textarea type="text" class="cancelacionText" disabled>{{turnoElegido.comentarioEspecialista}}</textarea>
+            </div>
+           
+            <div *ngIf="turnoElegido.comentarioPaciente !==''">
+                <label class="textoInfoCancelacion">Comentario del Paciente:</label>
+                <textarea type="text" class="cancelacionText" disabled>{{turnoElegido.comentarioPaciente}}</textarea>
+            </div>
+        </div>
+        <div class="contenedorInfoCancelacion"*ngIf="mostrarInfoCancelacion">
+            <button class="botonCerrar" (click)="cerrarInfoCancelacion()">X</button>
+            <h3 class="tituloContenedor">Informacion de Cancelacion:</h3>
+            <label *ngIf="turnoElegido.comentarioAdmin !== ''" class="textoInfoCancelacion">El Turno fue cancelado por el Hospital:</label><br>
+            <textarea type="text" class="cancelacionText" 
+            placeholder="Deje un comentario..." *ngIf="turnoElegido.comentarioAdmin !== ''" disabled>{{turnoElegido.comentarioAdmin}}</textarea><br>
+            <label *ngIf="turnoElegido.comentarioPaciente !== ''" class="textoInfoCancelacion">El Turno fue cancelado por el Paciente:</label><br>
+            <textarea type="text" class="cancelacionText" 
+            placeholder="Deje un comentario..."*ngIf="turnoElegido.comentarioPaciente!== ''" disabled>{{turnoElegido.comentarioPaciente}}</textarea><br>
+            <label *ngIf="turnoElegido.comentarioEspecialista !== ''" class="textoInfoCancelacion">El Turno fue cancelado por el Especialista:</label><br>
+            <textarea type="text" class="cancelacionText" 
+            placeholder="Deje un comentario..."*ngIf="turnoElegido.comentarioEspecialista !== ''" disabled>{{turnoElegido.comentarioEspecialista}}</textarea><br>
+        </div>
+</div>

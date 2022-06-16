@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   isLogged:boolean = false;
   isAdmin:boolean = false;
   isPaciente:boolean = false;
+  isEspecialista:boolean = false;
   listaUsuarios:any;
   constructor(public authService: AuthService, public fireStoreService:FirestoreService, public ruteo:Router) {
     this.userInfo = {
@@ -51,6 +52,8 @@ export class NavbarComponent implements OnInit {
             this.isAdmin = true;
           }else if(this.userInfo.tipoUsuario == 'paciente'){
             this.isPaciente = true;
+          }else{
+            this.isEspecialista = true
           }
           break;
         }

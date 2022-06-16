@@ -1,6 +1,34 @@
 
 <div class="contenedor">
-    <table class="tablaTurnos">
+    <input type="text" placeholder="Buscar por especialidad o especialista..." class="buscador" (input)="buscarTurno($event.target)">
+    <table class="tablaTurnos" *ngIf="buscador===''">
+        <thead class="tablaHead" >
+            <tr>
+                <th>Especialidad</th>
+                <th>Especialista</th>
+                <th>Paciente</th>
+                <th>Dia</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="tCuerpo" *ngFor="let turno of listaTurnos">
+            <tr>
+                <td>{{turno.especialidad}}</td>
+                <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
+                <td>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</td>
+                <td>{{turno.dia | date:'dd/MM'}}</td>
+                <td>{{turno.horario}}</td>  
+                <td>{{turno.estado | uppercase}}</td>  
+                <td *ngIf="turno.estado==='cancelado' || turno.estado==='realizado'">Sin acciones disponibles</td>
+                <td *ngIf="turno.estado==='no realizado'">
+                    <button class="botonCancelarTurno" (click)="abrirCancelacion(turno)">Cancelar turno</button>
+                </td>
+            </tr>  
+        </tbody>
+    </table>
+    <table class="tablaTurnos" *ngIf="buscador!==''">
         <thead class="tablaHead">
             <tr>
                 <th>Especialidad</th>
@@ -11,7 +39,7 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody class="tCuerpo" *ngFor="let turno of listaTurnos">
+        <tbody class="tCuerpo" *ngFor="let turno of listaTurnosFiltrada">
             <tr>
                 <td>{{turno.especialidad}}</td>
                 <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
@@ -25,6 +53,7 @@
             </tr>  
         </tbody>
     </table>
+   
     <div class="contenedorCancelacion" *ngIf="mostrarCancelacion">
         <button class="botonCerrar" (click)="cerrarCancelacion()">X</button>
         <h3 class="tituloContenedor">Cancelar Turno:</h3>
