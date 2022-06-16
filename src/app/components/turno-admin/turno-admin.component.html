@@ -1,0 +1,44 @@
+
+<div class="contenedor">
+    <table class="tablaTurnos">
+        <thead class="tablaHead">
+            <tr>
+                <th>Especialidad</th>
+                <th>Especialista</th>
+                <th>Dia</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="tCuerpo" *ngFor="let turno of listaTurnos">
+            <tr>
+                <td>{{turno.especialidad}}</td>
+                <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
+                <td>{{turno.dia | date:'dd/MM'}}</td>
+                <td>{{turno.horario}}</td>  
+                <td>{{turno.estado | uppercase}}</td>  
+                <td *ngIf="turno.estado==='cancelado' || turno.estado==='realizado'">Sin acciones disponibles</td>
+                <td *ngIf="turno.estado==='no realizado'">
+                    <button class="botonCancelarTurno" (click)="abrirCancelacion(turno)">Cancelar turno</button>
+                </td>
+            </tr>  
+        </tbody>
+    </table>
+    <div class="contenedorCancelacion" *ngIf="mostrarCancelacion">
+        <button class="botonCerrar" (click)="cerrarCancelacion()">X</button>
+        <h3 class="tituloContenedor">Cancelar Turno:</h3>
+        <label class="textoInfoCancelacion">Especialidad: {{turnoElegido.especialidad}}</label><br>
+        <label class="textoInfoCancelacion">Especialista: {{turnoElegido.especialista.nombre}} {{turnoElegido.especialista.apellido}}</label><br>
+        <label class="textoInfoCancelacion">Paciente: {{turnoElegido.paciente.nombre}} {{turnoElegido.paciente.apellido}}</label><br>
+        <label class="textoInfoCancelacion">Día: {{turnoElegido.dia | date:'dd/MM'}}</label><br>
+        <label class="textoInfoCancelacion">Hora: {{turnoElegido.horario}}</label><br>
+        <textarea type="text" class="comentarioText" 
+        placeholder="Deje un comentario..." [(ngModel)]="comentarioDeAdmin"></textarea><br>
+        <button  class="botonConfirmacionCancelarTurno" (click)="cancelarTurno()">Cancelar Turno</button>
+        <div *ngIf="errorComentario" class="errorComentario">
+            <label>Debe ingresar un comentario</label>
+            <button (click)="cerrarVentanaError()" class="botonOk">Ok</button>
+        </div>
+    </div>
+</div>

@@ -19,7 +19,6 @@ import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { CaptchaComponent } from './components/captcha/captcha.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

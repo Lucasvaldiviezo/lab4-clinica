@@ -19,19 +19,24 @@
                     <td>{{turno.horario}}</td>  
                     <td>{{turno.estado | uppercase}} </td>  
                     <td *ngIf="turno.comentarioEspecialista!==''"><button class="botonVerReseña" (click)="verComentarioEspecialista(turno)">Ver Reseña</button></td>
-                    <td *ngIf="turno.comentarioEspecialista==='' && turno.estado !== 'cancelado'">Sin reseña</td>
+                    <td *ngIf="turno.comentarioEspecialista==='' && turno.estado !== 'cancelado'"> </td>
                     <td *ngIf="turno.estado==='cancelado'"> </td>
-                    <td *ngIf="turno.estado==='cancelado'">Sin acciones disponibles</td>
+                    <td *ngIf="turno.estado==='cancelado'">
+                        <button class="botonVerCancelacion" (click)="abrirVentanaComentario('infoCancelacion',turno)">Ver Cancelacion</button>
+                    </td>
                     <td *ngIf="turno.estado==='cancelado'"> </td>
-                    <td *ngIf="turno.estado==='realizado' && turno.comentario!==''">
+                    <td *ngIf="turno.estado==='realizado' && turno.comentarioEspecialista!=='' && turno.calificacion === 0 && turno.comentarioPaciente === ''">
                         <button class="botonCalificar" (click)="abrirVentanaComentario('calificar',turno)">Calificar Atención</button>
                     </td>
-                    <td *ngIf="turno.estado==='no realizado'">No puede calificar</td>
+                    <td *ngIf="turno.estado==='realizado' && turno.comentarioEspecialista!=='' && turno.calificacion > 0 && turno.comentarioPaciente !== ''">
+                        <button class="botonCalificar" (click)="verCalificacionVentana(turno)">Ver calificacion</button>
+                    </td>
                     <td *ngIf="turno.estado==='no realizado'">
                         <button class="botonCancelarTurno" (click)="abrirVentanaComentario('cancelar',turno)">Cancelar turno</button>
                     </td>
+                    <td *ngIf="turno.estado==='no realizado'"> </td>
                     <td *ngIf="turno.estado==='realizado' && turno.comentarioEspecialista!==''">
-                        <button class="botonEncuesta">Encuesta</button>
+                        <button class="botonEncuesta" (click)="abrirEncuesta(turno)">Encuesta</button>
                     </td>
                 </tr>  
             </tbody>
@@ -44,7 +49,7 @@
         <div class="contenedorComentarioPaciente" *ngIf="ventanaComentario">
             <button class="botonCerrar" (click)="cerrarVentanaComentario()">X</button>
             <h3 *ngIf="accionElegida=='cancelar'" class="tituloContenedor">Cancelar Turno:</h3>
-            <h3 *ngIf="accionElegida=='calificar'" class="tituloContenedor">Calificar</h3>
+            <h3 *ngIf="accionElegida=='calificar'" class="tituloContenedor">Calificar:</h3>
             <label class="textoInfoCancelacion">Especialidad: {{turnoElegido.especialidad}}</label><br>
             <label class="textoInfoCancelacion">Especialista: {{turnoElegido.especialista.nombre}} {{turnoElegido.especialista.apellido}}</label><br>
             <label class="textoInfoCancelacion">Día: {{turnoElegido.dia | date:'dd/MM'}}</label><br>
@@ -57,13 +62,60 @@
                 <input type="radio" name="rating" value="1" id="1" (change)="obtenerValoracion($event.target)"><label for="1">☆</label>
             </div>
             <textarea type="text" class="comentarioText" 
-            placeholder="Deje un comentario..." [(ngModel)]="comentarioDePaciente">{{turnoElegido.comentarioEspecialista}}</textarea><br>
+            placeholder="Deje un comentario..." [(ngModel)]="comentarioDePaciente"></textarea><br>
             <button *ngIf="accionElegida==='cancelar'" class="botonConfirmacionCancelarTurno" (click)="cancelarTurno()">Cancelar Turno</button>
             <button *ngIf="accionElegida==='calificar'" class="botonConfirmacionValorar" (click)="calificarTurno()">Enviar</button>
             <div *ngIf="errorComentario" class="errorComentario">
                 <label>Debe ingresar un comentario</label>
                 <button (click)="cerrarVentanaError()" class="botonOk">Ok</button>
             </div>
+        </div>
+        <div *ngIf="mostrarCalificacion" class="contenedorComentarioPaciente">
+            <button class="botonCerrar" (click)="cerrarCalificacionVentana()">X</button>
+            <h3 class="tituloContenedor">Calificacion del Turno</h3>
+            <label class="textoInfoCancelacion">Especialidad: {{turnoElegido.especialidad}}</label><br>
+            <label class="textoInfoCancelacion">Especialista: {{turnoElegido.especialista.nombre}} {{turnoElegido.especialista.apellido}}</label><br>
+            <label class="textoInfoCancelacion">Día: {{turnoElegido.dia | date:'dd/MM'}}</label><br>
+            <label class="textoInfoCancelacion">Hora: {{turnoElegido.horario}}</label><br>
+            <label class="rating">☆{{turnoElegido.calificacion}}</label> 
+            <textarea type="text" class="comentarioText">{{turnoElegido.comentarioPaciente}}</textarea><br>
+            <div *ngIf="errorComentario" class="errorComentario">
+                <label>Debe ingresar un comentario</label>
+                <button (click)="cerrarVentanaError()" class="botonOk">Ok</button>
+            </div>
+        </div>
+        <div class="contenedorEncuesta" *ngIf="mostrarEncuesta">
+            <button class="botonCerrar" (click)="cerrarEncuesta()">X</button>
+            <h3 class="tituloContenedor">Encuesta</h3>
+            <label class="textoInfoCancelacion">¿Como calificaria nuestra atencion del 1 al 5?</label>
+            <div class="rating"> 
+                <input type="radio" name="rating" value="5" id="5" (change)="obtenerValoracion($event.target)"><label for="5">☆</label> 
+                <input type="radio" name="rating" value="4" id="4" (change)="obtenerValoracion($event.target)"><label for="4">☆</label> 
+                <input type="radio" name="rating" value="3" id="3" (change)="obtenerValoracion($event.target)"><label for="3">☆</label> 
+                <input type="radio" name="rating" value="2" id="2" (change)="obtenerValoracion($event.target)"><label for="2">☆</label> 
+                <input type="radio" name="rating" value="1" id="1" (change)="obtenerValoracion($event.target)"><label for="1">☆</label>
+            </div>
+            <label class="textoInfoCancelacion">Deje un comentario de que podriamos mejorar:</label>
+            <textarea type="text" class="comentarioText" 
+            placeholder="Deje un comentario..." [(ngModel)]="comentarioEncuesta"></textarea><br>
+            <button (click)="enviarEncuesta()" class="botonEnviarEncuesta">Enviar Encuesta</button>
+            <div *ngIf="errorComentario" class="errorComentario">
+                <label>Debe ingresar un comentario</label>
+                <button (click)="cerrarVentanaError()" class="botonOk">Ok</button>
+            </div>
+        </div>
+        <div class="contenedorInfoCancelacion"*ngIf="mostrarInfoCancelacion">
+            <button class="botonCerrar" (click)="cerrarInfoCancelacion()">X</button>
+            <h3 class="tituloContenedor">Informacion de Cancelacion:</h3>
+            <label *ngIf="turnoElegido.comentarioAdmin !== ''" class="textoInfoCancelacion">El Turno fue cancelado por el Hospital:</label><br>
+            <textarea type="text" class="cancelacionText" 
+            placeholder="Deje un comentario..." *ngIf="turnoElegido.comentarioAdmin !== ''" disabled>{{turnoElegido.comentarioAdmin}}</textarea><br>
+            <label *ngIf="turnoElegido.comentarioPaciente !== ''" class="textoInfoCancelacion">El Turno fue cancelado por el Paciente:</label><br>
+            <textarea type="text" class="cancelacionText" 
+            placeholder="Deje un comentario..."*ngIf="turnoElegido.comentarioPaciente!== ''" disabled>{{turnoElegido.comentarioPaciente}}</textarea><br>
+            <label *ngIf="turnoElegido.comentarioEspecialista !== ''" class="textoInfoCancelacion">El Turno fue cancelado por el Especialista:</label><br>
+            <textarea type="text" class="cancelacionText" 
+            placeholder="Deje un comentario..."*ngIf="turnoElegido.comentarioEspecialista !== ''" disabled>{{turnoElegido.comentarioEspecialista}}</textarea><br>
         </div>
     </div>
     

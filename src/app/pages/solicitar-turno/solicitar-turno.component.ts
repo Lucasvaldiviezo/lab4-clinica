@@ -195,6 +195,7 @@ export class SolicitarTurnoComponent implements OnInit {
       estado: "no realizado",
       comentarioPaciente: "",
       comentarioEspecialista: "",
+      comentarioAdmin: "",
       calificacion: 0
     }
     this.pacienteElegidoPorAdmin = undefined;

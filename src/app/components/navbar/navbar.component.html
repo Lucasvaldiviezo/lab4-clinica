@@ -6,7 +6,8 @@
         </a>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a routerLink="bienvenido" class="nav-link px-2 text-white">Inicio</a></li>
-          <li><a routerLink="misTurnos" class="nav-link px-2 text-white">Mis Turnos</a></li>
+          <li><a routerLink="misTurnos" class="nav-link px-2 text-white" *ngIf="isPaciente">Mis Turnos</a></li>
+          <li><a routerLink="misTurnos" class="nav-link px-2 text-white" *ngIf="isAdmin">Panel de Turnos</a></li>
           <li><a routerLink="solicitarTurno" class="nav-link px-2 text-white">Nuevo Turno</a></li>
         </ul>
         <a *ngIf="userState|async as user;else login_buttons">

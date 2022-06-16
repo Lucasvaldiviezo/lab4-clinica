@@ -56,4 +56,8 @@ export class FirestoreService {
     this.firestore.collection(coleccion).doc(turno.turnoId).update(turno);
   }
 
+  agregarEncuesta(coleccion:string,datos:any){
+    this.firestore.collection(coleccion).add(datos);
+  }
+
 }

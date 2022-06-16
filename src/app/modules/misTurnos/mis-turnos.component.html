@@ -1,8 +1,12 @@
 <body>
     <div *ngIf="userInfo" class="contenedorGeneral">
-        <h1 class="titulo">Mis turnos</h1>
+        <h1 class="titulo" *ngIf="userInfo.tipoUsuario === 'paciente'">Mis turnos</h1>
+        <h1 class="titulo" *ngIf="userInfo.tipoUsuario === 'admin'">Panel de turnos</h1>
         <div *ngIf="userInfo.tipoUsuario === 'paciente'" class="misTurnosPaciente">
             <app-turnos-paciente></app-turnos-paciente>
+        </div>
+        <div *ngIf="userInfo.tipoUsuario === 'admin'" class="misTurnosPaciente">
+            <app-turno-admin></app-turno-admin>
         </div>
     </div>
     

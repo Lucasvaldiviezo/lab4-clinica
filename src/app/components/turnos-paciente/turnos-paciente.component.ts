@@ -20,8 +20,12 @@ export class TurnosPacienteComponent implements OnInit {
   mostrarComentarioEspecialista:boolean=false;
   turnoElegido:any;
   comentarioDePaciente:string = "";
+  comentarioEncuesta:string="";
   errorComentario:boolean = false;
   calificacionPaciente:number = 0;
+  mostrarCalificacion:boolean = false;
+  mostrarEncuesta:boolean = false;
+  mostrarInfoCancelacion:boolean = false;
   constructor(public fireStoreService:FirestoreService, public authService:AuthService) {
     this.listaTurnos = [];
     this.listaTurnosUsuarioActual = [];
@@ -70,7 +74,11 @@ export class TurnosPacienteComponent implements OnInit {
   }
 
   abrirVentanaComentario(opcion:string,turno:any){
-    this.ventanaComentario = true;
+    if(opcion=='infoCancelacion'){
+      this.mostrarInfoCancelacion = true
+    }else{
+      this.ventanaComentario = true;
+    }
     this.accionElegida = opcion;
     this.turnoElegido = turno;
   }
@@ -91,7 +99,6 @@ export class TurnosPacienteComponent implements OnInit {
   }
 
   obtenerValoracion(event:any){
-    console.log(event.value);
     this.calificacionPaciente = +event.value;
   }
 
@@ -106,6 +113,31 @@ export class TurnosPacienteComponent implements OnInit {
     }
   }
 
+  enviarEncuesta(){
+    if(this.comentarioEncuesta != "" && this.calificacionPaciente != 0 )
+    {
+      let encuesta = {
+        valoracion : this.calificacionPaciente,
+        comentario : this.comentarioEncuesta,
+        paciente: this.userInfo,
+        especialista: this.turnoElegido.especialista
+      }
+      this.fireStoreService.agregarEncuesta("Encuestas",encuesta);
+      this.cerrarEncuesta();
+    }else{
+      this.errorComentario = true;
+    }
+  }
+
+  verCalificacionVentana(turno:any){
+    this.mostrarCalificacion = true;
+    this.turnoElegido = turno;
+  }
+
+  cerrarCalificacionVentana(){
+    this.mostrarCalificacion = false;
+  }
+
 
   verComentarioEspecialista(turno:any){
     this.mostrarComentarioEspecialista = true;
@@ -118,6 +150,19 @@ export class TurnosPacienteComponent implements OnInit {
 
   cerrarVentanaError(){
     this.errorComentario = false;
+  }
+
+  abrirEncuesta(turno:any){
+    this.mostrarEncuesta = true;
+    this.turnoElegido = turno;
+  }
+
+  cerrarEncuesta(){
+    this.mostrarEncuesta  = false;
+  }
+
+  cerrarInfoCancelacion(){
+    this.mostrarInfoCancelacion = false;
   }
 
 }
