@@ -1,0 +1,48 @@
+<div class="contenedor">
+    <form [formGroup]="formHistoriaClinica" (ngSubmit)="cargarHistoria()">
+        <div class="group">
+          <label for="altura" class="label">Email</label>
+          <input type="number" class="input" id="altura" placeholder="Ingrese Altura" formControlName="altura" step=".01">
+          <small class="invalid" 
+          *ngIf="formHistoriaClinica.controls['altura'].errors?.['required'] && formHistoriaClinica.controls['altura'].touched">
+          La altura es requerida
+          </small>
+        </div>
+        <div class="group">
+          <label for="peso" class="label">Peso</label>
+          <input type="number" class="input" id="peso" placeholder="Ingrese Peso" formControlName="peso" step=".01">
+          <small class="invalid" 
+          *ngIf="formHistoriaClinica.controls['peso'].errors?.['required'] && formHistoriaClinica.controls['peso'].touched">
+          El peso es requerido
+          </small>
+        </div>
+        <div class="group">
+          <label for="temperatura" class="label">Temperatura (Grados)</label>
+          <input type="number" class="input" id="temperatura" placeholder="Ingrese Temperatura" step=".01" formControlName="temperatura">
+          <small class="invalid" 
+          *ngIf="formHistoriaClinica.controls['temperatura'].errors?.['required'] && formHistoriaClinica.controls['temperatura'].touched">
+          La temperatura es requerida
+          </small>
+        </div>
+        <div class="group">
+          <label for="presion" class="label">Presion</label>
+          <input type="number" class="input" id="presion" placeholder="Ingrese Presion" step=".01" formControlName="presion">
+          <small class="invalid" 
+          *ngIf="formHistoriaClinica.controls['presion'].errors?.['required'] && formHistoriaClinica.controls['presion'].touched">
+          La presion es requerida
+          </small>
+        </div>
+        <div class="group">
+          <label for="presion" class="label">Ingrese datos que usted desee:</label>
+          <label>Dato 1:</label><input type="text" class="input" id="dato1" placeholder="Ingrese un Dato 1">
+          <label>Valor 1:</label><input type="text" class="input" id="valor1" placeholder="Ingrese un Valor 1">
+          <label>Dato 2:</label><input type="text" class="input" id="dato2" placeholder="Ingrese un Dato 2">
+          <label>Valor 2:</label><input type="text" class="input" id="valor2" placeholder="Ingrese un Valor 2">
+          <label>Dato 3:</label><input type="text" class="input" id="dato3" placeholder="Ingrese un Dato 3">
+          <label>Valor 3:</label><input type="text" class="input" id="valor3" placeholder="Ingrese un Valor 3">
+        </div>
+        <div class="group">
+          <input type="submit" class="btnIngresar" value="Ingresar" [disabled]="formHistoriaClinica.invalid">
+        </div>
+    </form>
+</div>

@@ -62,11 +62,20 @@ export class TurnoAdminComponent implements OnInit {
     if(this.buscador != ""){
       this.buscador  = this.buscador[0].toUpperCase() + this.buscador.slice(1);
     }
-    console.log(this.buscador);
     for(let i=0;i<this.listaTurnos.length;i++){
       if(this.listaTurnos[i].especialidad.includes(this.buscador) 
       || this.listaTurnos[i].especialista.nombre.includes(this.buscador) 
-      || this.listaTurnos[i].especialista.apellido.includes(this.buscador)){
+      || this.listaTurnos[i].especialista.apellido.includes(this.buscador)
+      || this.listaTurnos[i].paciente.apellido.includes(this.buscador)
+      || this.listaTurnos[i].paciente.nombre.includes(this.buscador)
+      || this.listaTurnos[i].paciente.edad.includes(this.buscador)
+      || this.listaTurnos[i].especialista.edad.includes(this.buscador)
+      || this.listaTurnos[i].paciente.dni.includes(this.buscador)
+      || this.listaTurnos[i].especialista.dni.includes(this.buscador)
+      || this.listaTurnos[i].estado.includes(this.buscador.toLocaleLowerCase())
+      || this.listaTurnos[i].horario.includes(this.buscador)
+      || this.listaTurnos[i].dia.includes(this.buscador)){
+        console.log(this.listaTurnos[i].estado);
           this.listaTurnosFiltrada.push(this.listaTurnos[i]);
       }
     }

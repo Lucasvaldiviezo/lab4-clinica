@@ -83,8 +83,9 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   cargarDias(){
-    let fechaHoy = new Date();
+    let fechaHoy;
     for(let i = 0; i<15;i++){
+      fechaHoy = new Date();
       this.listaDeDias.push(fechaHoy.setDate(fechaHoy.getDate()+i));
     }
   }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { timeStamp } from 'console';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { FirestoreService } from 'src/app/services/fireStoreService/firestore.service';
 import { StorageService } from 'src/app/services/storageService/storage.service';
