@@ -1,48 +1,52 @@
 <div class="contenedor">
     <form [formGroup]="formHistoriaClinica" (ngSubmit)="cargarHistoria()">
-        <div class="group">
-          <label for="altura" class="label">Email</label>
+        <div>
+          <label for="altura" class="label">Altura:</label><br>
           <input type="number" class="input" id="altura" placeholder="Ingrese Altura" formControlName="altura" step=".01">
           <small class="invalid" 
-          *ngIf="formHistoriaClinica.controls['altura'].errors?.['required'] && formHistoriaClinica.controls['altura'].touched">
+          *ngIf="formHistoriaClinica.controls['altura'].errors?.['required'] && formHistoriaClinica.controls['altura'].touched"><br>
           La altura es requerida
           </small>
         </div>
-        <div class="group">
-          <label for="peso" class="label">Peso</label>
+        <div>
+          <label for="peso" class="label">Peso:</label><br>
           <input type="number" class="input" id="peso" placeholder="Ingrese Peso" formControlName="peso" step=".01">
           <small class="invalid" 
-          *ngIf="formHistoriaClinica.controls['peso'].errors?.['required'] && formHistoriaClinica.controls['peso'].touched">
+          *ngIf="formHistoriaClinica.controls['peso'].errors?.['required'] && formHistoriaClinica.controls['peso'].touched"><br>
           El peso es requerido
           </small>
         </div>
-        <div class="group">
-          <label for="temperatura" class="label">Temperatura (Grados)</label>
+        <div>
+          <label for="temperatura" class="label">Temperatura:</label><br>
           <input type="number" class="input" id="temperatura" placeholder="Ingrese Temperatura" step=".01" formControlName="temperatura">
           <small class="invalid" 
-          *ngIf="formHistoriaClinica.controls['temperatura'].errors?.['required'] && formHistoriaClinica.controls['temperatura'].touched">
+          *ngIf="formHistoriaClinica.controls['temperatura'].errors?.['required'] && formHistoriaClinica.controls['temperatura'].touched"><br>
           La temperatura es requerida
           </small>
         </div>
-        <div class="group">
-          <label for="presion" class="label">Presion</label>
+        <div>
+          <label for="presion" class="label">Presion</label><br>
           <input type="number" class="input" id="presion" placeholder="Ingrese Presion" step=".01" formControlName="presion">
           <small class="invalid" 
-          *ngIf="formHistoriaClinica.controls['presion'].errors?.['required'] && formHistoriaClinica.controls['presion'].touched">
+          *ngIf="formHistoriaClinica.controls['presion'].errors?.['required'] && formHistoriaClinica.controls['presion'].touched"><br>
           La presion es requerida
           </small>
+        </div><br>
+        <div class="group">
+          <label for="presion" class="label">Ingrese datos que usted desee:</label><br>
+          <label>Dato y Valor 1: </label><input type="text" class="input" id="dato1" placeholder="Ingrese Dato 1" [(ngModel)]="datoDinamico1" [ngModelOptions]="{standalone: true}">
+          <input type="text" class="input" id="valor1" placeholder="Ingrese Valor 1" [(ngModel)]="valorDinamico1" [ngModelOptions]="{standalone: true}"><br>
+          <label>Dato y Valor 2: </label><input type="text" class="input" id="dato2" placeholder="Ingrese Dato 2" [(ngModel)]="datoDinamico2" [ngModelOptions]="{standalone: true}">
+          <input type="text" class="input" id="valor2" placeholder="Ingrese Valor 2" [(ngModel)]="valorDinamico2" [ngModelOptions]="{standalone: true}"><br>
+          <label>Dato y Valor 3: </label><input type="text" class="input" id="dato3" placeholder="Ingrese Dato 3" [(ngModel)]="datoDinamico3" [ngModelOptions]="{standalone: true}">
+          <input type="text" class="input" id="valor3" placeholder="Ingrese Valor 3" [(ngModel)]="valorDinamico3"[ngModelOptions]="{standalone: true}"><br>
         </div>
         <div class="group">
-          <label for="presion" class="label">Ingrese datos que usted desee:</label>
-          <label>Dato 1:</label><input type="text" class="input" id="dato1" placeholder="Ingrese un Dato 1">
-          <label>Valor 1:</label><input type="text" class="input" id="valor1" placeholder="Ingrese un Valor 1">
-          <label>Dato 2:</label><input type="text" class="input" id="dato2" placeholder="Ingrese un Dato 2">
-          <label>Valor 2:</label><input type="text" class="input" id="valor2" placeholder="Ingrese un Valor 2">
-          <label>Dato 3:</label><input type="text" class="input" id="dato3" placeholder="Ingrese un Dato 3">
-          <label>Valor 3:</label><input type="text" class="input" id="valor3" placeholder="Ingrese un Valor 3">
-        </div>
-        <div class="group">
-          <input type="submit" class="btnIngresar" value="Ingresar" [disabled]="formHistoriaClinica.invalid">
+          <input type="submit" class="btnAgregar" value="Agregar" [disabled]="formHistoriaClinica.invalid">
         </div>
     </form>
+    <div *ngIf="mostrarError" class="errorComentario">
+      <label>Debe ingresar los 3 datos</label><br>
+      <button (click)="cerrarError()" class="botonOk">Ok</button>
+    </div>
 </div>

@@ -1,0 +1,70 @@
+.contenedor{
+    position: absolute;
+    background-color: rgb(27, 26, 26);
+    color: white;
+    width: 50%;
+    height: auto;
+    z-index: 2;
+    text-align: center;
+    left:25%;
+    top:5%;
+    border-color: rgb(255, 0, 0);
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 2px 2px 50px black;
+}
+
+input[type=text]{
+    width: 30%;
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin:10px;
+}
+
+input[type=number]{
+    width: 30%;
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin:10px;
+}
+
+.invalid{
+    color: red;
+}
+
+.btnAgregar{
+    position: relative;
+    background-color: rgb(211, 77, 77);
+    padding: 10px 10px;
+    width: 100px;
+    margin: 10px;
+    left:1%;
+}
+
+.errorComentario{
+    padding: 10px 10px;
+    position: absolute;
+    top:35%;
+    left:30%;
+    background-color: rgb(163, 107, 107);
+    color: rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 5px;
+    border-color: red;
+    text-align: center;
+    z-index: 2;
+    width: calc(40%);
+    height: auto;
+    box-shadow: 2px 2px 10px black;
+}
+
+.botonOk{
+    padding: 10px 10px;
+    font-size: 14px;
+    color: white;
+    background-color: red;
+    margin:5%;
+    z-index: 3;
+}
+
+

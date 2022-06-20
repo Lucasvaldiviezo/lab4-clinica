@@ -90,6 +90,9 @@
                 </tr>  
             </tbody>
         </table>
+        <div *ngIf="mostrarFormHistoriaClinica">
+            <app-historia-clinica [turnoActual]="turnoElegido" (cerrarVentana)="cerrarVentanaHistoriaClinica($event)"></app-historia-clinica>
+        </div>
         <div class="contenedorComentarioPaciente" *ngIf="ventanaComentario">
             <button class="botonCerrar" (click)="cerrarVentanaComentario()">X</button>
             <h3 *ngIf="accionElegida=='cancelar'" class="tituloContenedor">Cancelar Turno:</h3>
@@ -101,7 +104,7 @@
             <label class="textoInfoCancelacion">Día: {{turnoElegido.dia | date:'dd/MM'}}</label><br>
             <label class="textoInfoCancelacion">Hora: {{turnoElegido.horario}}</label><br>
             <textarea type="text" class="comentarioText" 
-            placeholder="Deje un comentario..." [(ngModel)]="comentarioDeEspecialista" *ngIf="accionElegida!=='aceptar'"></textarea><br>
+            placeholder="Deje un comentario..." [(ngModel)]="comentario" *ngIf="accionElegida!=='aceptar'"></textarea><br>
             <button *ngIf="accionElegida==='cancelar'" class="botonConfirmacionCancelarTurno" (click)="cancelarTurno()">Cancelar Turno</button> 
             <button *ngIf="accionElegida==='rechazar'" class="botonConfirmacionRechazarTurno" (click)="rechazarTurno()">Rechazar Turno</button> 
             <button *ngIf="accionElegida==='aceptar'" class="botonConfirmacionAceptarTurno" (click)="aceptarTurno()">Aceptar Turno</button> 
@@ -111,6 +114,7 @@
                 <button (click)="cerrarVentanaError()" class="botonOk">Ok</button>
             </div>
         </div>
+        
         <div class="contenedorComentarioEspecialista" *ngIf="mostrarComentarios">
             <button class="botonCerrar" (click)="cerrarComentarios()">X</button>
             <h1 class="tituloContenedor">Reseña</h1>

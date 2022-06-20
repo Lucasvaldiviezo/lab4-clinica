@@ -20,10 +20,11 @@ export class TurnoEspecialistaComponent implements OnInit {
   accionElegida:string = "";
   mostrarComentarios:boolean = false;
   turnoElegido:any;
-  comentarioDeEspecialista:string = "";
+  comentario:string = "";
   errorComentario:boolean = false;
   mostrarInfoCancelacion:boolean = false;
   buscador:string="";
+  mostrarFormHistoriaClinica:boolean = false;
   constructor(public fireStoreService:FirestoreService, public authService:AuthService) {
     this.listaTurnos = [];
     this.listaTurnosUsuarioActual = [];
@@ -92,13 +93,16 @@ export class TurnoEspecialistaComponent implements OnInit {
   }
 
   abrirVentanaComentario(opcion:string,turno:any){
-    if(opcion=='infoCancelacion'){
-      this.mostrarInfoCancelacion = true
-    }else{
-      this.ventanaComentario = true;
-    }
     this.accionElegida = opcion;
     this.turnoElegido = turno;
+    if(opcion=='infoCancelacion'){
+      this.mostrarInfoCancelacion = true
+    }else if(opcion =='finalizar'){
+      this.mostrarFormHistoriaClinica = true;
+    }
+    else{
+      this.ventanaComentario = true;
+    }
   }
 
   cerrarVentanaComentario(){
@@ -106,9 +110,9 @@ export class TurnoEspecialistaComponent implements OnInit {
   }
 
   cancelarTurno(){
-    if(this.comentarioDeEspecialista != ""){
+    if(this.comentario != ""){
       this.turnoElegido.estado = "cancelado";
-      this.turnoElegido.comentarioPaciente = this.comentarioDeEspecialista;
+      this.turnoElegido.comentarioEspecialista = this.comentario;
       this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
       this.ventanaComentario = false;
     }else{
@@ -117,9 +121,9 @@ export class TurnoEspecialistaComponent implements OnInit {
   }
 
   rechazarTurno(){
-    if(this.comentarioDeEspecialista != ""){
+    if(this.comentario != ""){
       this.turnoElegido.estado = "rechazado";
-      this.turnoElegido.comentarioPaciente = this.comentarioDeEspecialista;
+      this.turnoElegido.comentarioEspecialista = this.comentario;
       this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
       this.ventanaComentario = false;
     }else{
@@ -129,16 +133,15 @@ export class TurnoEspecialistaComponent implements OnInit {
 
   aceptarTurno(){
       this.turnoElegido.estado = "aceptado";
-      this.turnoElegido.comentarioPaciente = this.comentarioDeEspecialista;
       this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
       this.ventanaComentario = false;
   }
 
   finalizarTurno(){
     this.turnoElegido.estado = "realizado";
-      this.turnoElegido.comentarioEspecialista = this.comentarioDeEspecialista;
-      this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
-      this.ventanaComentario = false;
+    this.turnoElegido.comentarioEspecialista = this.comentario;
+    this.fireStoreService.actualizarTurno("Turnos",this.turnoElegido);
+    this.ventanaComentario = false;
   }
 
   abrirComentarios(turno:any){
@@ -156,6 +159,13 @@ export class TurnoEspecialistaComponent implements OnInit {
 
   cerrarInfoCancelacion(){
     this.mostrarInfoCancelacion = false;
+  }
+
+  cerrarVentanaHistoriaClinica(valor:any){
+    if(valor==false){
+      this.mostrarFormHistoriaClinica = false;
+      this.ventanaComentario = true;
+    }
   }
 
 }

@@ -53,13 +53,18 @@ export class FirestoreService {
   }
 
   actualizarTurno(coleccion:string,turno:any){
+    let id:any = turno.turnoId;
     if(turno.hasOwnProperty('turnoId')){
       delete turno.turnoId;
     }
-    this.firestore.collection(coleccion).doc(turno.turnoId).update(turno);
+    this.firestore.collection(coleccion).doc(id).update(turno);
   }
 
   agregarEncuesta(coleccion:string,datos:any){
+    this.firestore.collection(coleccion).add(datos);
+  }
+
+  agregarHistoriaClinica(coleccion:string,datos:any){
     this.firestore.collection(coleccion).add(datos);
   }
 

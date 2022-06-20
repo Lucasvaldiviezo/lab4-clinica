@@ -19,7 +19,6 @@ import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { CaptchaComponent } from './components/captcha/captcha.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { HistoriaClinicaComponent } from './components/historia-clinica/historia
     UsuariosComponent,
     SolicitarTurnoComponent,
     CaptchaComponent,
-    HistoriaClinicaComponent,
   ],
   imports: [
     BrowserModule,

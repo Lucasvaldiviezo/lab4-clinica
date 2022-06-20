@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MisTurnosRoutingModule } from './mis-turnos-routing.module';
 import { MisTurnosComponent } from './mis-turnos.component';
 import { TurnosPacienteComponent } from 'src/app/components/turnos-paciente/turnos-paciente.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TurnoAdminComponent } from 'src/app/components/turno-admin/turno-admin.component';
 import { TurnoEspecialistaComponent } from 'src/app/components/turno-especialista/turno-especialista.component';
+import { HistoriaClinicaComponent } from 'src/app/components/historia-clinica/historia-clinica.component';
 
 
 @NgModule({
@@ -13,12 +14,14 @@ import { TurnoEspecialistaComponent } from 'src/app/components/turno-especialist
     MisTurnosComponent,
     TurnosPacienteComponent,
     TurnoAdminComponent,
-    TurnoEspecialistaComponent
+    TurnoEspecialistaComponent,
+    HistoriaClinicaComponent
   ],
   imports: [
     CommonModule,
     MisTurnosRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MisTurnosModule { }
