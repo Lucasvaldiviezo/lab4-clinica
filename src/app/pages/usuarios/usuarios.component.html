@@ -11,7 +11,8 @@
                     <th>DNI</th>
                     <th>Edad</th>
                     <th>Obra Social</th>
-                    <th>Imagenes</th>
+                    <th class="tdImagenes">Imagenes</th>
+                    <th>Ver Turnos</th>
                 </tr>
             </thead>
             <tbody class="tCuerpo" *ngFor="let paciente of listaPacientes">
@@ -23,6 +24,7 @@
                     <td>{{paciente.edad}}</td>
                     <td>{{paciente.obraSocial}}</td>
                     <td><img src="{{paciente.imagen1}}" class="imagen me-2"> <img src="{{paciente.imagen2}}" class="imagen"></td>
+                    <td><button class="botonMas" (click)="cargarTurnosDelPaciente(paciente)">i</button></td>
                 </tr>  
             </tbody>
         </table>

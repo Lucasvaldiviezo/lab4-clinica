@@ -13,6 +13,7 @@ export class TurnoEspecialistaComponent implements OnInit {
   listaTurnosUsuarioActual:any;
   listaTurnosFiltrada:any;
   listaUsuarios:any;
+  listaUsuariosAtendidos:any;
   userState = this.authService.getUserLogged();
   userLogged:any;
   userInfo:any;
@@ -25,17 +26,20 @@ export class TurnoEspecialistaComponent implements OnInit {
   mostrarInfoCancelacion:boolean = false;
   buscador:string="";
   mostrarFormHistoriaClinica:boolean = false;
+  mostrarListaUsuarios:boolean = false;
   constructor(public fireStoreService:FirestoreService, public authService:AuthService) {
     this.listaTurnos = [];
     this.listaTurnosUsuarioActual = [];
     this.listaUsuarios = [];
     this.listaTurnosFiltrada = [];
+    this.listaUsuariosAtendidos = [];
     this.userState.subscribe((usuario:any)=>{
       this.userLogged = usuario;
       this.fireStoreService.getCollection('Usuarios').subscribe(
         resp=>{
           this.listaUsuarios = resp;
           this.llenarDatos();
+          
           this.fireStoreService.getCollectionWithId('Turnos','turnoId').subscribe(
             resp=>{
               this.listaTurnos = resp;
@@ -64,6 +68,8 @@ export class TurnoEspecialistaComponent implements OnInit {
     } 
   }
 
+  
+
   turnosUsuarioActual(){
     this.listaTurnosUsuarioActual = [];
     for(let i=0;i<this.listaTurnos.length;i++){
@@ -71,22 +77,61 @@ export class TurnoEspecialistaComponent implements OnInit {
         this.listaTurnosUsuarioActual.push(this.listaTurnos[i]);
       }
     }
+    this.llenarUsuarioAtendidos();
+  }
+
+  llenarUsuarioAtendidos(){
+    let pacienteActual;
+    let isFound = false;
+    this.listaUsuariosAtendidos = [];
+    let indiceUsuario = 0;
+    for(let i=0;i<this.listaTurnosUsuarioActual.length;i++){
+      pacienteActual = this.listaTurnosUsuarioActual[i].paciente;
+      if(this.listaUsuariosAtendidos.length > 0){
+        for(let j=0;j<this.listaUsuariosAtendidos.length;j++){
+          if(pacienteActual.dni == this.listaUsuariosAtendidos[j].dni){
+            indiceUsuario = j;
+            isFound = true;
+            break;
+          }
+        }
+      }
+      if(isFound){
+        isFound = false;
+        this.listaUsuariosAtendidos[indiceUsuario].vecesAtendido++;
+      }else{
+        pacienteActual.vecesAtendido = 1;
+        console.log(pacienteActual);
+        this.listaUsuariosAtendidos.push(pacienteActual);
+      }
+    }
+  }
+
+  turnoPacienteElegido(paciente:any){
+    this.buscador = paciente.dni;
+    this.buscador  = this.buscador[0].toUpperCase() + this.buscador.slice(1);
+    this.cargarListaFiltrada(this.buscador);
+    this.mostrarListaUsuarios = false;
   }
 
   buscarTurno(event:any){
-    this.listaTurnosFiltrada = [];
     this.buscador= event.value;
     if(this.buscador != ""){
       this.buscador  = this.buscador[0].toUpperCase() + this.buscador.slice(1);
     }
+    this.cargarListaFiltrada(this.buscador);
+  }
+
+  cargarListaFiltrada(datoBuscador:string){
+    this.listaTurnosFiltrada = [];
     for(let i=0;i<this.listaTurnos.length;i++){
-      if(this.listaTurnos[i].paciente.apellido.includes(this.buscador)
-      || this.listaTurnos[i].paciente.nombre.includes(this.buscador)
-      || this.listaTurnos[i].paciente.edad.includes(this.buscador)
-      || this.listaTurnos[i].paciente.dni.includes(this.buscador)
-      || this.listaTurnos[i].estado.includes(this.buscador.toLocaleLowerCase())
-      || this.listaTurnos[i].horario.includes(this.buscador)
-      || this.listaTurnos[i].dia.includes(this.buscador)){
+      if(this.listaTurnos[i].paciente.apellido.includes(datoBuscador)
+      || this.listaTurnos[i].paciente.nombre.includes(datoBuscador)
+      || this.listaTurnos[i].paciente.edad.includes(datoBuscador)
+      || this.listaTurnos[i].paciente.dni.includes(datoBuscador)
+      || this.listaTurnos[i].estado.includes(datoBuscador.toLocaleLowerCase())
+      || this.listaTurnos[i].horario.includes(datoBuscador)
+      || this.listaTurnos[i].dia.includes(datoBuscador)){
           this.listaTurnosFiltrada.push(this.listaTurnos[i]);
       }
     }
@@ -165,6 +210,15 @@ export class TurnoEspecialistaComponent implements OnInit {
     if(valor==false){
       this.mostrarFormHistoriaClinica = false;
       this.ventanaComentario = true;
+    }
+  }
+
+  cambiarLista(){
+    if(this.mostrarListaUsuarios == false){
+      this.mostrarListaUsuarios = true;
+    }else
+    {
+      this.mostrarListaUsuarios = false
     }
   }
 

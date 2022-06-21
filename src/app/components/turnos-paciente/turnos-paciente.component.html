@@ -121,7 +121,7 @@
             <label class="textoInfoCancelacion">Día: {{turnoElegido.dia | date:'dd/MM'}}</label><br>
             <label class="textoInfoCancelacion">Hora: {{turnoElegido.horario}}</label><br>
             <label class="rating">☆{{turnoElegido.calificacion}}</label> 
-            <textarea type="text" class="cancelacionText">{{turnoElegido.comentarioPaciente}}</textarea><br>
+            <textarea type="text" class="cancelacionText" disabled>{{turnoElegido.comentarioPaciente}}</textarea><br>
             <div *ngIf="errorComentario" class="errorComentario">
                 <label>Debe ingresar un comentario</label>
                 <button (click)="cerrarVentanaError()" class="botonOk">Ok</button>

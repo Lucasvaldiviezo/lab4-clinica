@@ -15,6 +15,7 @@
     border-style: outset;
 }
 
+
 .buscador{
     position: relative;
     margin-top: 2%;
@@ -25,6 +26,52 @@
     text-align: center;
     width: 20%;
     box-shadow: 2px 2px 6px black;
+}
+
+.cambioListas{
+    position: relative;
+    left:20.8%;
+    border-radius: 10px;
+}
+
+.cambioListas:hover{
+    transform: scale(1.1);
+    background-color: gray;
+}
+
+.imagenBoton{
+    width: 50px;
+    height: auto;
+}
+
+.contListasTurnos{
+    width: 100%;
+    height: auto;
+}
+
+.botonMas{
+    border-radius: 50%;
+    width: 35px;
+    height: auto;
+    padding: 5px 5px;
+    text-align: center;
+    background-color: rgb(189, 65, 65);
+    color: white;
+    border-width: 2px;
+    border-color: white;
+    border-style: solid;
+}
+
+.botonMas:hover{
+    background-color: rgb(104, 12, 12);
+}
+
+.contenedorTurnosPaciente{
+    position: relative;
+    width: 60%;
+    height: auto;
+    background-color: white;
+    z-index: 2;
 }
 
 .tablaTurnos

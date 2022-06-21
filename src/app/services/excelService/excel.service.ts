@@ -24,5 +24,20 @@ export class ExcelService {
     };
     new ngxCsv(datos, nombreArchivo,this.options);
   }
+
+  descargarExcelTurnos(datos:any,nombreArchivo:string){
+    this.options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: nombreArchivo,
+      useBom: true,
+      noDownload: false,
+      headers: ["Especialista", "Dia", "Horario","Especialidad"]
+    };
+    new ngxCsv(datos, nombreArchivo,this.options);
+  }
   
 }

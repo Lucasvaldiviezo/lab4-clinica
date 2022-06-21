@@ -1,95 +1,127 @@
 <div class="contenedor">
-        <input type="text" placeholder="Buscar por especialidad o especialista..." class="buscador" (input)="buscarTurno($event.target)">
-        <table class="tablaTurnos" *ngIf="buscador===''">
-            <thead class="tablaHead">
-                <tr>
-                    <th>Especialidad</th>
-                    <th>Especialista</th>
-                    <th>Paciente</th>
-                    <th>Dia</th>
-                    <th>Hora</th>
-                    <th>Estado</th>
-                    <th colspan="3">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="tCuerpo" *ngFor="let turno of listaTurnos">
-                <tr>
-                    <td>{{turno.especialidad}}</td>
-                    <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
-                    <td>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</td>
-                    <td>{{turno.dia | date:'dd/MM'}}</td>
-                    <td>{{turno.horario}}</td>  
-                    <td>{{turno.estado | uppercase}}</td>
-                    <td *ngIf="turno.estado==='realizado'"> </td>
-                    <td *ngIf="turno.estado==='realizado'"><button class="botonVerReseña" (click)="abrirComentarios(turno)">Ver Reseña</button></td>
-                    <td *ngIf="turno.estado==='realizado'"> </td>
-                    <td *ngIf="turno.estado==='aceptado'"> </td>
-                    <td *ngIf="turno.estado==='aceptado'">
-                        <button class="botonFinalizarTurno" (click)="abrirVentanaComentario('finalizar',turno)">Finalizar Turno</button>
-                    </td>
-                    <td *ngIf="turno.estado==='aceptado'"> </td>
-                    <td *ngIf="turno.estado==='cancelado'"> </td>
-                    <td *ngIf="turno.estado==='cancelado'">
-                        <button class="botonVerCancelacion" (click)="abrirVentanaComentario('infoCancelacion',turno)">Ver Cancelacion</button>
-                    </td>
-                    <td *ngIf="turno.estado==='cancelado'"> </td>
-                    <td *ngIf="turno.comentarioEspecialista==='' && turno.estado === 'no realizado'">
-                        <button class="botonAceptarTurno" (click)="abrirVentanaComentario('aceptar',turno)">Aceptar Turno</button>
-                    </td>
-                    <td *ngIf="turno.estado==='no realizado'">
-                        <button class="botonCancelarTurno" (click)="abrirVentanaComentario('cancelar',turno)">Cancelar Turno</button>
-                    </td>
-                    <td *ngIf="turno.estado==='no realizado'">
-                        <button class="botonRechazarTurno" (click)="abrirVentanaComentario('rechazar',turno)">Rechazar Turno</button> 
-                    </td>
-                </tr>  
-            </tbody>
-        </table>
-        <table class="tablaTurnos" *ngIf="buscador!==''">
-            <thead class="tablaHead">
-                <tr>
-                    <th>Especialidad</th>
-                    <th>Especialista</th>
-                    <th>Paciente</th>
-                    <th>Dia</th>
-                    <th>Hora</th>
-                    <th>Estado</th>
-                    <th colspan="3">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="tCuerpo" *ngFor="let turno of listaTurnosFiltrada">
-                <tr>
-                    <td>{{turno.especialidad}}</td>
-                    <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
-                    <td>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</td>
-                    <td>{{turno.dia | date:'dd/MM'}}</td>
-                    <td>{{turno.horario}}</td>  
-                    <td>{{turno.estado | uppercase}}</td>
-                    <td *ngIf="turno.estado==='realizado'"> </td>
-                    <td *ngIf="turno.estado==='realizado'"><button class="botonVerReseña" (click)="abrirComentarios(turno)">Ver Reseña</button></td>
-                    <td *ngIf="turno.estado==='realizado'"> </td>
-                    <td *ngIf="turno.estado==='aceptado'"> </td>
-                    <td *ngIf="turno.estado==='aceptado'">
-                        <button class="botonFinalizarTurno" (click)="abrirVentanaComentario('finalizar',turno)">Finalizar Turno</button>
-                    </td>
-                    <td *ngIf="turno.estado==='aceptado'"> </td>
-                    <td *ngIf="turno.estado==='cancelado'"> </td>
-                    <td *ngIf="turno.estado==='cancelado'">
-                        <button class="botonVerCancelacion" (click)="abrirVentanaComentario('infoCancelacion',turno)">Ver Cancelacion</button>
-                    </td>
-                    <td *ngIf="turno.estado==='cancelado'"> </td>
-                    <td *ngIf="turno.comentarioEspecialista==='' && turno.estado === 'no realizado'">
-                        <button class="botonAceptarTurno" (click)="abrirVentanaComentario('aceptar',turno)">Aceptar Turno</button>
-                    </td>
-                    <td *ngIf="turno.estado==='no realizado'">
-                        <button class="botonCancelarTurno" (click)="abrirVentanaComentario('cancelar',turno)">Cancelar Turno</button>
-                    </td>
-                    <td *ngIf="turno.estado==='no realizado'">
-                        <button class="botonRechazarTurno" (click)="abrirVentanaComentario('rechazar',turno)">Rechazar Turno</button> 
-                    </td>
-                </tr>  
-            </tbody>
-        </table>
+        <input type="text" placeholder="Buscar por especialidad o especialista..." class="buscador" (input)="buscarTurno($event.target)" [(ngModel)]="buscador">
+        <button class="botonPaciente" class="cambioListas" (click)="cambiarLista()">
+            <img src="assets/turnosIcon.png" class="imagenBoton" *ngIf="mostrarListaUsuarios">
+            <img src="assets/iconos-registro/paciente.png" class="imagenBoton" *ngIf="mostrarListaUsuarios==false">
+        </button>
+        <div class="contListasTurnos" *ngIf="mostrarListaUsuarios">
+            <table class="tablaTurnos" *ngIf="buscador===''">
+                <thead class="tablaHead">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Edad</th>
+                        <th>Obra Social</th>
+                        <th>Email</th>
+                        <th>Veces Atendido</th>
+                        <th>Ver Turnos</th>
+                    </tr>
+                </thead>
+                <tbody class="tCuerpo" *ngFor="let paciente of listaUsuariosAtendidos">
+                    <tr>
+                        <td>{{paciente.nombre}}</td>
+                        <td>{{paciente.apellido}}</td>
+                        <td>{{paciente.dni}}</td>
+                        <td>{{paciente.edad}}</td>
+                        <td>{{paciente.obraSocial}}</td>  
+                        <td>{{paciente.email}}</td>
+                        <td>{{paciente.vecesAtendido}}</td>
+                        <td><button class="botonMas" (click)="turnoPacienteElegido(paciente)">i</button></td>
+                    </tr>  
+                </tbody>
+            </table>
+        </div>
+        <div class="contListasTurnos" *ngIf="mostrarListaUsuarios === false">
+            <table class="tablaTurnos" *ngIf="buscador===''">
+                <thead class="tablaHead">
+                    <tr>
+                        <th>Especialidad</th>
+                        <th>Paciente</th>
+                        <th>Dia</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                        <th colspan="3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="tCuerpo" *ngFor="let turno of listaTurnos">
+                    <tr>
+                        <td>{{turno.especialidad}}</td>
+                        <td>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</td>
+                        <td>{{turno.dia | date:'dd/MM'}}</td>
+                        <td>{{turno.horario}}</td>  
+                        <td>{{turno.estado | uppercase}}</td>
+                        <td *ngIf="turno.estado==='realizado'"> </td>
+                        <td *ngIf="turno.estado==='realizado'"><button class="botonVerReseña" (click)="abrirComentarios(turno)">Ver Reseña</button></td>
+                        <td *ngIf="turno.estado==='realizado'"> </td>
+                        <td *ngIf="turno.estado==='aceptado'"> </td>
+                        <td *ngIf="turno.estado==='aceptado'">
+                            <button class="botonFinalizarTurno" (click)="abrirVentanaComentario('finalizar',turno)">Finalizar Turno</button>
+                        </td>
+                        <td *ngIf="turno.estado==='aceptado'"> </td>
+                        <td *ngIf="turno.estado==='cancelado'"> </td>
+                        <td *ngIf="turno.estado==='cancelado'">
+                            <button class="botonVerCancelacion" (click)="abrirVentanaComentario('infoCancelacion',turno)">Ver Cancelacion</button>
+                        </td>
+                        <td *ngIf="turno.estado==='cancelado'"> </td>
+                        <td *ngIf="turno.comentarioEspecialista==='' && turno.estado === 'no realizado'">
+                            <button class="botonAceptarTurno" (click)="abrirVentanaComentario('aceptar',turno)">Aceptar Turno</button>
+                        </td>
+                        <td *ngIf="turno.estado==='no realizado'">
+                            <button class="botonCancelarTurno" (click)="abrirVentanaComentario('cancelar',turno)">Cancelar Turno</button>
+                        </td>
+                        <td *ngIf="turno.estado==='no realizado'">
+                            <button class="botonRechazarTurno" (click)="abrirVentanaComentario('rechazar',turno)">Rechazar Turno</button> 
+                        </td>
+                    </tr>  
+                </tbody>
+            </table>
+            <table class="tablaTurnos" *ngIf="buscador!==''">
+                <thead class="tablaHead">
+                    <tr>
+                        <th>Especialidad</th>
+                        <th>Especialista</th>
+                        <th>Paciente</th>
+                        <th>Dia</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                        <th colspan="3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="tCuerpo" *ngFor="let turno of listaTurnosFiltrada">
+                    <tr>
+                        <td>{{turno.especialidad}}</td>
+                        <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
+                        <td>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</td>
+                        <td>{{turno.dia | date:'dd/MM'}}</td>
+                        <td>{{turno.horario}}</td>  
+                        <td>{{turno.estado | uppercase}}</td>
+                        <td *ngIf="turno.estado==='realizado'"> </td>
+                        <td *ngIf="turno.estado==='realizado'"><button class="botonVerReseña" (click)="abrirComentarios(turno)">Ver Reseña</button></td>
+                        <td *ngIf="turno.estado==='realizado'"> </td>
+                        <td *ngIf="turno.estado==='aceptado'"> </td>
+                        <td *ngIf="turno.estado==='aceptado'">
+                            <button class="botonFinalizarTurno" (click)="abrirVentanaComentario('finalizar',turno)">Finalizar Turno</button>
+                        </td>
+                        <td *ngIf="turno.estado==='aceptado'"> </td>
+                        <td *ngIf="turno.estado==='cancelado'"> </td>
+                        <td *ngIf="turno.estado==='cancelado'">
+                            <button class="botonVerCancelacion" (click)="abrirVentanaComentario('infoCancelacion',turno)">Ver Cancelacion</button>
+                        </td>
+                        <td *ngIf="turno.estado==='cancelado'"> </td>
+                        <td *ngIf="turno.comentarioEspecialista==='' && turno.estado === 'no realizado'">
+                            <button class="botonAceptarTurno" (click)="abrirVentanaComentario('aceptar',turno)">Aceptar Turno</button>
+                        </td>
+                        <td *ngIf="turno.estado==='no realizado'">
+                            <button class="botonCancelarTurno" (click)="abrirVentanaComentario('cancelar',turno)">Cancelar Turno</button>
+                        </td>
+                        <td *ngIf="turno.estado==='no realizado'">
+                            <button class="botonRechazarTurno" (click)="abrirVentanaComentario('rechazar',turno)">Rechazar Turno</button> 
+                        </td>
+                    </tr>  
+                </tbody>
+            </table>
+        </div>
         <div *ngIf="mostrarFormHistoriaClinica">
             <app-historia-clinica [turnoActual]="turnoElegido" (cerrarVentana)="cerrarVentanaHistoriaClinica($event)"></app-historia-clinica>
         </div>

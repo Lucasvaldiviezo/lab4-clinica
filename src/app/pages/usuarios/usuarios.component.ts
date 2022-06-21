@@ -11,12 +11,19 @@ export class UsuariosComponent implements OnInit {
   listaUsuarios:any;
   listaPacientes:any = [];
   listaEspecialistas:any = [];
+  listaTurnos:any = [];
+  listaTurnosPaciente:any = [];
   listaDeExcel:any = [];
+  nombrePacienteElegido:string ="";
   constructor(public fireStoreService:FirestoreService, public excelService:ExcelService) {
     this.fireStoreService.getCollectionWithId('Usuarios','usuarioId').subscribe(
       resp=>{
         this.listaUsuarios = resp;
         this.cargarListas();
+        this.fireStoreService.getCollectionWithId('Turnos','turnoId').subscribe(
+          resp=>{
+            this.listaTurnos = resp;
+        });
     });
    }
 
@@ -72,6 +79,29 @@ export class UsuariosComponent implements OnInit {
     }
     console.log(this.listaDeExcel);
   }
+
+  cargarTurnosDelPaciente(paciente:any){
+    let turno;
+    this.nombrePacienteElegido = paciente.nombre + " " + paciente.apellido;
+    for(let i=0;i<this.listaTurnos.length;i++){
+      if(paciente.dni == this.listaTurnos[i].paciente.dni){
+        turno = {
+          nro: i+1,
+          especialista: this.listaTurnos[i].especialista.nombre + " " + this.listaTurnos[i].especialista.apellido,
+          dia: this.listaTurnos[i].dia,
+          hora: this.listaTurnos[i].horario,
+          especialidad: this.listaTurnos[i].especialidad,
+        }
+        this.listaTurnosPaciente.push(turno);
+      }
+    }
+    this.descargarExcelTurnos();
+  }
+
+  descargarExcelTurnos(){
+    this.excelService.descargarExcelTurnos(this.listaTurnosPaciente,this.nombrePacienteElegido);
+  }
+
   descargarExcel(){
     this.cargarListaExcel();
     this.excelService.descargarExcelUsuarios(this.listaDeExcel,'lista usuarios');

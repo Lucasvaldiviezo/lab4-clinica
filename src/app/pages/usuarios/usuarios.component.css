@@ -32,11 +32,13 @@ body
 .tablaPacientes
 {
     top:13%;
-    left:29%;
+    left:27%;
     position: relative;
     border-collapse: collapse;
     width: 800px;
     border-radius: 50%;
+    table-layout: auto;
+    white-space: nowrap;
 }
 
 .tablaEspecialistas
@@ -47,6 +49,8 @@ body
     border-collapse: collapse;
     width: 800px;
     border-radius: 50%;
+    table-layout: auto;
+    white-space: nowrap;
 }
 
 th
@@ -92,6 +96,23 @@ tbody{
 .iconoExcel:hover{
     transform: scale(1.05);
     cursor: pointer;
+}
+
+.botonMas{
+    border-radius: 50%;
+    width: 35px;
+    height: auto;
+    padding: 5px 5px;
+    text-align: center;
+    background-color: rgb(53, 103, 197);
+    color: white;
+    border-width: 2px;
+    border-color: rgb(0, 0, 0);
+    border-style: solid;
+}
+
+.botonMas:hover{
+    background-color: rgb(20, 12, 133);
 }
 
 
