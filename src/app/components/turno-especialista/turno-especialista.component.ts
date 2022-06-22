@@ -101,7 +101,6 @@ export class TurnoEspecialistaComponent implements OnInit {
         this.listaUsuariosAtendidos[indiceUsuario].vecesAtendido++;
       }else{
         pacienteActual.vecesAtendido = 1;
-        console.log(pacienteActual);
         this.listaUsuariosAtendidos.push(pacienteActual);
       }
     }

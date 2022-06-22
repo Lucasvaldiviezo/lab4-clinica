@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { FirestoreService } from 'src/app/services/fireStoreService/firestore.service';
+import { PdfService } from 'src/app/services/pdfService/pdf.service';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 
 @Component({
@@ -25,7 +26,9 @@ export class PerfilEspecialistaComponent implements OnInit {
   minutoDesde:string = "00";
   minutoHasta:string = "00";
   listaHorarios:any;
-  constructor(public authService:AuthService,public fireStoreService:FirestoreService, public storageService:StorageService) { 
+  listaTurnos:any;
+  listaTurnosDelUsuario:any;
+  constructor(public authService:AuthService,public fireStoreService:FirestoreService, public storageService:StorageService, public pdfService:PdfService) { 
     this.authService.getUserLogged().subscribe(usuario=>{
       this.userLogged = usuario;
       this.fireStoreService.getCollectionWithId('Usuarios','usuarioId').subscribe(
@@ -36,6 +39,10 @@ export class PerfilEspecialistaComponent implements OnInit {
       this.fireStoreService.getCollectionWithId('Horarios','horarioId').subscribe(
         resp=>{
           this.listaHorarios = resp;
+      });
+      this.fireStoreService.getCollectionWithId('Turnos','turnosId').subscribe(
+        resp=>{
+          this.listaTurnos = resp;
       });
     });
     this.cargarHorarios();
@@ -182,5 +189,20 @@ export class PerfilEspecialistaComponent implements OnInit {
     }else{
       this.fireStoreService.actualizarHorario("Horarios",idHorarioActualizar,turnosEspecialista);
     } 
+  }
+
+  cargarTurnosDelUsuario(){
+    this.listaTurnosDelUsuario = [];
+    for(let i=0;i<this.listaTurnos.length;i++){
+      if(this.usuarioActual.email == this.listaTurnos[i].especialista.email && this.listaTurnos[i].estado == 'realizado'){
+        this.listaTurnosDelUsuario.push(this.listaTurnos[i]);
+      }
+    }
+  }
+
+  descargarMisTurnos(){
+    let nombreArchivo:string = this.usuarioActual.nombre + " " + this.usuarioActual.apellido;
+    this.cargarTurnosDelUsuario();
+    this.pdfService.generatePDFTurnos(this.listaTurnosDelUsuario,"Clinica UTN",nombreArchivo,this.usuarioActual);
   }
 }

@@ -14,7 +14,7 @@ import {
 
 export const fader =
   trigger('routeAnimations', [
-    transition('* <=> *', [
+    transition('Perfil <=> Inicio', [
       query(':enter, :leave', [
         style({
           position: 'absolute',
@@ -32,26 +32,43 @@ export const fader =
 
 
 // Positioned
-/*
-export const slider =
+
+export const myAnimations =
   trigger('routeAnimations', [
-    transition('* => isLeft', slideTo('left') ),
-    transition('* => isRight', slideTo('right') ),
-    transition('isRight => *', slideTo('left') ),
-    transition('isLeft => *', slideTo('right') )
+    transition('SolicitarTurno => Inicio', slideTo('left') ),
+    transition('SolicitarTurno => MisTurnos', slideTo('left') ),
+    transition('MisTurnos => Inicio', slideTo('left') ),
+    transition('Inicio => SolicitarTurno', slideTo('right')),
+    transition('Inicio => MisTurnos', slideTo('right')),
+    transition('MisTurnos => SolicitarTurno', slideTo('right')),
+    transition('Perfil <=> Inicio', enterAndLeave()),
+    transition('Perfil <=> MisTurnos', enterAndLeave()),
+    transition('Perfil <=> SolicitarTurno', enterAndLeave()),
   ]);
 
 
-export const transformer =
+/*export const transformer =
   trigger('routeAnimations', [
-    transition('* => isLeft', translateTo({ x: -100, y: -100, rotate: -720 }) ),
-    transition('* => isRight', translateTo({ x: 100, y: -100, rotate: 90 }) ),
-    transition('isRight => *', translateTo({ x: -100, y: -100, rotate: 360 }) ),
-    transition('isLeft => *', translateTo({ x: 100, y: -100, rotate: -360 }) )
-]);
+    transition('Perfil => Inicio', translateTo({ x: -100, y: -100, rotate: -720 }) ),
+]);*/
 
 
-
+function enterAndLeave(){
+  return [
+    query(':enter, :leave', [
+      style({
+        position: 'absolute',
+        left: 0,
+        width: '100%',
+        opacity: 0,
+        transform: 'scale(0) translateY(100%)',
+      }),
+    ]),
+    query(':enter', [
+      animate('600ms ease', style({ opacity: 1, transform: 'scale(1) translateY(0)' })),
+    ]),
+  ]
+}
 
 function slideTo(direction:any) {
   const optional = { optional: true };
@@ -75,16 +92,16 @@ function slideTo(direction:any) {
         animate('600ms ease', style({ [direction]: '0%'}))
       ])
     ]),
-    // Normalize the page style... Might not be necessary
+    //Normalize the page style... Might not be necessary
 
-    // Required only if you have child animations on the page
-    // query(':leave', animateChild()),
-    // query(':enter', animateChild()),
+    //Required only if you have child animations on the page
+     query(':leave', animateChild()),
+    query(':enter', animateChild()),
   ];
 }
 
 
-function translateTo({x = 100, y = 0, rotate = 0}) {
+/*function translateTo({x = 100, y = 0, rotate = 0}) {
   const optional = { optional: true };
   return [
     query(':enter, :leave', [
@@ -107,14 +124,14 @@ function translateTo({x = 100, y = 0, rotate = 0}) {
       ])
     ]),
   ];
-}
+}*/
 
 
 // Keyframes
 
-export const stepper =
+/*export const stepper =
   trigger('routeAnimations', [
-    transition('* <=> *', [
+    transition('Inicio <=> Perfil', [
       query(':enter, :leave', [
         style({
           position: 'absolute',
