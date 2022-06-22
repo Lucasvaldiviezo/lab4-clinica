@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { FirestoreService } from 'src/app/services/fireStoreService/firestore.service';
+import { PdfService } from 'src/app/services/pdfService/pdf.service';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 
 @Component({
@@ -13,18 +14,28 @@ export class PerfilPacienteComponent implements OnInit {
   userLogged:any;
   usuarioActual:any
   listaUsuarios:any;
+  listaHistorias:any;
+  listaHistoriasUsuarioActual:any;
   archivoSubido:any;
   imagen:any;
   nuevaFoto1:any;
   nuevaFoto2:any;
   mostrarDatos:boolean = false;
-  constructor(public authService:AuthService,public fireStoreService:FirestoreService, public storageService:StorageService) { 
+  constructor(public authService:AuthService,public fireStoreService:FirestoreService, public storageService:StorageService, public pdfService:PdfService) { 
+    this.listaUsuarios = [];
+    this.listaHistorias = [];
+    this.listaHistoriasUsuarioActual = [];
     this.authService.getUserLogged().subscribe(usuario=>{
       this.userLogged = usuario;
       this.fireStoreService.getCollectionWithId('Usuarios','usuarioId').subscribe(
         resp=>{
           this.listaUsuarios = resp;
           this.llenarDatos();
+          this.fireStoreService.getCollectionWithId('Historias','historiaId').subscribe(
+            resp=>{
+              this.listaHistorias = resp;
+              this.obtenerHistoriaClinica();
+          });
       });
     });
   }
@@ -41,6 +52,14 @@ export class PerfilPacienteComponent implements OnInit {
         this.usuarioActual = this.listaUsuarios[i];
         this.mostrarDatos = true;
         break;
+      }
+    }
+  }
+
+  obtenerHistoriaClinica(){
+    for(let i=0;i<this.listaHistorias.length;i++){
+      if(this.usuarioActual.email == this.listaHistorias[i].paciente.email){
+        this.listaHistoriasUsuarioActual.push(this.listaHistorias[i]);
       }
     }
   }
@@ -90,6 +109,10 @@ export class PerfilPacienteComponent implements OnInit {
       let nombreImagen2:string = this.usuarioActual.nombre+"+"+this.usuarioActual.apellido+"+"+this.usuarioActual.dni+"+"+"2";
       this.cambiarFotoPerfil(nombreImagen1,nombreImagen2);
     }
+  }
+
+  descargarHistoriaClinica(){
+    this.pdfService.generatePDFHistoriasClinicas(this.listaHistoriasUsuarioActual,"Clinica UTN",this.usuarioActual.nombre + " " + this.usuarioActual.apellido);
   }
 
 }

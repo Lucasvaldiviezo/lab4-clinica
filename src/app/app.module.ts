@@ -19,7 +19,10 @@ import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { CaptchaComponent } from './components/captcha/captcha.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
 
+PdfMakeWrapper.setFonts(pdfFonts);
 @NgModule({
   declarations: [
     AppComponent,

@@ -17,6 +17,7 @@ export class HistoriaClinicaComponent implements OnInit {
   valorDinamico1:string="";
   valorDinamico2:string="";
   valorDinamico3:string="";
+  comentarios:any = [];
   mostrarError:boolean = false;
   constructor(private fb: FormBuilder, public fireStoreService:FirestoreService) { 
     this.formHistoriaClinica = this.fb.group({
@@ -38,6 +39,19 @@ export class HistoriaClinicaComponent implements OnInit {
     && this.valorDinamico1 != ""
     && this.valorDinamico2 != ""
     && this.valorDinamico3 != ""){
+    let comentario1 = {
+      [this.datoDinamico1]: this.valorDinamico1,
+    }
+    let comentario2 ={
+      [this.datoDinamico2]: this.valorDinamico2,
+    }
+
+    let comentario3= {
+      [this.datoDinamico3]: this.valorDinamico3,
+    }
+    this.comentarios.push(comentario1);
+    this.comentarios.push(comentario2);
+    this.comentarios.push(comentario3);
       let historiaClinica = {
         paciente: this.turnoActual.paciente,
         especialista: this.turnoActual.especialista,
@@ -48,9 +62,7 @@ export class HistoriaClinicaComponent implements OnInit {
         peso: this.formHistoriaClinica.getRawValue().peso + " kg",
         temperatura: this.formHistoriaClinica.getRawValue().temperatura + "°",
         presion: this.formHistoriaClinica.getRawValue().presion,
-        [this.datoDinamico1]: this.valorDinamico1,
-        [this.datoDinamico2]: this.valorDinamico2,
-        [this.datoDinamico3]: this.valorDinamico3,
+        comentarios: this.comentarios
       }
       this.fireStoreService.agregarHistoriaClinica("Historias",historiaClinica);
       this.formHistoriaClinica.reset();

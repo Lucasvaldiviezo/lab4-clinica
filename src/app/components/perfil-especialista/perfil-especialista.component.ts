@@ -103,7 +103,6 @@ export class PerfilEspecialistaComponent implements OnInit {
     }
     for(let i=0;i<60;i++){
       if(i<10){
-        console.log(i);
         this.minutes.push("0"+i);
       }else{
         this.minutes.push(i.toString());

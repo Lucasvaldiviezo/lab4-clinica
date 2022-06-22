@@ -167,3 +167,21 @@ body{
     border-style:solid;
     border-color: rgb(187, 171, 29);
 }
+
+.botonPDF{
+    position: absolute;
+    top:1%;
+    background-color: rgb(0, 116, 194);
+    border-radius: 10px;
+    padding: 10px 10px;
+    color: rgb(255, 255, 255);
+}
+
+.botonPDF:hover{
+    background-color: rgb(18, 63, 94);
+}
+
+.imagenBoton{
+    width: 40px;
+    height: auto;
+}
