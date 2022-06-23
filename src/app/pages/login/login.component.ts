@@ -21,12 +21,13 @@ export class LoginComponent implements OnInit {
   public formIngreso: FormGroup;
   captchaOkay:boolean = false;
   errorCaptcha:boolean = false;
-  constructor(public ruteo:Router,public authService: AuthService, private fb: FormBuilder, public fireStore:FirestoreService) {
+  userInfo:any;
+  constructor(public ruteo:Router,public authService: AuthService, private fb: FormBuilder, public fireStoreService:FirestoreService) {
     this.formIngreso = this.fb.group({
       'email': ['', [Validators.required, Validators.email]],
       'password': ['', [Validators.required]],
     });
-    this.fireStore.getCollectionWithId('Usuarios',"usuarioId").subscribe((resp:any)=>{
+    this.fireStoreService.getCollectionWithId('Usuarios',"usuarioId").subscribe((resp:any)=>{
         this.listaUsuarios = resp;
     });
   }
@@ -60,6 +61,8 @@ export class LoginComponent implements OnInit {
               if(tipoUsuario == "especialista"){
                 if(this.verificarAcceso(usuario) == true){
                   this.ruteo.navigateByUrl('bienvenido');
+                  this.llenarDatos(usuario);
+                  this.agregarLogIngreso();
                 }else
                 {
                   this.especialistaSinAcceso = true;
@@ -67,6 +70,8 @@ export class LoginComponent implements OnInit {
                 }
               }else{
                 this.ruteo.navigateByUrl('bienvenido');
+                this.llenarDatos(usuario);
+                this.agregarLogIngreso();
               }   
             } 
           }
@@ -115,6 +120,17 @@ export class LoginComponent implements OnInit {
       return retorno;
   }
 
+  llenarDatos(user:any){
+    for(let i=0;i < this.listaUsuarios.length;i++)
+      {
+        if(user.email == this.listaUsuarios[i].email)
+        {
+          this.userInfo = this.listaUsuarios[i];
+          break;
+        }
+      }
+  }
+
   cambiarMailAVerificado(user:any){
     let id:string;
     if(user.emailVerified == true){
@@ -124,7 +140,7 @@ export class LoginComponent implements OnInit {
         {
           this.listaUsuarios[i].emailVerificado == true;
           id = this.listaUsuarios[i].usuarioId;
-          this.fireStore.verificacionMail("Usuarios",id,true);
+          this.fireStoreService.verificacionMail("Usuarios",id,true);
         }
       }
     }   
@@ -154,6 +170,22 @@ export class LoginComponent implements OnInit {
 verificarResultadoCaptcha(resultado:boolean){
   this.captchaOkay = resultado
 }
+
+  agregarLogIngreso(){
+    let hoy = new Date();
+    let fecha = hoy;
+    let horario = hoy.getHours() < 10 ? '0'+hoy.getHours() + ':' : hoy.getHours() + ':';
+    horario += hoy.getMinutes() < 10 ? '0'+hoy.getMinutes() + ':' : hoy.getMinutes() + ':';
+    horario += hoy.getSeconds() < 10 ? '0'+hoy.getSeconds() : hoy.getSeconds();
+    let datos = {
+      usuario: this.userInfo.nombre + " " + this.userInfo.apellido,
+      email: this.userInfo.email,
+      tipoUsuario: this.userInfo.tipoUsuario,
+      fecha: fecha.toDateString(),
+      horario: horario,
+    }
+    this.fireStoreService.agregarLogIngreso("LogIngresos",datos);
+  }
 
 EntrarConAdmin(){
   this.formIngreso.controls['email'].setValue("lucks.97@hotmail.com");

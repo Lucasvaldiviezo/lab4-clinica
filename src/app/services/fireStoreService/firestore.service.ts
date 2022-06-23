@@ -68,4 +68,8 @@ export class FirestoreService {
     this.firestore.collection(coleccion).add(datos);
   }
 
+  agregarLogIngreso(coleccion:string,datos:any){
+    this.firestore.collection(coleccion).add(datos);
+  }
+
 }

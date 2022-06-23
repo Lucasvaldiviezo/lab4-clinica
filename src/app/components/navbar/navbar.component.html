@@ -22,6 +22,7 @@
               <a class="dropdown-item" routerLink="panelUsuario" *ngIf="isPaciente || isEspecialista">Perfil</a>
               <a *ngIf="isPaciente" class="dropdown-item" routerLink="solicitarTurno">Nuevo Turno</a>
               <a *ngIf="isAdmin" class="dropdown-item" routerLink="usuarios">Ver Usuarios</a>
+              <a *ngIf="isAdmin" class="dropdown-item" routerLink="estadisticas">Estadisticas</a>
             </div>
           </div>
           <button class="btn btn-warning me-2" (click)="logout()">Logout</button> 
