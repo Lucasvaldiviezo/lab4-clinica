@@ -10,12 +10,40 @@ body
     background-size: cover;
 }
 
+.contenedorBotonPDF{
+    position: absolute;
+    top:1%;
+    width: 150px;
+    height: 70px;
+    background-color: black;
+    padding: 5px 5px;
+    text-align: center;
+    border-width: 1px;
+    border-color: red;
+    border-style: solid;
+}
+
+.iconos{
+    position: relative;
+    width: 50px;
+    height: auto;
+    top:3px;
+    margin-left:4%;
+    margin-right:4%;
+}
+
+.iconos:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+
 .contenedorCantEspecialidades{
     position: absolute;
     width: 600px;
     background-color: rgba(255, 255, 255, 0.616);
     height: 355px;
-    top:5%;
+    top:9%;
     left:34%;
     border-color: rgb(0, 119, 255);
     border-width: 5px;
@@ -35,7 +63,7 @@ body
     display: block;
     width: 600px;
     height: 355px;
-    top:5%;
+    top:9%;
     left:1%;
 }
 
@@ -45,7 +73,7 @@ body
     background-color: rgba(255, 255, 255, 0.616);
     height: auto;
     min-height: 355px;
-    top:5%;
+    top:9%;
     left:67%;
     border-color: rgb(0, 119, 255);
     border-width: 5px;
@@ -58,7 +86,7 @@ body
     width: 900px;
     background-color: rgba(255, 255, 255, 0.616);
     height: 450px;
-    top:45%;
+    top:49%;
     left:25%;
     border-color: rgb(0, 119, 255);
     border-width: 5px;

@@ -39,5 +39,20 @@ export class ExcelService {
     };
     new ngxCsv(datos, nombreArchivo,this.options);
   }
+
+  descargarExcelLogeos(datos:any,nombreArchivo:string){
+    this.options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: nombreArchivo,
+      useBom: true,
+      noDownload: false,
+      headers: ["Usuario", "Email", "Dia","Horario","Tipo de Usuario"]
+    };
+    new ngxCsv(datos, nombreArchivo,this.options);
+  }
   
 }

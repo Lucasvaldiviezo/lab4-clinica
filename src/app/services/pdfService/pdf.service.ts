@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PdfMakeWrapper, Txt, Img, IImg, Stack  } from 'pdfmake-wrapper';
+import { PdfMakeWrapper, Txt, Img, Table,Cell  } from 'pdfmake-wrapper';
 @Injectable({
   providedIn: 'root'
 })
@@ -138,6 +138,68 @@ export class PdfService {
         new Txt('Paciente: ' + datos[i].paciente.nombre + " " + datos[i].paciente.apellido).alignment('left').margin(5).fontSize(15).bold().end
       );
   
+    }
+    pdf.add(
+      new Txt(' ').end
+    );
+
+    pdf.add(
+      new Txt(' ').end
+    );
+    
+    pdf.create().download("Turnos_de_"+nombreArchivo);
+  }
+
+  async generatePDFEstadisticas(datos:any,titulo:string,nombreArchivo:string){
+    let pdf = new PdfMakeWrapper();
+    let fechaActual = new Date();
+    pdf.add( 
+      await new Img('assets/favicon_io/android-chrome-512x512.png').fit([100, 100]).alignment('center').build()
+    );
+    pdf.add(
+      new Txt(titulo).alignment('center').margin(40).fontSize(50).bold().end, 
+    );
+
+    pdf.add(
+      new Txt(' ').end
+    );
+
+    pdf.add(
+      new Txt(' ').end
+    );
+
+    pdf.add(
+      new Txt('Fecha de Hoy: ' + fechaActual.toDateString()).alignment('right').fontSize(12).bold().italics().color('gray').end, 
+    );
+
+    pdf.add(
+      new Txt(' ').end
+    );
+
+    pdf.add(
+      new Txt('Turnos por Dia: ' + datos.cantTurnosPorDia).margin(5).alignment('left').fontSize(13).end, 
+    );
+
+    pdf.add(
+      new Txt('Turnos Solicitados esta Semana: ' + datos.cantTurnosSolicitados).margin(5).alignment('left').fontSize(13).end, 
+    );
+
+    pdf.add(
+      new Txt('Turnos Finalizados esta Semana: ' + datos.cantTurnosFinalizados).margin(5).alignment('left').fontSize(13).end, 
+    );
+
+    pdf.add(
+      new Txt(' ').end
+    );
+
+    pdf.add(
+      new Txt('Total Turnos por Especialidad: ').alignment('center').margin(10).fontSize(13).color('red').bold().end, 
+    );
+
+    for(let i = 0; i<datos.cantTurnosEspecialidades.length;i++){
+      pdf.add(
+        new Txt(datos.cantTurnosEspecialidades[i].nombre +': '+datos.cantTurnosEspecialidades[i].cantidadTurnos).margin(2).alignment('left').fontSize(13).end, 
+      );
     }
     pdf.add(
       new Txt(' ').end

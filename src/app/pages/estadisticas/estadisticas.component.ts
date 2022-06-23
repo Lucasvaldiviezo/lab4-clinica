@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from 'src/app/services/fireStoreService/firestore.service';
 import { Chart, registerables } from 'node_modules/chart.js'
+import { PdfService } from 'src/app/services/pdfService/pdf.service';
+import { ExcelService } from 'src/app/services/excelService/excel.service';
 Chart.register(...registerables);
 @Component({
   selector: 'app-estadisticas',
@@ -11,6 +13,7 @@ export class EstadisticasComponent implements OnInit {
   listaTurnos:any;
   listaLogeos:any;
   listaEspecialidades:any;
+  listaLogeosExcel:any;
   mostrarEspecialidades:boolean = false;
   mostrarDias:boolean = false;
   mostrarLogeos:boolean = false;
@@ -19,8 +22,7 @@ export class EstadisticasComponent implements OnInit {
   totalTurnosSolicitados:number = 0;
   turnosPorDia:number = 0;
   myChart:any;
-
-  constructor(public fireStoreService:FirestoreService) { 
+  constructor(public fireStoreService:FirestoreService, public pdfService:PdfService, public excelService:ExcelService) { 
     this.listaTurnos = [];
     this.listaEspecialidades = [];
     this.listaLogeos = [];
@@ -84,6 +86,7 @@ export class EstadisticasComponent implements OnInit {
       if(date.getDate() > firstDate.getDate() && date.getDate()<lastDate.getDate()){
         if(this.listaTurnos[i].estado =='realizado'){
           this.totalTurnosFinalizados++;
+          this.totalTurnosSolicitados++;
         }else{
           this.totalTurnosSolicitados++;
         }
@@ -119,7 +122,7 @@ export class EstadisticasComponent implements OnInit {
       data: {
           labels: ['Turnos Finalizados', 'Turnos Solicitados'],
           datasets: [{
-              label: '# de Turnos por Semana',
+              label: '# de Turnos esta Semana',
               data: [this.totalTurnosFinalizados,this.totalTurnosSolicitados],
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
@@ -170,6 +173,33 @@ export class EstadisticasComponent implements OnInit {
         break;
   
     }
+  }
+
+  descargarPDFEstadisticas(){
+    let datos = { 
+      cantTurnosEspecialidades: this.listaEspecialidades,
+      cantTurnosFinalizados: this.totalTurnosFinalizados,
+      cantTurnosSolicitados: this.totalTurnosSolicitados,
+      cantTurnosPorDia: this.turnosPorDia,
+      logeos: this.listaLogeos
+    }
+    this.pdfService.generatePDFEstadisticas(datos,'Estadisticas','estadisticas');
+  }
+
+  descargarExcelLogeos(){
+    this.listaLogeosExcel = [];
+    let datos;
+    for(let i=0;i<this.listaLogeos.length;i++){
+      datos = {
+        usuario: this.listaLogeos[i].usuario,
+        email: this.listaLogeos[i].email,
+        dia: this.listaLogeos[i].fecha,
+        hora: this.listaLogeos[i].horario,
+        tipoUsuario: this.listaLogeos[i].tipoUsuario
+      }
+      this.listaLogeosExcel.push(datos);
+    }
+    this.excelService.descargarExcelLogeos(this.listaLogeosExcel,'lista usuarios');
   }
 
 }

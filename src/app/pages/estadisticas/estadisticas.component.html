@@ -1,4 +1,8 @@
 <body>
+    <div class="contenedorBotonPDF">
+        <img src="assets/pdfIcon.png" class="iconos" (click)="descargarPDFEstadisticas()">
+        <img src="assets/excelIcon.png" class="iconos" (click)="descargarExcelLogeos()">
+    </div>
     <div class="contenedorCantEspecialidades" >
         <h2 class="titulo">Turnos pedidos por cada especialidad</h2>
         <div appColores *ngFor="let especialidad of listaEspecialidades" class="especialidadesCirculos" >
