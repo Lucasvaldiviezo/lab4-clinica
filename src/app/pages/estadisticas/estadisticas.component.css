@@ -119,7 +119,7 @@ body
     table-layout: auto;
     white-space: nowrap;
     max-width: 90%;
-    border-color: red;
+    border-color: #d15454;
     border-width: 3px;
     border-style: solid;
 }

@@ -29,13 +29,13 @@
                 </tr>
             </thead>
      
-            <tbody class="tCuerpo" *ngFor="let logeo of listaLogeos">
+            <tbody class="tCuerpo" *ngFor="let logeo of listaLogeos" >
                 <tr>
-                    <td>{{logeo.usuario}}</td>
+                    <td appBoldFont>{{logeo.usuario}}</td>
                     <td>{{logeo.email}}</td>
                     <td>{{logeo.fecha | date:'dd/MM/YY'}}</td>
                     <td>{{logeo.horario}}</td>
-                    <td>{{logeo.tipoUsuario | titlecase}}</td>
+                    <td [appColorTipoUsuario]="logeo.tipoUsuario" appBoldFont>{{logeo.tipoUsuario | titlecase}}</td>
                 </tr>  
             </tbody>
         </table>

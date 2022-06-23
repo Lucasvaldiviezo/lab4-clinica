@@ -22,7 +22,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
-import { ColoresDirective } from './directivas/colores/colores.directive'; // fonts provided for pdfmake
+import { ColoresDirective } from './directivas/colores/colores.directive';
+import { ColorTipoUsuarioDirective } from './directivas/colorTipoUsuario/color-tipo-usuario.directive';
+import { BoldFontDirective } from './directivas/boldFont/bold-font.directive'; // fonts provided for pdfmake
 
 PdfMakeWrapper.setFonts(pdfFonts);
 @NgModule({
@@ -38,6 +40,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     CaptchaComponent,
     EstadisticasComponent,
     ColoresDirective,
+    ColorTipoUsuarioDirective,
+    BoldFontDirective,
   ],
   imports: [
     BrowserModule,

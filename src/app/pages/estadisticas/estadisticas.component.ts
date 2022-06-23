@@ -105,8 +105,7 @@ export class EstadisticasComponent implements OnInit {
       contadorTurnos++;
     }
     cantidadDias = currentDate.getDate() - firstDate.getDate();
-    this.turnosPorDia = contadorTurnos/cantidadDias;
-    console.log(this.turnosPorDia);
+    this.turnosPorDia = (contadorTurnos/cantidadDias);
   }
 
   graficoTurnos(){
