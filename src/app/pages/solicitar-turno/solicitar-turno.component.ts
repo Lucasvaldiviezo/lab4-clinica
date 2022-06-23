@@ -150,15 +150,21 @@ export class SolicitarTurnoComponent implements OnInit {
     this.listaHorariosFiltrada = [];
     this.datosCompletos = false;
     for(let i=0;i<this.listaHorarios.length;i++){
-      if(especialista.email==this.listaHorarios[i].especialista 
+      if(especialista.email==this.listaHorarios[i].especialista
       && this.especialidadSeleccionada == this.listaHorarios[i].especialidad)
       {
-        this.listaHorariosFiltrada = this.listaHorarios[i].turnos;
+        for(let j = 0;j<this.listaHorarios[i].turnos.length;j++){
+          let horario = {
+            turno: this.listaHorarios[i].turnos[j],
+            disponibilidad: true,
+          }
+          this.listaHorariosFiltrada.push(horario);
+        }
         this.medicoSeleccionado = especialista;
-        this.mostrarDias = true;
+        
       }
     }
-   
+    this.mostrarDias = true;
   }
 
   elegirDia(dia:Date){
@@ -166,11 +172,21 @@ export class SolicitarTurnoComponent implements OnInit {
     let fecha = new Date(dia);
     this.diaSeleccionado = fecha.toDateString();
     this.mostrarHorarios = true;
-    //TENGO QUE REVISAR SI EL HORARIO ESTA OCUPADO Y NO MOSTRARLO
+    for(let i=0;i<this.listaHorariosFiltrada.length;i++){
+      this.listaHorariosFiltrada[i].disponibilidad = true;
+      for(let j=0;j<this.listaTurnos.length;j++){
+        if(this.diaSeleccionado == this.listaTurnos[j].dia 
+          && this.especialidadSeleccionada == this.listaTurnos[j].especialidad
+          && this.medicoSeleccionado.email == this.listaTurnos[j].especialista.email
+          && this.listaHorariosFiltrada[i].turno == this.listaTurnos[j].horario){
+          this.listaHorariosFiltrada[i].disponibilidad = false;
+        }
+      }
+    }
   }
 
   elegirHorario(horario:any){
-    this.horarioSeleccionado = horario;
+    this.horarioSeleccionado = horario.turno;
     this.datosCompletos = true;
   }
 
@@ -206,6 +222,8 @@ export class SolicitarTurnoComponent implements OnInit {
     this.horarioSeleccionado = "";
     this.datosCompletos = false;
     this.mostrarDias = false;
+    this.mostrarHorarios = false;
+    this.listaEspecialistas = [];
     this.fireStoreService.agregarTurno("Turnos",turnoCompleto);
   }
 }

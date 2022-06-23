@@ -48,7 +48,8 @@
             <label class="textoContenedores">Elegir Hora:<label class="infoMedico"> {{horarioSeleccionado}}</label></label>
             <div class="contenedorBotones" *ngIf="mostrarHorarios">
                 <div class="mostradorBotones"*ngFor="let turno of listaHorariosFiltrada">
-                    <button class="botonesHoras" (click)="elegirHorario(turno)">{{turno}}</button>
+                    <button class="botonesHoras" (click)="elegirHorario(turno)" *ngIf="turno.disponibilidad">{{turno.turno}}</button>
+                    <button class="botonesHoras" (click)="elegirHorario(turno)" *ngIf="turno.disponibilidad === false" disabled>{{turno.turno}}</button>
                 </div>
             </div>
         </div>
