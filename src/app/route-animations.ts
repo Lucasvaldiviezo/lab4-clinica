@@ -40,10 +40,23 @@ export const myAnimations =
     transition('MisTurnos => Inicio', slideTo('left') ),
     transition('Inicio => SolicitarTurno', slideTo('right')),
     transition('Inicio => MisTurnos', slideTo('right')),
+    transition('Inicio => Login', slideTo('right')),
+    transition('Inicio => Registro', slideTo('right')),
+    transition('Login => Registro', slideTo('right')),
+    transition('Login => Inicio', slideTo('left')),
+    transition('Registro => Inicio', slideTo('left')),
+    transition('Registro => Login', slideTo('left')),
     transition('MisTurnos => SolicitarTurno', slideTo('right')),
     transition('Perfil <=> Inicio', enterAndLeave()),
     transition('Perfil <=> MisTurnos', enterAndLeave()),
     transition('Perfil <=> SolicitarTurno', enterAndLeave()),
+    transition('Estadisticas <=> Inicio', enterAndLeave()),
+    transition('Estadisticas <=> MisTurnos', enterAndLeave()),
+    transition('Estadisticas <=> SolicitarTurno', enterAndLeave()),
+    transition('Estadisticas <=> PanelUsuarios', enterAndLeave()),
+    transition('PanelUsuarios <=> MisTurnos', enterAndLeave()),
+    transition('PanelUsuarios <=> SolicitarTurno', enterAndLeave()),
+    transition('PanelUsuarios <=> Inicio', enterAndLeave()),
   ]);
 
 

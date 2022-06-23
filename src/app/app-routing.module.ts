@@ -11,10 +11,10 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 const routes: Routes = [
   {path: '', redirectTo: '/bienvenido', pathMatch:'full'},
   {path:'bienvenido', component:BienvenidoComponent, data: { animation: 'Inicio' } },
-  {path:'login',component:LoginComponent},
-  {path:'registro', loadChildren: () => import('./modules/registro/registro.module').then(m=>m.RegistroModule)},
+  {path:'login',component:LoginComponent,  data: { animation: 'Login' }},
+  {path:'registro', loadChildren: () => import('./modules/registro/registro.module').then(m=>m.RegistroModule), data: { animation: 'Registro'}},
   {path:'verifyEmail', component: VerifyEmailComponent},
-  {path:'usuarios', component: UsuariosComponent},
+  {path:'usuarios', component: UsuariosComponent, data: { animation: 'PanelUsuarios' }},
   {path:'misTurnos',  loadChildren: () => import('./modules/misTurnos/mis-turnos.module').then(m=>m.MisTurnosModule),  data: { animation: 'MisTurnos' }},
   {path:'solicitarTurno', component: SolicitarTurnoComponent, data: { animation: 'SolicitarTurno' }},
   {path:'panelUsuario', loadChildren: () => import('./modules/panelUsuario/panel-usuario.module').then(m=>m.PanelUsuarioModule),  data: { animation: 'Perfil' }},
