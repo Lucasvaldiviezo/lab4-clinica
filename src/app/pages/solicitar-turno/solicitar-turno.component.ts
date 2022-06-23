@@ -131,6 +131,8 @@ export class SolicitarTurnoComponent implements OnInit {
 
   elegirEspecialidad(especialidad:any){
     this.listaEspecialistas = [];
+    this.mostrarDias = false;
+    this.mostrarHorarios = false;
     this.especialidadSeleccionada = especialidad;
     this.datosCompletos = false;
     for(let i=0; i<this.listaUsuarios.length;i++){
